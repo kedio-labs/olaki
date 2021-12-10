@@ -1,0 +1,24 @@
+{
+  "name": "olaki",
+  "version": "0.0.1",
+  "description": "Lists alternative operative systems for Android phones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "android",
+    "lineageos",
+    "postmarketos",
+    "pmos",
+    "ubuntu",
+    "touch",
+    "/e/",
+    "grapheneos"
+  ],
+  "author": "tepafoo",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.3"
+  }
+}
