@@ -9,7 +9,8 @@ end_of_line = lf
 insert_final_newline = true
 indent_style = space
 indent_size = 2
-spaces_around_brackets = inside
+# also set printWidth in .prettierrc.json
+max_line_length = 130
 
 # Tab indentation (no size specified)
 [Makefile]

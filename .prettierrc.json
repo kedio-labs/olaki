@@ -1,5 +1,7 @@
 {
   "singleQuote": true,
+  "arrowParens": "avoid",
+  "printWidth": 130,
   "overrides": [
     {
       "files": [
