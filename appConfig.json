@@ -1,0 +1,10 @@
+{
+  "logLevel": "info",
+  "lineageOs": {
+    "includeUnmaintained": false
+  },
+  "pmos": {
+    "includeTesting": false,
+    "includeUnmaintained": false
+  }
+}
