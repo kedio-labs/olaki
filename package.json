@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-code": "eslint device_info_extractor/**",
-    "fix-code": "eslint --fix device_info_extractor/**"
+    "compile": "npx tsc",
+    "extract-device-summaries": "NODE_PATH=. node ./dist/src/device_summary_extractor/index.js",
+    "lint": "eslint src/**",
+    "fix": "eslint --fix src/**"
   },
   "keywords": [
     "android",
