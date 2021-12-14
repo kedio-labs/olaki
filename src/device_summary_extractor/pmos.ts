@@ -74,8 +74,9 @@ const shouldIncludePmosCategory = (pmosCategory: string) => {
 const getDeviceUrl = (rawCodename: string, name: string) => {
   const formattedName = name.replaceAll(' ', '_').replaceAll(/[(|)]/g, '');
   const formattedCodename = `(${rawCodename})`;
+  const path = encodeURIComponent(`${formattedName}_${formattedCodename}`);
 
-  return `${PMOS_WIKI_BASE_URL}/${formattedName}_${formattedCodename}`;
+  return `${PMOS_WIKI_BASE_URL}/${path}`;
 };
 
 export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
