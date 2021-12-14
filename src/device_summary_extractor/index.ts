@@ -3,9 +3,18 @@ import extractPmOsDeviceSummaries from './pmos';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 import { writeFileSync } from 'fs';
 import logger from '../logger';
-import { CodenameToDeviceSummary } from './model';
+import { CodenameToDeviceSummary, JsonResult } from './model';
 
 const OVERALL_DEVICE_SUMMARIES_JSON_RESULT = 'device-summaries.json';
+
+const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => {
+  logger.info(`[Extractor] Writing results into file: ${OVERALL_DEVICE_SUMMARIES_JSON_RESULT}`);
+  const jsonResult: JsonResult = {
+    lastUpdated: new Date().getTime(),
+    codenameToDeviceSummary: overallCodenameToDeviceSummary,
+  };
+  writeFileSync(OVERALL_DEVICE_SUMMARIES_JSON_RESULT, JSON.stringify(jsonResult, null, ' '));
+};
 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
@@ -46,7 +55,6 @@ extractUbuntuTouchDeviceSummaries()
     logger.info('[Extractor] ubuntuTouch: Successfully extracted device summaries. Merging into overall result.');
     mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
 
-    logger.info(`[Extractor] Writing results into file: ${OVERALL_DEVICE_SUMMARIES_JSON_RESULT}`);
-    writeFileSync(OVERALL_DEVICE_SUMMARIES_JSON_RESULT, JSON.stringify(overallCodenameToDeviceSummary, null, ' '));
+    saveResult(overallCodenameToDeviceSummary);
   })
   .catch(e => logger.error(e));

@@ -30,3 +30,8 @@ export interface UbuntuTouch {
 export interface CodenameToDeviceSummary {
   [k: codename]: DeviceSummary;
 }
+
+export interface JsonResult {
+  lastUpdated: number;
+  codenameToDeviceSummary: CodenameToDeviceSummary;
+}
