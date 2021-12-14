@@ -30,20 +30,20 @@ const mergeIntoOverallCodenameToDeviceSummary = (
 
 const overallCodenameToDeviceSummary = {};
 
-logger.info('[Extractor] Extracting lineageOs device summaries');
+logger.info('[Extractor] lineageOs: Extracting device summaries');
 const lineageOsDeviceSummaries = extractLineageOsDeviceSummaries();
-logger.info('[Extractor] Successfully extracted lineageOs device summaries. Merging into overall result.');
+logger.info('[Extractor] lineageOs: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, lineageOsDeviceSummaries, 'lineageOs');
 
-logger.info('[Extractor] Extracting postmarketOs device summaries');
+logger.info('[Extractor] postmarketOs: Extracting device summaries');
 const pmOsDeviceSummaries = extractPmOsDeviceSummaries();
-logger.info('[Extractor] Successfully extracted postmarketOs device summaries. Merging into overall result.');
+logger.info('[Extractor] postmarketOs: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, pmOsDeviceSummaries, 'pmos');
 
-logger.info('[Extractor] Extracting ubuntuTouch device summaries');
+logger.info('[Extractor] ubuntuTouch: Extracting device summaries');
 extractUbuntuTouchDeviceSummaries()
   .then(ubuntuTouchDeviceSummaries => {
-    logger.info('[Extractor] Successfully extracted ubuntuTouch device summaries. Merging into overall result.');
+    logger.info('[Extractor] ubuntuTouch: Successfully extracted device summaries. Merging into overall result.');
     mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
 
     logger.info(`[Extractor] Writing results into file: ${OVERALL_DEVICE_SUMMARIES_JSON_RESULT}`);
