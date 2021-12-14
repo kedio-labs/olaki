@@ -24,16 +24,17 @@ if (!currentLogLevel) {
 }
 
 /* eslint-disable @typescript-eslint/ban-types */
-const logWithTimestamp = (consoleFn: Function) => {
+const logWithTimestamp = (logLevel: LogLevel, consoleFn: Function) => {
+  const logLevelPrefix = LogLevel[logLevel].toUpperCase();
   return (...args: any[]) => {
     const now = new Date();
-    return consoleFn(`${now.getTime()} - ${now.toISOString()}`, ...args);
+    return consoleFn(`[${now.getTime()}]`, `[${now.toISOString()}]`, `[${logLevelPrefix}]`, ...args);
   };
 }; /* eslint-enable */
 
 export default {
-  error: currentLogLevel >= LogLevel.error ? logWithTimestamp(console.error) : noOp,
-  warn: currentLogLevel >= LogLevel.warn ? logWithTimestamp(console.warn) : noOp,
-  info: currentLogLevel >= LogLevel.info ? logWithTimestamp(console.log) : noOp,
-  debug: currentLogLevel >= LogLevel.debug ? logWithTimestamp(console.debug) : noOp,
+  error: currentLogLevel >= LogLevel.error ? logWithTimestamp(LogLevel.error, console.error) : noOp,
+  warn: currentLogLevel >= LogLevel.warn ? logWithTimestamp(LogLevel.warn, console.warn) : noOp,
+  info: currentLogLevel >= LogLevel.info ? logWithTimestamp(LogLevel.info, console.log) : noOp,
+  debug: currentLogLevel >= LogLevel.debug ? logWithTimestamp(LogLevel.debug, console.debug) : noOp,
 };
