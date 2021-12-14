@@ -77,6 +77,7 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
     );
   }
 
+  logger.debug('[UBTOUCH] Scraping ubuntu touch devices page');
   const $ = load(response.data);
   $('li.device-name > a')
     .get()
@@ -94,6 +95,8 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
         logger.error(`[PMOS] ERROR - Found device without codename: ${title}`);
         return;
       }
+
+      logger.debug(`[UBTOUCH] Processing codename: ${codename}`);
 
       // do not process Raspberry Pi or Desktop PC
       if (codename === 'rpi' || codename === 'x86') {

@@ -28,6 +28,9 @@ export default function extractLineageOsDeviceSummaries(): CodenameToDeviceSumma
     const isMaintained = deviceInfo.maintainers.length > 0;
     if (shouldIncludeDevice(isMaintained)) {
       const codename = normaliseCodename(deviceInfo.codename);
+
+      logger.debug(`[LNOS] Processing codename ${codename}`);
+
       codenameToDeviceSummary[codename] = {
         name: deviceInfo.name,
         vendor: deviceInfo.vendor,
