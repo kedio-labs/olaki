@@ -3,15 +3,19 @@ import { load } from 'cheerio';
 import { Element } from 'domhandler/lib/node';
 import { CodenameToDeviceSummary } from './model';
 import logger from '../logger';
+import { normaliseCodename } from './util';
 
 type PmosWikiDeviceInfo = { [k: string]: string };
 
-const pmosWikiBaseUrl = 'https://wiki.postmarketos.org';
+const PMOS_WIKI_BASE_URL = 'https://wiki.postmarketos.org';
 
 const cleanElementText = (text: string) => text.replaceAll('\n', '').trim();
 
+// transforms 'xiaomi-beryllium' into 'beryllium'
+const removeManufacturerPrefix = (codename: string) => codename.replace(/[^-]+-/, '');
+
 export default async function extractPmOsWikiDeviceSummaries(): Promise<CodenameToDeviceSummary> {
-  const response = await axios.get(`${pmosWikiBaseUrl}/wiki/Devices`);
+  const response = await axios.get(`${PMOS_WIKI_BASE_URL}/wiki/Devices`);
 
   if (response.status !== 200) {
     throw new Error(
@@ -31,13 +35,15 @@ export default async function extractPmOsWikiDeviceSummaries(): Promise<Codename
     .filter(href => !!href);
 
   const devicePagesWithStatus = await Promise.allSettled(
-    deviceUrls.map((index, deviceUrl) => axios.get(`${pmosWikiBaseUrl}${deviceUrl}`))
+    deviceUrls.map((index, deviceUrl) => axios.get(`${PMOS_WIKI_BASE_URL}${deviceUrl}`))
   );
 
   const deviceInfoList: PmosWikiDeviceInfo[] = devicePagesWithStatus.map(devicePageWithStatus => {
     const deviceInfo: PmosWikiDeviceInfo = {} as PmosWikiDeviceInfo;
 
     if (devicePageWithStatus.status === 'fulfilled') {
+      deviceInfo.url = `${PMOS_WIKI_BASE_URL}/${devicePageWithStatus.value.request.path}`;
+
       const $ = load(devicePageWithStatus.value.data);
       $('table.infobox')
         .first()
@@ -62,12 +68,14 @@ export default async function extractPmOsWikiDeviceSummaries(): Promise<Codename
   const result: CodenameToDeviceSummary = {};
   deviceInfoList.forEach(deviceInfo => {
     if (deviceInfo.codename) {
-      result[deviceInfo.codename] = {
+      const normalisedCodename = normaliseCodename(removeManufacturerPrefix(deviceInfo.codename));
+      result[normalisedCodename] = {
         vendor: deviceInfo.manufacturer,
         name: deviceInfo.name,
         releaseDate: deviceInfo.released,
         pmos: {
           category: deviceInfo.category,
+          url: deviceInfo.url,
         },
       };
     } else {

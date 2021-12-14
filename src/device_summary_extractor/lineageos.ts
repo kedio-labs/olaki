@@ -7,6 +7,7 @@ import { normaliseCodename } from './util';
 
 const UTF_8 = 'utf8';
 const DEVICE_INFO_ROOT_DIRECTORY = './lineage_wiki/_data/devices';
+const LINEAGE_OS_BASE_DEVICE_URL = 'https://wiki.lineageos.org/devices';
 
 const shouldIncludeDevice = (isMaintained: boolean) => isMaintained || (!isMaintained && appConfig.lineageOs.includeUnmaintained);
 
@@ -39,6 +40,7 @@ export default function extractLineageOsDeviceSummaries(): CodenameToDeviceSumma
           versions: deviceInfo.versions,
           models: deviceInfo.models || [],
           isMaintained: isMaintained,
+          url: `${LINEAGE_OS_BASE_DEVICE_URL}/${codename}`,
         },
       };
     }

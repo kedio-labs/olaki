@@ -11,16 +11,14 @@ export interface DeviceSummary {
 
 export interface LineageOs {
   versions: [];
-  // add url
-  // url: string;
   models: string[];
   isMaintained: boolean;
+  url: string;
 }
 
 export interface Pmos {
-  // add url
-  // url: string;
   category: string;
+  url: string;
 }
 
 export interface UbuntuTouch {

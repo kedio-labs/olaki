@@ -3,9 +3,12 @@ import axios from 'axios';
 import { load } from 'cheerio';
 import logger from '../logger';
 import vendorList from './ubuntutouch_vendors.json';
+import { normaliseCodename } from './util';
 
 const UBUNTU_TOUCH_BASE_URL = 'https://devices.ubuntu-touch.io';
-// const UBUNTU_TOUCH_CODENAMES_LIST_URL = `${UBUNTU_TOUCH_BASE_URL}/about/codenames`;
+
+const extractCodenameFromHref = (href: string) => href.replaceAll('/device/', '').replaceAll('/', '');
+const getDeviceUrl = (codename: string) => `${UBUNTU_TOUCH_BASE_URL}/device/${codename}`;
 
 const extractDeviceVendorAndName = (codename: string, text: string) => {
   if (codename === 'axolotl') {
@@ -85,7 +88,7 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
       const href: string = $($(aElement)).attr('href') || '';
       const title: string = $($(aElement)).attr('title') || '';
 
-      const codename = href.replaceAll('/device/', '').replaceAll('/', '');
+      const codename = normaliseCodename(extractCodenameFromHref(href));
       const [deviceVendorAndNameCandidates, progress] = title
         .replaceAll('%', '')
         .split('- Progress:')
@@ -110,7 +113,7 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
         name: deviceVendorAndName.name,
         ubuntuTouch: {
           progress: +progress,
-          url: `${UBUNTU_TOUCH_BASE_URL}${href}`,
+          url: getDeviceUrl(codename),
         },
       };
     });

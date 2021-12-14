@@ -4,6 +4,8 @@ import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { normaliseCodename } from './util';
 
+const PMOS_WIKI_BASE_URL = 'https://wiki.postmarketos.org/wiki';
+
 const UTF_8 = 'utf8';
 const DEVICE_INFO_ROOT_DIRECTORY = './pmaports/device';
 const DEVICE_INFO_FILENAME_PATTERN = 'deviceinfo';
@@ -69,6 +71,13 @@ const shouldIncludePmosCategory = (pmosCategory: string) => {
   );
 };
 
+const getDeviceUrl = (rawCodename: string, name: string) => {
+  const formattedName = name.replaceAll(' ', '_').replaceAll(/[(|)]/g, '');
+  const formattedCodename = `(${rawCodename})`;
+
+  return `${PMOS_WIKI_BASE_URL}/${formattedName}_${formattedCodename}`;
+};
+
 export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
 
@@ -81,15 +90,13 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
 
     if (shouldIncludePmosCategory(pmosCategory)) {
       const lines = deviceInfoFileContent.split(/\r?\n/);
-      const deviceSummary = {
-        pmos: {
-          category: pmosCategory,
-        },
-      } as DeviceSummary;
+      const deviceSummary = {} as DeviceSummary;
       let codename = '';
+      let rawCodename = '';
       lines.forEach(line => {
         if (line.includes(DEVICE_INFO_KEYS.codename)) {
-          codename = normaliseCodename(removeManufacturerPrefix(getDeviceInfoLineValue(line)));
+          rawCodename = getDeviceInfoLineValue(line);
+          codename = normaliseCodename(removeManufacturerPrefix(rawCodename));
         } else if (line.includes(DEVICE_INFO_KEYS.manufacturer)) {
           deviceSummary.vendor = getDeviceInfoLineValue(line);
         } else if (line.includes(DEVICE_INFO_KEYS.name)) {
@@ -105,6 +112,12 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
         );
       } else {
         logger.debug(`[PMOS] Adding codename ${codename}`);
+
+        deviceSummary.pmos = {
+          category: pmosCategory,
+          url: getDeviceUrl(rawCodename, deviceSummary.name),
+        };
+
         codenameToDeviceSummary[codename] = deviceSummary;
       }
     }
