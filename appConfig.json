@@ -6,5 +6,8 @@
   "pmos": {
     "includeTesting": false,
     "includeUnmaintained": false
+  },
+  "ubuntuTouch": {
+    "includeProgressLevelAboveThreshold": 80
   }
 }

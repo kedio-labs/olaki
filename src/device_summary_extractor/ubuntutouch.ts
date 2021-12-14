@@ -1,4 +1,5 @@
 import { CodenameToDeviceSummary } from './model';
+import appConfig from '../../appConfig.json';
 import axios from 'axios';
 import { load } from 'cheerio';
 import logger from '../logger';
@@ -70,6 +71,10 @@ const extractDeviceVendorAndName = (codename: string, text: string) => {
   };
 };
 
+const shouldIncludeProgressLevel = (progressAsNumber: number) => {
+  return progressAsNumber >= appConfig.ubuntuTouch.includeProgressLevelAboveThreshold;
+};
+
 export default async function extractUbuntuTouchDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
   const response = await axios.get(`${UBUNTU_TOUCH_BASE_URL}`);
@@ -103,19 +108,28 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
 
       // do not process Raspberry Pi or Desktop PC
       if (codename === 'rpi' || codename === 'x86') {
+        logger.debug(`[UBTOUCH] Excluding codename: ${codename}`);
         return;
       }
 
-      const deviceVendorAndName = extractDeviceVendorAndName(codename, deviceVendorAndNameCandidates);
+      const progressAsNumber = +progress;
 
-      codenameToDeviceSummary[codename] = {
-        vendor: deviceVendorAndName.vendor,
-        name: deviceVendorAndName.name,
-        ubuntuTouch: {
-          progress: +progress,
-          url: getDeviceUrl(codename),
-        },
-      };
+      if (shouldIncludeProgressLevel(progressAsNumber)) {
+        const deviceVendorAndName = extractDeviceVendorAndName(codename, deviceVendorAndNameCandidates);
+
+        codenameToDeviceSummary[codename] = {
+          vendor: deviceVendorAndName.vendor,
+          name: deviceVendorAndName.name,
+          ubuntuTouch: {
+            progress: progressAsNumber,
+            url: getDeviceUrl(codename),
+          },
+        };
+      } else {
+        logger.debug(
+          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${codename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntuTouch.includeProgressLevelAboveThreshold}`
+        );
+      }
     });
 
   return codenameToDeviceSummary;
