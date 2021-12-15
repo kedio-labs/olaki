@@ -4,3 +4,6 @@
 [submodule "pmaports"]
 	path = pmaports
 	url = https://gitlab.com/postmarketOS/pmaports.git
+[submodule "user"]
+	path = user
+	url = https://gitlab.e.foundation/e/documentation/user.git
