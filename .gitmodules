@@ -1,9 +1,9 @@
 [submodule "lineage_wiki"]
-	path = lineage_wiki
+	path = submodules/lineage_wiki
 	url = https://github.com/LineageOS/lineage_wiki
 [submodule "pmaports"]
-	path = pmaports
+	path = submodules/pmaports
 	url = https://gitlab.com/postmarketOS/pmaports.git
 [submodule "user"]
-	path = user
+	path = submodules/user
 	url = https://gitlab.e.foundation/e/documentation/user.git

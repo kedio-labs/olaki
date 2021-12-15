@@ -6,7 +6,7 @@ import logger from '../logger';
 import { normaliseCodename } from './util';
 
 const UTF_8 = 'utf8';
-const DEVICE_INFO_ROOT_DIRECTORY = './user/htdocs/_data/devices';
+const DEVICE_INFO_ROOT_DIRECTORY = './submodules/user/htdocs/_data/devices';
 const E_OS_BASE_DEVICE_URL = 'https://doc.e.foundation/devices';
 
 const shouldIncludeDevice = (maturity: string) => {

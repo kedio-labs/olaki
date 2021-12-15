@@ -7,7 +7,7 @@ import { normaliseCodename } from './util';
 const PMOS_WIKI_BASE_URL = 'https://wiki.postmarketos.org/wiki';
 
 const UTF_8 = 'utf8';
-const DEVICE_INFO_ROOT_DIRECTORY = './pmaports/device';
+const DEVICE_INFO_ROOT_DIRECTORY = './submodules/pmaports/device';
 const DEVICE_INFO_FILENAME_PATTERN = 'deviceinfo';
 const PMOS_CATEGORIES = {
   main: 'main',
