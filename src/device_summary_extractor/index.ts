@@ -6,15 +6,15 @@ import { writeFileSync } from 'fs';
 import logger from '../logger';
 import { CodenameToDeviceSummary, JsonResult } from './model';
 
-const OVERALL_DEVICE_SUMMARIES_JSON_RESULT = 'device-summaries.json';
+const JSON_RESULT_FILE_PATH = './dist/device-summaries.json';
 
 const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => {
-  logger.info(`[Extractor] Writing results into file: ${OVERALL_DEVICE_SUMMARIES_JSON_RESULT}`);
+  logger.info(`[Extractor] Writing results into file: ${JSON_RESULT_FILE_PATH}`);
   const jsonResult: JsonResult = {
     lastUpdated: new Date().getTime(),
     codenameToDeviceSummary: overallCodenameToDeviceSummary,
   };
-  writeFileSync(OVERALL_DEVICE_SUMMARIES_JSON_RESULT, JSON.stringify(jsonResult, null, ' '));
+  writeFileSync(JSON_RESULT_FILE_PATH, JSON.stringify(jsonResult, null, ' '));
 };
 
 const mergeIntoOverallCodenameToDeviceSummary = (
