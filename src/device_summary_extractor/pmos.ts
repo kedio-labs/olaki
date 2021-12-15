@@ -64,8 +64,8 @@ const getDeviceInfoFilePaths = (directoryPath: string, arrayOfFiles: string[] = 
 
 const shouldIncludePmosCategory = (pmosCategory: string) => {
   return (
-    pmosCategory === PMOS_CATEGORIES.main ||
-    pmosCategory === PMOS_CATEGORIES.community ||
+    (pmosCategory === PMOS_CATEGORIES.main && appConfig.pmos.includeMain) ||
+    (pmosCategory === PMOS_CATEGORIES.community && appConfig.pmos.includeCommunity) ||
     (pmosCategory === PMOS_CATEGORIES.testing && appConfig.pmos.includeTesting) ||
     (pmosCategory === PMOS_CATEGORIES.unmaintained && appConfig.pmos.includeUnmaintained)
   );

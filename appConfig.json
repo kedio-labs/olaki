@@ -5,6 +5,8 @@
     "includeUnmaintained": false
   },
   "pmos": {
+    "includeMain": true,
+    "includeCommunity": true,
     "includeTesting": false,
     "includeUnmaintained": false
   },
