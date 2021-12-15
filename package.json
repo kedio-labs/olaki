@@ -8,7 +8,8 @@
     "build": "tsc",
     "extract-device-summaries": "NODE_PATH=. node ./dist/src/device_summary_extractor/index.js",
     "lint": "eslint src/**",
-    "fix": "eslint --fix src/**"
+    "fix": "eslint --fix src/**",
+    "update-submodules": "git submodule update --recursive --remote"
   },
   "keywords": [
     "android",
