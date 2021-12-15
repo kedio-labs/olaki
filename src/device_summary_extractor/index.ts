@@ -1,6 +1,7 @@
 import extractLineageOsDeviceSummaries from './lineageos';
 import extractPmOsDeviceSummaries from './pmos';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
+import extractEOsDeviceSummaries from './eos';
 import { writeFileSync } from 'fs';
 import logger from '../logger';
 import { CodenameToDeviceSummary, JsonResult } from './model';
@@ -19,7 +20,7 @@ const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: 'lineageOs' | 'pmos' | 'ubuntuTouch'
+  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch'
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
@@ -48,6 +49,11 @@ logger.info('[Extractor] postmarketOs: Extracting device summaries');
 const pmOsDeviceSummaries = extractPmOsDeviceSummaries();
 logger.info('[Extractor] postmarketOs: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, pmOsDeviceSummaries, 'pmos');
+
+logger.info('[Extractor] /e/OS: Extracting device summaries');
+const eOsDeviceSummaries = extractEOsDeviceSummaries();
+logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
+mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eos');
 
 logger.info('[Extractor] ubuntuTouch: Extracting device summaries');
 extractUbuntuTouchDeviceSummaries()

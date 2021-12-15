@@ -12,5 +12,10 @@
   },
   "ubuntuTouch": {
     "includeProgressLevelAboveThreshold": 80
+  },
+  "eOs": {
+    "includeGreenMaturity": true,
+    "includeOrangeMaturity": true,
+    "includeRedMaturity": false
   }
 }
