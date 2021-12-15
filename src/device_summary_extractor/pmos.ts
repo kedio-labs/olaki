@@ -25,7 +25,7 @@ const DEVICE_INFO_KEYS = {
 };
 
 const DEVICE_INFO_LINE_KEY_VALUE_SEPARATOR = '=';
-const getDeviceInfoLineValue = (line: string) => line.split(DEVICE_INFO_LINE_KEY_VALUE_SEPARATOR)[1].replaceAll('"', '');
+const getDeviceInfoLineValue = (line: string) => line.split(DEVICE_INFO_LINE_KEY_VALUE_SEPARATOR)[1].replaceAll('"', '').trim();
 
 // transforms 'xiaomi-beryllium' into 'beryllium'
 const removeManufacturerPrefix = (codename: string) => codename.replace(/[^-]+-/, '');
@@ -113,6 +113,11 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
         );
       } else {
         logger.debug(`[PMOS] Adding codename ${codename}`);
+
+        // sanitise name
+        if (deviceSummary.name.startsWith(deviceSummary.vendor)) {
+          deviceSummary.name = deviceSummary.name.replace(deviceSummary.vendor, '').trim();
+        }
 
         deviceSummary.pmos = {
           category: pmosCategory,
