@@ -64,8 +64,6 @@ export default function extractEOsDeviceSummaries(): CodenameToDeviceSummary {
         url: `${E_OS_BASE_DEVICE_URL}/${codename}`,
       },
     };
-
-    logger.info(deviceInfoFilename);
   });
 
   return codenameToDeviceSummary;

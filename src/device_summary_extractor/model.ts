@@ -24,12 +24,6 @@ export interface Pmos {
   url: string;
 }
 
-export interface UbuntuTouch {
-  // 0 -> 0%, 1 -> 100%
-  progress: number;
-  url: string;
-}
-
 export enum eOSMaturity {
   red,
   orange,
@@ -46,6 +40,12 @@ export interface eOS {
   maturity: eOSMaturity;
   installModes: eOSInstallMode[];
   models: string[];
+  url: string;
+}
+
+export interface UbuntuTouch {
+  // 0 -> 0%, 1 -> 100%
+  progress: number;
   url: string;
 }
 
