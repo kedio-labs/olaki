@@ -1,6 +1,7 @@
 {
   "logLevel": "info",
   "lineageOs": {
+    "includeMaintained": true,
     "includeUnmaintained": false
   },
   "pmos": {
