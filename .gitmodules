@@ -7,3 +7,6 @@
 [submodule "user"]
 	path = submodules/user
 	url = https://gitlab.e.foundation/e/documentation/user.git
+[submodule "submodules/Resurrection_packages_apps_Settings"]
+	path = submodules/Resurrection_packages_apps_Settings
+	url = https://github.com/ResurrectionRemix/Resurrection_packages_apps_Settings.git
