@@ -1,8 +1,8 @@
-import { readdirSync, readFileSync, statSync } from 'fs';
-import { CodenameToDeviceSummary, DeviceSummary } from './model';
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
+import { CodenameToDeviceSummary, DeviceSummary } from './model';
 import { normaliseCodename } from './util';
+import { readdirSync, readFileSync, statSync } from 'fs';
 
 const PMOS_WIKI_BASE_URL = 'https://wiki.postmarketos.org/wiki';
 

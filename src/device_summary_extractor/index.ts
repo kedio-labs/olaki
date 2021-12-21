@@ -1,10 +1,10 @@
+import logger from '../logger';
+import extractEOsDeviceSummaries from './eos';
 import extractLineageOsDeviceSummaries from './lineageos';
+import { CodenameToDeviceSummary, JsonResult } from './model';
 import extractPmOsDeviceSummaries from './pmos';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
-import extractEOsDeviceSummaries from './eos';
 import { writeFileSync } from 'fs';
-import logger from '../logger';
-import { CodenameToDeviceSummary, JsonResult } from './model';
 
 const JSON_RESULT_FILE_PATH = './dist/device-summaries.json';
 

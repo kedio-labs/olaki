@@ -1,9 +1,9 @@
-import { load } from 'js-yaml';
-import { readdirSync, readFileSync } from 'fs';
-import { CodenameToDeviceSummary } from './model';
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
+import { CodenameToDeviceSummary } from './model';
 import { normaliseCodename } from './util';
+import { readdirSync, readFileSync } from 'fs';
+import { load } from 'js-yaml';
 
 const UTF_8 = 'utf8';
 const DEVICE_INFO_ROOT_DIRECTORY = './submodules/lineage_wiki/_data/devices';

@@ -1,9 +1,9 @@
+import logger from '../logger';
+import { CodenameToDeviceSummary } from './model';
+import { normaliseCodename } from './util';
 import axios from 'axios';
 import { load } from 'cheerio';
 import { Element } from 'domhandler/lib/node';
-import { CodenameToDeviceSummary } from './model';
-import logger from '../logger';
-import { normaliseCodename } from './util';
 
 type PmosWikiDeviceInfo = { [k: string]: string };
 

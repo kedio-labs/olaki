@@ -1,10 +1,10 @@
-import { CodenameToDeviceSummary } from './model';
 import appConfig from '../../appConfig.json';
-import axios from 'axios';
-import { load } from 'cheerio';
 import logger from '../logger';
+import { CodenameToDeviceSummary } from './model';
 import vendorList from './ubuntutouch_vendors.json';
 import { normaliseCodename } from './util';
+import axios from 'axios';
+import { load } from 'cheerio';
 
 const UBUNTU_TOUCH_BASE_URL = 'https://devices.ubuntu-touch.io';
 
