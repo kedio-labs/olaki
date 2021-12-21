@@ -10,6 +10,7 @@ export interface DeviceSummary {
   pmos?: Pmos;
   eOS?: eOS;
   ubuntuTouch?: UbuntuTouch;
+  resurrectionRemix?: ResurrectionRemix;
 }
 
 export interface LineageOs {
@@ -47,6 +48,11 @@ export interface UbuntuTouch {
   // 0 -> 0%, 1 -> 100%
   progress: number;
   url: string;
+}
+
+interface ResurrectionRemix {
+  isMaintained: boolean;
+  url?: string;
 }
 
 export interface CodenameToDeviceSummary {
