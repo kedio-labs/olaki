@@ -75,8 +75,8 @@ const shouldIncludeDevice = (progress: number) => progress >= appConfig.ubuntuTo
 
 export default async function extractUbuntuTouchDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
-  const response = await axios.get(`${UBUNTU_TOUCH_BASE_URL}`);
 
+  const response = await axios.get(UBUNTU_TOUCH_BASE_URL);
   if (response.status !== 200) {
     throw new Error(
       `[UBTOUCH] ERROR - Received non-200 status code when retrieving codenames list from URL ${UBUNTU_TOUCH_BASE_URL}: ${response.status}\n ${response.data}`
