@@ -50,7 +50,7 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
     };
   } = {};
 
-  logger.info('[RESURRECTIONREMIX] Getting device metadata');
+  logger.debug('[RESURRECTIONREMIX] Getting device metadata');
   const deviceMaintainersFragmentXml = readFileSync(DEVICE_MAINTAINERS_FRAGMENT_XML_FILE_PATH, UTF_8);
   let $ = load(deviceMaintainersFragmentXml, { xmlMode: true });
   $('PreferenceScreen PreferenceCategory')
@@ -65,7 +65,7 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
         });
     });
 
-  logger.info('[RESURRECTIONREMIX] Getting devices info');
+  logger.debug('[RESURRECTIONREMIX] Getting devices info');
   const deviceMaintainersXml = readFileSync(DEVICE_MAINTAINERS_XML_FILE_PATH, UTF_8);
   $ = load(deviceMaintainersXml, { xmlMode: true });
   $('string')
