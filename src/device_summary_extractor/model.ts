@@ -11,6 +11,7 @@ export interface DeviceSummary {
   eOS?: eOS;
   ubuntuTouch?: UbuntuTouch;
   resurrectionRemix?: ResurrectionRemix;
+  cDroid?: CDroid;
 }
 
 export interface LineageOs {
@@ -53,6 +54,10 @@ export interface UbuntuTouch {
 interface ResurrectionRemix {
   isMaintained: boolean;
   url?: string;
+}
+
+interface CDroid {
+  url: string;
 }
 
 export interface CodenameToDeviceSummary {

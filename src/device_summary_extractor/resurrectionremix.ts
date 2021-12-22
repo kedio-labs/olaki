@@ -1,12 +1,11 @@
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary, DeviceSummary } from './model';
-import { normaliseCodename } from './util';
+import { normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
 import axios, { AxiosResponse } from 'axios';
 import { load } from 'cheerio';
 import { Element } from 'domhandler/lib/node';
 import { readFileSync } from 'fs';
-
 
 const UTF_8 = 'utf8';
 const DEVICE_MAINTAINERS_FRAGMENT_XML_FILE_PATH =
@@ -21,7 +20,6 @@ const hasVendorAttrib = (nameAttrib: string) => nameAttrib.includes('device_cate
 const getDeviceKey = (nameAttrib: string) =>
   nameAttrib.replace('device_', '').replace('_codename', '').replace('_maintainer', '');
 const isDeviceModel = (nameAttrib: string) => !(nameAttrib.includes('_codename') || nameAttrib.includes('_maintainer'));
-const removeVendorPrefixFromModelAndTrim = (vendor: string, model: string) => model.replace(vendor, '').trim();
 const isCodename = (nameAttrib: string) => nameAttrib.includes('_codename');
 
 // some codenames are funky, e.g.:

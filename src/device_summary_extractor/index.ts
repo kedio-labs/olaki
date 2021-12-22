@@ -1,4 +1,5 @@
 import logger from '../logger';
+import extractCDroidDeviceSummaries from './cdroid';
 import extractEOsDeviceSummaries from './eos';
 import extractLineageOsDeviceSummaries from './lineageos';
 import { CodenameToDeviceSummary, JsonResult } from './model';
@@ -21,7 +22,7 @@ const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch' | 'resurrectionRemix'
+  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch' | 'resurrectionRemix' | 'cDroid'
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
@@ -56,6 +57,12 @@ const eOsDeviceSummaries = extractEOsDeviceSummaries();
 logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eos');
 
+logger.info('[Extractor] cDroid: Extracting device summaries');
+const cDroidPromise = extractCDroidDeviceSummaries().then(cDroidDeviceSummaries => {
+  logger.info('[Extractor] cDroid: Successfully extracted device summaries. Merging into overall result.');
+  return cDroidDeviceSummaries;
+});
+
 logger.info('[Extractor] ubuntuTouch: Extracting device summaries');
 const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(ubuntuTouchDeviceSummaries => {
   logger.info('[Extractor] ubuntuTouch: Successfully extracted device summaries. Merging into overall result.');
@@ -68,8 +75,10 @@ const resurrectionRemixPromise = extractResurrectionRemixDeviceSummaries().then(
   return resurrectionRemixDeviceSummaries;
 });
 
-Promise.all([ubuntuTouchPromise, resurrectionRemixPromise])
-  .then(([ubuntuTouchDeviceSummaries, resurrectionRemixDeviceSummaries]) => {
+Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise])
+  .then(([cDroidDeviceSummaries, ubuntuTouchDeviceSummaries, resurrectionRemixDeviceSummaries]) => {
+    mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, cDroidDeviceSummaries, 'cDroid');
+
     mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
 
     mergeIntoOverallCodenameToDeviceSummary(
