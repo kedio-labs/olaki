@@ -12,6 +12,7 @@ export interface DeviceSummary {
   ubuntuTouch?: UbuntuTouch;
   resurrectionRemix?: ResurrectionRemix;
   cDroid?: CDroid;
+  kali?: Kali;
 }
 
 export interface LineageOs {
@@ -58,6 +59,12 @@ interface ResurrectionRemix {
 
 interface CDroid {
   url: string;
+}
+
+interface Kali {
+  url: string;
+  isStable: boolean;
+  isLatest: boolean;
 }
 
 export interface CodenameToDeviceSummary {

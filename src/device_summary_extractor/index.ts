@@ -1,6 +1,7 @@
 import logger from '../logger';
 import extractCDroidDeviceSummaries from './cdroid';
 import extractEOsDeviceSummaries from './eos';
+import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
 import { CodenameToDeviceSummary, JsonResult } from './model';
 import extractPmOsDeviceSummaries from './pmos';
@@ -22,7 +23,7 @@ const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch' | 'resurrectionRemix' | 'cDroid'
+  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch' | 'resurrectionRemix' | 'cDroid' | 'kali'
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
@@ -30,8 +31,16 @@ const mergeIntoOverallCodenameToDeviceSummary = (
         overallCodenameToDeviceSummary[k].lineageOs = osCodenameToDeviceSummary[k].lineageOs;
       } else if (osName === 'pmos') {
         overallCodenameToDeviceSummary[k].pmos = osCodenameToDeviceSummary[k].pmos;
+      } else if (osName === 'eos') {
+        overallCodenameToDeviceSummary[k].eOS = osCodenameToDeviceSummary[k].eOS;
       } else if (osName === 'ubuntuTouch') {
         overallCodenameToDeviceSummary[k].ubuntuTouch = osCodenameToDeviceSummary[k].ubuntuTouch;
+      } else if (osName === 'resurrectionRemix') {
+        overallCodenameToDeviceSummary[k].resurrectionRemix = osCodenameToDeviceSummary[k].resurrectionRemix;
+      } else if (osName === 'cDroid') {
+        overallCodenameToDeviceSummary[k].cDroid = osCodenameToDeviceSummary[k].cDroid;
+      } else if (osName === 'kali') {
+        overallCodenameToDeviceSummary[k].kali = osCodenameToDeviceSummary[k].kali;
       }
     }
     delete osCodenameToDeviceSummary[k];
@@ -75,8 +84,14 @@ const resurrectionRemixPromise = extractResurrectionRemixDeviceSummaries().then(
   return resurrectionRemixDeviceSummaries;
 });
 
-Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise])
-  .then(([cDroidDeviceSummaries, ubuntuTouchDeviceSummaries, resurrectionRemixDeviceSummaries]) => {
+logger.info('[Extractor] kali: Extracting device summaries');
+const kaliPromise = extractKaliDeviceSummaries().then(kaliDeviceSummaries => {
+  logger.info('[Extractor] kali: Successfully extracted device summaries. Merging into overall result.');
+  return kaliDeviceSummaries;
+});
+
+Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise, kaliPromise])
+  .then(([cDroidDeviceSummaries, ubuntuTouchDeviceSummaries, resurrectionRemixDeviceSummaries, kaliDeviceSummaries]) => {
     mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, cDroidDeviceSummaries, 'cDroid');
 
     mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
@@ -86,6 +101,8 @@ Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise])
       resurrectionRemixDeviceSummaries,
       'resurrectionRemix'
     );
+
+    mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 
     saveResult(overallCodenameToDeviceSummary);
   })
