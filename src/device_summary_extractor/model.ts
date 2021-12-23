@@ -1,11 +1,12 @@
 export type codename = string;
 
-export interface DeviceSummary {
+export interface DeviceSummary extends DeviceSummaryOSSpecific {
   name: string;
   vendor: string;
   releaseDate?: string; // not available in ubuntu touch website
+}
 
-  // OS specific
+export interface DeviceSummaryOSSpecific {
   lineageOs?: LineageOs;
   pmos?: Pmos;
   eOS?: eOS;

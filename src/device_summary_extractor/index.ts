@@ -3,7 +3,7 @@ import extractCDroidDeviceSummaries from './cdroid';
 import extractEOsDeviceSummaries from './eos';
 import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
-import { CodenameToDeviceSummary, JsonResult } from './model';
+import { CodenameToDeviceSummary, DeviceSummaryOSSpecific, JsonResult } from './model';
 import extractPmOsDeviceSummaries from './pmos';
 import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
@@ -23,25 +23,12 @@ const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: 'lineageOs' | 'pmos' | 'eos' | 'ubuntuTouch' | 'resurrectionRemix' | 'cDroid' | 'kali'
+  osName: keyof DeviceSummaryOSSpecific
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
-      if (osName === 'lineageOs') {
-        overallCodenameToDeviceSummary[k].lineageOs = osCodenameToDeviceSummary[k].lineageOs;
-      } else if (osName === 'pmos') {
-        overallCodenameToDeviceSummary[k].pmos = osCodenameToDeviceSummary[k].pmos;
-      } else if (osName === 'eos') {
-        overallCodenameToDeviceSummary[k].eOS = osCodenameToDeviceSummary[k].eOS;
-      } else if (osName === 'ubuntuTouch') {
-        overallCodenameToDeviceSummary[k].ubuntuTouch = osCodenameToDeviceSummary[k].ubuntuTouch;
-      } else if (osName === 'resurrectionRemix') {
-        overallCodenameToDeviceSummary[k].resurrectionRemix = osCodenameToDeviceSummary[k].resurrectionRemix;
-      } else if (osName === 'cDroid') {
-        overallCodenameToDeviceSummary[k].cDroid = osCodenameToDeviceSummary[k].cDroid;
-      } else if (osName === 'kali') {
-        overallCodenameToDeviceSummary[k].kali = osCodenameToDeviceSummary[k].kali;
-      }
+      // @ts-ignore we know that we're not assigning apples to pears here
+      overallCodenameToDeviceSummary[k][osName] = osCodenameToDeviceSummary[k][osName];
     }
     delete osCodenameToDeviceSummary[k];
   }
@@ -64,7 +51,7 @@ mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, pmOsDevi
 logger.info('[Extractor] /e/OS: Extracting device summaries');
 const eOsDeviceSummaries = extractEOsDeviceSummaries();
 logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
-mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eos');
+mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eOS');
 
 logger.info('[Extractor] cDroid: Extracting device summaries');
 const cDroidPromise = extractCDroidDeviceSummaries().then(cDroidDeviceSummaries => {
