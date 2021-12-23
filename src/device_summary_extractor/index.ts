@@ -54,27 +54,27 @@ logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eOS');
 
 logger.info('[Extractor] cDroid: Extracting device summaries');
-const cDroidPromise = extractCDroidDeviceSummaries().then(cDroidDeviceSummaries => {
+const cDroidPromise = extractCDroidDeviceSummaries().then(deviceSummaries => {
   logger.info('[Extractor] cDroid: Successfully extracted device summaries. Merging into overall result.');
-  return cDroidDeviceSummaries;
+  return deviceSummaries;
 });
 
 logger.info('[Extractor] ubuntuTouch: Extracting device summaries');
-const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(ubuntuTouchDeviceSummaries => {
+const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(deviceSummaries => {
   logger.info('[Extractor] ubuntuTouch: Successfully extracted device summaries. Merging into overall result.');
-  return ubuntuTouchDeviceSummaries;
+  return deviceSummaries;
 });
 
 logger.info('[Extractor] resurrectionRemix: Extracting device summaries');
-const resurrectionRemixPromise = extractResurrectionRemixDeviceSummaries().then(resurrectionRemixDeviceSummaries => {
+const resurrectionRemixPromise = extractResurrectionRemixDeviceSummaries().then(deviceSummaries => {
   logger.info('[Extractor] resurrectionRemix: Successfully extracted device summaries. Merging into overall result.');
-  return resurrectionRemixDeviceSummaries;
+  return deviceSummaries;
 });
 
 logger.info('[Extractor] kali: Extracting device summaries');
-const kaliPromise = extractKaliDeviceSummaries().then(kaliDeviceSummaries => {
+const kaliPromise = extractKaliDeviceSummaries().then(deviceSummaries => {
   logger.info('[Extractor] kali: Successfully extracted device summaries. Merging into overall result.');
-  return kaliDeviceSummaries;
+  return deviceSummaries;
 });
 
 Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise, kaliPromise])

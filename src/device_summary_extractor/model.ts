@@ -3,7 +3,7 @@ export type codename = string;
 export interface DeviceSummary extends DeviceSummaryOSSpecific {
   name: string;
   vendor: string;
-  releaseDate?: string; // not available in ubuntu touch website
+  releaseDate?: string;
 }
 
 export interface DeviceSummaryOSSpecific {
