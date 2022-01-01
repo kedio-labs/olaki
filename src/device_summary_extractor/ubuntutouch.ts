@@ -2,7 +2,7 @@ import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
 import vendorList from './ubuntutouch_vendors.json';
-import { fetchUrl, normaliseCodename } from './util';
+import { fetchUrl, normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
 import { load } from 'cheerio';
 
 const UBUNTU_TOUCH_BASE_URL = 'https://devices.ubuntu-touch.io';
@@ -56,11 +56,10 @@ const extractDeviceVendorAndName = (codename: string, text: string) => {
   }
 
   const maybeVendor = vendorList.find(vendor => text.toLowerCase().startsWith(vendor.toLowerCase()));
-
   if (maybeVendor) {
     return {
       vendor: maybeVendor,
-      name: text.replace(maybeVendor, '').trim(),
+      name: removeVendorPrefixFromModelAndTrim(maybeVendor, text),
     };
   }
 
