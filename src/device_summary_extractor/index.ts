@@ -4,6 +4,7 @@ import extractEOsDeviceSummaries from './eos';
 import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
 import { CodenameToDeviceSummary, DeviceSummaryOSSpecific, JsonResult } from './model';
+import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
@@ -65,6 +66,12 @@ const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(deviceSummar
   return deviceSummaries;
 });
 
+logger.info('[Extractor] omnirom: Extracting device summaries');
+const omniromPromise = extractOmniRomDeviceSummaries().then(deviceSummaries => {
+  logger.info('[Extractor] omnirom: Successfully extracted device summaries. Merging into overall result.');
+  return deviceSummaries;
+});
+
 logger.info('[Extractor] resurrectionRemix: Extracting device summaries');
 const resurrectionRemixPromise = extractResurrectionRemixDeviceSummaries().then(deviceSummaries => {
   logger.info('[Extractor] resurrectionRemix: Successfully extracted device summaries. Merging into overall result.');
@@ -77,20 +84,30 @@ const kaliPromise = extractKaliDeviceSummaries().then(deviceSummaries => {
   return deviceSummaries;
 });
 
-Promise.all([cDroidPromise, ubuntuTouchPromise, resurrectionRemixPromise, kaliPromise])
-  .then(([cDroidDeviceSummaries, ubuntuTouchDeviceSummaries, resurrectionRemixDeviceSummaries, kaliDeviceSummaries]) => {
-    mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, cDroidDeviceSummaries, 'cDroid');
-
-    mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
-
-    mergeIntoOverallCodenameToDeviceSummary(
-      overallCodenameToDeviceSummary,
+Promise.all([cDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionRemixPromise, kaliPromise])
+  .then(
+    ([
+      cDroidDeviceSummaries,
+      ubuntuTouchDeviceSummaries,
+      omniromDeviceSummaries,
       resurrectionRemixDeviceSummaries,
-      'resurrectionRemix'
-    );
+      kaliDeviceSummaries,
+    ]) => {
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, cDroidDeviceSummaries, 'cDroid');
 
-    mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
 
-    saveResult(overallCodenameToDeviceSummary);
-  })
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, omniromDeviceSummaries, 'omnirom');
+
+      mergeIntoOverallCodenameToDeviceSummary(
+        overallCodenameToDeviceSummary,
+        resurrectionRemixDeviceSummaries,
+        'resurrectionRemix'
+      );
+
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
+
+      saveResult(overallCodenameToDeviceSummary);
+    }
+  )
   .catch(e => logger.error(e));

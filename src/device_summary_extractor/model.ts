@@ -14,6 +14,7 @@ export interface DeviceSummaryOSSpecific {
   resurrectionRemix?: ResurrectionRemix;
   cDroid?: CDroid;
   kali?: Kali;
+  omnirom?: Omnirom;
 }
 
 export interface LineageOs {
@@ -66,6 +67,11 @@ interface Kali {
   url: string;
   isStable: boolean;
   isLatest: boolean;
+}
+
+interface Omnirom {
+  url: string;
+  isOfficial: boolean;
 }
 
 export interface CodenameToDeviceSummary {

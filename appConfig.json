@@ -26,5 +26,9 @@
   "kali": {
     "includeStable": true,
     "includeLatest": false
+  },
+  "omnirom": {
+    "includeOfficial": true,
+    "includeUnofficial": false
   }
 }
