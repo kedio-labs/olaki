@@ -1,7 +1,6 @@
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
-import { normaliseCodename } from './util';
-import axios from 'axios';
+import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';
 import { Element } from 'domhandler/lib/node';
 
@@ -15,13 +14,7 @@ const cleanElementText = (text: string) => text.replaceAll('\n', '').trim();
 const removeManufacturerPrefix = (codename: string) => codename.replace(/[^-]+-/, '');
 
 export default async function extractPmOsWikiDeviceSummaries(): Promise<CodenameToDeviceSummary> {
-  const response = await axios.get(`${PMOS_WIKI_BASE_URL}/wiki/Devices`);
-
-  if (response.status !== 200) {
-    throw new Error(
-      `[PMOS] ERROR - Received non-200 status code when retrieving device data from PMOS wiki page: ${response.status}\n ${response.data}`
-    );
-  }
+  const response = await fetchUrl('[PMOS]', `${PMOS_WIKI_BASE_URL}/wiki/Devices`);
 
   const $ = load(response.data);
   const deviceTableCells = $('td.field_Device');
@@ -35,7 +28,7 @@ export default async function extractPmOsWikiDeviceSummaries(): Promise<Codename
     .filter(href => !!href);
 
   const devicePagesWithStatus = await Promise.allSettled(
-    deviceUrls.map((index, deviceUrl) => axios.get(`${PMOS_WIKI_BASE_URL}${deviceUrl}`))
+    deviceUrls.map((index, deviceUrl) => fetchUrl('[PMOS]', `${PMOS_WIKI_BASE_URL}${deviceUrl}`))
   );
 
   const deviceInfoList: PmosWikiDeviceInfo[] = devicePagesWithStatus.map(devicePageWithStatus => {

@@ -1,8 +1,7 @@
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
-import { normaliseCodename } from './util';
-import axios from 'axios';
+import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';
 
 const KALI_DEVICES_LIST_URL = 'https://stats.nethunter.com/nethunter-images.html';
@@ -62,13 +61,7 @@ enum Status {
 
 export default async function extractKaliDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
-
-  const response = await axios.get(KALI_DEVICES_LIST_URL);
-  if (response.status !== 200) {
-    throw new Error(
-      `[KALI] ERROR - Received non-200 status code when retrieving codenames list from URL ${KALI_DEVICES_LIST_URL}: ${response.status}\n ${response.data}`
-    );
-  }
+  const response = await fetchUrl('[KALI]', KALI_DEVICES_LIST_URL);
 
   logger.debug('[KALI] Scraping kali devices list');
   const $ = load(response.data);

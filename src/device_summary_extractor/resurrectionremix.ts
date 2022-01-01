@@ -1,8 +1,8 @@
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary, DeviceSummary } from './model';
-import { normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
-import axios, { AxiosResponse } from 'axios';
+import { fetchUrl, normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
+import { AxiosResponse } from 'axios';
 import { load } from 'cheerio';
 import { Element } from 'domhandler/lib/node';
 import { readFileSync } from 'fs';
@@ -113,12 +113,7 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
   }
 
   logger.debug('[RESURRECTIONREMIX] Scraping resurrection remix downloads page');
-  const response = await axios.get(DOWNLOAD_URL);
-  if (response.status !== 200) {
-    throw new Error(
-      `[RESURRECTIONREMIX] ERROR - Received non-200 status code when retrieving download page at URL ${DOWNLOAD_URL}: ${response.status}\n ${response.data}`
-    );
-  }
+  const response = await fetchUrl('[RESURRECTIONREMIX]', DOWNLOAD_URL);
   $ = load(response.data);
   $('table#files_list > tbody > tr > th > a').each((index, aElement) => {
     const href = aElement.attribs['href'];

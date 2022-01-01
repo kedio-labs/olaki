@@ -1,7 +1,6 @@
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
-import { normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
-import axios from 'axios';
+import { fetchUrl, normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';
 
 const CDROID_BASE_URL = 'https://crdroid.net';
 const CDROID_DEVICES_LIST_JSON_URL = `${CDROID_BASE_URL}/devices_handler/compiled.json`;
@@ -9,15 +8,9 @@ const CDROID_DEVICES_LIST_JSON_URL = `${CDROID_BASE_URL}/devices_handler/compile
 export default async function extractCDroidDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
 
-  const response = await axios.get(CDROID_DEVICES_LIST_JSON_URL);
-  if (response.status !== 200) {
-    throw new Error(
-      `[CDROID] ERROR - Received non-200 status code when retrieving devices list from URL ${CDROID_DEVICES_LIST_JSON_URL}: ${response.status}\n ${response.data}`
-    );
-  }
-
   logger.debug('[CDROID] Discovering latest cDroid major version');
   let latestMajorVersion = Number.MIN_VALUE;
+  const response = await fetchUrl('[CDROID]', CDROID_DEVICES_LIST_JSON_URL);
   const vendorToCodenames = response.data;
   for (const vendor in vendorToCodenames) {
     for (const codename in vendorToCodenames[vendor]) {

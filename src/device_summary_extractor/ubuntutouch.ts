@@ -2,8 +2,7 @@ import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
 import vendorList from './ubuntutouch_vendors.json';
-import { normaliseCodename } from './util';
-import axios from 'axios';
+import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';
 
 const UBUNTU_TOUCH_BASE_URL = 'https://devices.ubuntu-touch.io';
@@ -76,12 +75,7 @@ const shouldIncludeDevice = (progress: number) => progress >= appConfig.ubuntuTo
 export default async function extractUbuntuTouchDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
 
-  const response = await axios.get(UBUNTU_TOUCH_BASE_URL);
-  if (response.status !== 200) {
-    throw new Error(
-      `[UBTOUCH] ERROR - Received non-200 status code when retrieving codenames list from URL ${UBUNTU_TOUCH_BASE_URL}: ${response.status}\n ${response.data}`
-    );
-  }
+  const response = await fetchUrl('[UBTOUCH]', UBUNTU_TOUCH_BASE_URL);
 
   logger.debug('[UBTOUCH] Scraping ubuntu touch devices page');
   const $ = load(response.data);

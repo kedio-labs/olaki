@@ -1,8 +1,7 @@
 import appConfig from '../../appConfig.json';
 import logger from '../logger';
 import { CodenameToDeviceSummary } from './model';
-import { normaliseCodename } from './util';
-import axios from 'axios';
+import { fetchUrl, normaliseCodename } from './util';
 
 type AndroidVersion = string;
 type DeviceId = string;
@@ -32,16 +31,10 @@ const fetchDevicesList = async (
   androidVersion: AndroidVersion
 ): Promise<{ data: DeviceIdToProperties; androidVersion: AndroidVersion }> => {
   const url = getDevicesListUrl(androidVersion);
-  const response = await axios.get(url);
-  if (response.status !== 200) {
-    throw new Error(
-      `[OMNIDROID] ERROR - Received non-200 status code when retrieving devices list from URL ${url}: ${response.status}\n ${response.data}`
-    );
-  }
+  const response = await fetchUrl('[OMNIDROID]', url);
 
   // need to sanitise a bit the response data as it somehow starts with )]}'\n
   const data = response.data.substring(response.data.indexOf('{'));
-
   return { data: JSON.parse(data), androidVersion };
 };
 
@@ -49,18 +42,12 @@ const getDeviceInfoUrl = (deviceId: DeviceId, androidVersion: AndroidVersion) =>
   `https://raw.githubusercontent.com/omnirom/${deviceId}/android-${androidVersion}/meta/config.json`;
 const fetchDeviceInfo = async (deviceId: DeviceId, androidVersion: AndroidVersion): Promise<DeviceInfo> => {
   const url = getDeviceInfoUrl(deviceId, androidVersion);
-  const response = await axios.get(url, {
+  const response = await fetchUrl('[OMNIDROID]', url, {
     validateStatus: status => status < 500, // include 4xx in success responses so that we can process them
   });
 
   if (response.status === 404) {
     return {} as DeviceInfo;
-  }
-
-  if (response.status !== 200) {
-    throw new Error(
-      `[OMNIDROID] ERROR - Received non-200 status code when retrieving device info from URL ${url}: ${response.status}\n ${response.data}`
-    );
   }
 
   return response.data;
