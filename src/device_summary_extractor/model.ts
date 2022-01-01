@@ -1,5 +1,3 @@
-export type codename = string;
-
 export interface DeviceSummary extends DeviceSummaryOSSpecific {
   name: string;
   vendor: string;
@@ -75,7 +73,7 @@ interface Omnirom {
 }
 
 export interface CodenameToDeviceSummary {
-  [k: codename]: DeviceSummary;
+  [k: string]: DeviceSummary;
 }
 
 export interface JsonResult {
