@@ -1,25 +1,28 @@
 {
   "name": "olaki",
   "version": "0.0.1",
-  "description": "Lists alternative operative systems for Android phones",
+  "description": "List of alternative operating systems for Android phones",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "extract-device-summaries": "NODE_PATH=. node ./dist/src/device_summary_extractor/index.js",
     "lint": "eslint src/**",
-    "fix": "eslint --fix src/**",
+    "fix-lint": "eslint --fix src/**",
     "update-submodules": "git submodule update --recursive --remote"
   },
   "keywords": [
     "android",
-    "lineageos",
-    "postmarketos",
+    "LineageOS",
+    "postmarketOS",
     "pmos",
-    "ubuntu",
-    "touch",
-    "/e/",
-    "grapheneos"
+    "Ubuntu Touch",
+    "/e/OS",
+    "eOS",
+    "Kali Linux",
+    "cDroid",
+    "OmniROM",
+    "Resurrection Remix OS"
   ],
   "author": "tepafoo",
   "license": "MIT",
