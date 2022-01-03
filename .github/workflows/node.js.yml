@@ -32,6 +32,8 @@ jobs:
     - run: npm run lint
     #- run: npm test
     - run: npm run build
+    - name: Checkout submodules
+      uses: textbook/git-checkout-submodule-action@master
     - name: Generate device summaries JSON
     - run: npm run extract-device-summaries
     - name: Publish to GitHub Pages
