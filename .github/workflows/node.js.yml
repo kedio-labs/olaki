@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -35,7 +35,7 @@ jobs:
     - name: Checkout submodules
       uses: textbook/git-checkout-submodule-action@master
     - name: Generate device summaries JSON
-    - run: npm run extract-device-summaries
+      run: npm run extract-device-summaries
     - name: Publish to GitHub Pages
       if: success()
       uses: crazy-max/ghaction-github-pages@v2
