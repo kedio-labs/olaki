@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    name: Build and Publish
 
     runs-on: ubuntu-latest
 
@@ -28,5 +29,14 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run lint
-    - run: npm run build
     #- run: npm test
+    - run: npm run build
+    - run: npm run extract-device-summaries
+    - name: Publish to GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: dist/public
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

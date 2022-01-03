@@ -8,9 +8,11 @@ import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
-const JSON_RESULT_FILE_PATH = './dist/device-summaries.json';
+const JSON_RESULT_DIRECTORY = './dist/public';
+const JSON_RESULT_FILENAME = 'device-summaries.json';
+const JSON_RESULT_FILE_PATH = `${JSON_RESULT_DIRECTORY}/${JSON_RESULT_FILENAME}`;
 
 const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => {
   logger.info(`[Extractor] Writing results into file: ${JSON_RESULT_FILE_PATH}`);
@@ -18,6 +20,10 @@ const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => 
     lastUpdated: new Date().getTime(),
     codenameToDeviceSummary: overallCodenameToDeviceSummary,
   };
+
+  if (!existsSync(JSON_RESULT_DIRECTORY)) {
+    mkdirSync(JSON_RESULT_DIRECTORY, { recursive: true });
+  }
   writeFileSync(JSON_RESULT_FILE_PATH, JSON.stringify(jsonResult, null, ' '));
 };
 
