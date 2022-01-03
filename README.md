@@ -13,9 +13,9 @@ generic device info and download links where possible.
 
 Those individual OS maps are then merged into an overall one so that all available OSes are listed for a given codename. 
 
-The overall map is output as a `JSON` file and displayed on a table via GitHub pages.
+The overall map is output as a JSON file and displayed on a table via GitHub pages.
 
-Rules exist to decide what devices should be added to the overall map based OS compatibility level. See [appConfig.json](./appConfig.json).
+Rules exist to decide what devices should be added to the overall map based on compatibility level for each OS. See [appConfig.json](./appConfig.json).
 
 ## Contributing
 
@@ -27,15 +27,13 @@ This project adheres to a code of conduct so that everyone can contribute in an 
 
 For more details, please visit [this page](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
 
-### Via pull requests
-
-Contributions via pull requests are more than welcome. :)
+### Contributing via pull requests
 
 This codebase is written in Typescript. Feel free to raise a pull request whatever your skill level in that language.
 
 Please also raise an issue to capture context on your pull request. E.g. what bug/improvement/suggestion does your pull request relate to?
 
-### Via other means
+### Contributing via other means
 
 Please raise an issue to describe your problem statement.
 
@@ -51,9 +49,9 @@ Clone this codebase and run `npm install`.
 
 ### Update submodules
 
-The `submodules` directory contains clones of some alternative OS project codebases.
+`npm run update-submodules`
 
-These can be updated to their respective `HEAD`s at once by running the command `npm run update-submodules` 
+The `submodules` directory contains clones of some alternative OS project codebases. These can be updated to their respective `HEAD`s at once by running the command above. 
 
 ### Lint + fix
 
