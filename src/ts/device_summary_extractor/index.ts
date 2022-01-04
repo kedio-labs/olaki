@@ -1,4 +1,4 @@
-import logger from '../logger';
+import logger from '../../logger';
 import extractCDroidDeviceSummaries from './cdroid';
 import extractEOsDeviceSummaries from './eos';
 import extractKaliDeviceSummaries from './kali';
@@ -10,21 +10,24 @@ import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
-const JSON_RESULT_DIRECTORY = './dist/public';
-const JSON_RESULT_FILENAME = 'device-summaries.json';
-const JSON_RESULT_FILE_PATH = `${JSON_RESULT_DIRECTORY}/${JSON_RESULT_FILENAME}`;
+const DIST_PUBLIC_DIRECTORY = './dist/public';
+const JS_RESULT_FILENAME = 'device-summaries.js';
+const JS_RESULT_FILE_PATH = `${DIST_PUBLIC_DIRECTORY}/${JS_RESULT_FILENAME}`;
 
-const saveResult = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => {
-  logger.info(`[Extractor] Writing results into file: ${JSON_RESULT_FILE_PATH}`);
+// save in JavaScript file so that it can be easily loaded in public/index.html
+const saveResultInJavaScriptFile = (overallCodenameToDeviceSummary: CodenameToDeviceSummary) => {
+  logger.info(`[Extractor] Writing results into file: ${JS_RESULT_FILE_PATH}`);
   const jsonResult: JsonResult = {
     lastUpdated: new Date().getTime(),
     codenameToDeviceSummary: overallCodenameToDeviceSummary,
   };
 
-  if (!existsSync(JSON_RESULT_DIRECTORY)) {
-    mkdirSync(JSON_RESULT_DIRECTORY, { recursive: true });
+  if (!existsSync(DIST_PUBLIC_DIRECTORY)) {
+    mkdirSync(DIST_PUBLIC_DIRECTORY, { recursive: true });
   }
-  writeFileSync(JSON_RESULT_FILE_PATH, JSON.stringify(jsonResult, null, ' '));
+  const javaScriptFileContent = `const deviceSummaries = ${JSON.stringify(jsonResult, null, ' ')};`;
+
+  writeFileSync(JS_RESULT_FILE_PATH, javaScriptFileContent);
 };
 
 const mergeIntoOverallCodenameToDeviceSummary = (
@@ -113,7 +116,7 @@ Promise.all([cDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionRemi
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 
-      saveResult(overallCodenameToDeviceSummary);
+      saveResultInJavaScriptFile(overallCodenameToDeviceSummary);
     }
   )
   .catch(e => logger.error(e));

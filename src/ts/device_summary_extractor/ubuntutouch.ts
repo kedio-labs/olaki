@@ -1,5 +1,5 @@
-import appConfig from '../../appConfig.json';
-import logger from '../logger';
+import appConfig from '../../../appConfig.json';
+import logger from '../../logger';
 import { CodenameToDeviceSummary } from './model';
 import vendorList from './ubuntutouch_vendors.json';
 import { fetchUrl, normaliseCodename, removeVendorPrefixFromModelAndTrim } from './util';

@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "extract-device-summaries": "NODE_PATH=. node ./dist/src/device_summary_extractor/index.js",
-    "lint": "eslint src/**",
-    "fix-lint": "eslint --fix src/**",
+    "extract-device-summaries": "NODE_PATH=. node ./dist/src/ts/device_summary_extractor/index.js",
+    "lint": "eslint src/ts/**",
+    "fix-lint": "eslint --fix src/ts/**",
     "update-submodules": "git submodule update --recursive --remote"
   },
   "keywords": [

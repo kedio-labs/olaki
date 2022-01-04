@@ -1,4 +1,4 @@
-import logger from '../logger';
+import logger from '../../logger';
 import { CodenameToDeviceSummary } from './model';
 import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';

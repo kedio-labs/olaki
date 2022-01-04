@@ -1,5 +1,5 @@
-import appConfig from '../../appConfig.json';
-import logger from '../logger';
+import appConfig from '../../../appConfig.json';
+import logger from '../../logger';
 import { CodenameToDeviceSummary, DeviceSummary } from './model';
 import { normaliseCodename } from './util';
 import { readdirSync, readFileSync, statSync } from 'fs';

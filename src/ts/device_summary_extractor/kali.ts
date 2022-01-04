@@ -1,5 +1,5 @@
-import appConfig from '../../appConfig.json';
-import logger from '../logger';
+import appConfig from '../../../appConfig.json';
+import logger from '../../logger';
 import { CodenameToDeviceSummary } from './model';
 import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';
