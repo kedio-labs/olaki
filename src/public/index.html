@@ -110,7 +110,7 @@
 
 <script src="olaki-data.js"></script>
 <script>
-  document.getElementById("last-updated").innerText = new Date(olakiData.lastUpdated).toLocaleDateString();
+  document.getElementById("last-update-date").innerText = new Date(olakiData.lastUpdated).toUTCString();
 
   const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
 
