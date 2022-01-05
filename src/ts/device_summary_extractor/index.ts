@@ -8,10 +8,12 @@ import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { copyFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 
+const SRC_PUBLIC_DIRECTORY = './src/public';
 const DIST_PUBLIC_DIRECTORY = './dist/public';
 const JS_RESULT_FILENAME = 'device-summaries.js';
+const INDEX_FILENAME = 'index.html';
 const JS_RESULT_FILE_PATH = `${DIST_PUBLIC_DIRECTORY}/${JS_RESULT_FILENAME}`;
 
 // save in JavaScript file so that it can be easily loaded in public/index.html
@@ -52,6 +54,10 @@ const saveResultInJavaScriptFile = (overallCodenameToDeviceSummary: CodenameToDe
   const javaScriptFileContent = `const olakiData = ${JSON.stringify(jsonResult, null, ' ')};`;
 
   writeFileSync(JS_RESULT_FILE_PATH, javaScriptFileContent);
+};
+
+const copyIndexFile = () => {
+  copyFileSync(`${SRC_PUBLIC_DIRECTORY}/${INDEX_FILENAME}`, `${DIST_PUBLIC_DIRECTORY}/${INDEX_FILENAME}`);
 };
 
 const mergeIntoOverallCodenameToDeviceSummary = (
@@ -141,6 +147,7 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionrem
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 
       saveResultInJavaScriptFile(overallCodenameToDeviceSummary);
+      copyIndexFile();
     }
   )
   .catch(e => logger.error(e));
