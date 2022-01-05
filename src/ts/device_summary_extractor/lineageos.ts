@@ -10,7 +10,7 @@ const DEVICE_INFO_ROOT_DIRECTORY = './submodules/lineage_wiki/_data/devices';
 const LINEAGE_OS_BASE_DEVICE_URL = 'https://wiki.lineageos.org/devices';
 
 const shouldIncludeDevice = (isMaintained: boolean) =>
-  (isMaintained && appConfig.lineageOs.includeMaintained) || (!isMaintained && appConfig.lineageOs.includeUnmaintained);
+  (isMaintained && appConfig.lineageos.includeMaintained) || (!isMaintained && appConfig.lineageos.includeUnmaintained);
 
 const getReleaseDate = (release: any) => (Array.isArray(release) ? Object.values(release[0])[0] : release);
 
@@ -39,7 +39,7 @@ export default function extractLineageOsDeviceSummaries(): CodenameToDeviceSumma
         name: deviceInfo.name,
         vendor: deviceInfo.vendor,
         releaseDate: getReleaseDate(deviceInfo.release),
-        lineageOs: {
+        lineageos: {
           versions: deviceInfo.versions,
           models: deviceInfo.models || [],
           isMaintained: isMaintained,

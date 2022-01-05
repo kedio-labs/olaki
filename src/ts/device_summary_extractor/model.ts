@@ -6,43 +6,43 @@ export interface DeviceSummary extends DeviceSummaryOSSpecific {
 }
 
 export interface DeviceSummaryOSSpecific {
-  lineageOs?: LineageOs;
-  pmos?: Pmos;
-  eOS?: eOS;
-  ubuntuTouch?: UbuntuTouch;
-  resurrectionRemix?: ResurrectionRemix;
-  crdroid?: crDroid;
+  lineageos?: LineageOS;
+  pmos?: PmOS;
+  eos?: EOS;
+  ubuntutouch?: UbuntuTouch;
+  resurrectionremix?: ResurrectionRemix;
+  crdroid?: CrDroid;
   kali?: Kali;
-  omnirom?: Omnirom;
+  omnirom?: OmniROM;
 }
 
-export interface LineageOs {
+export interface LineageOS {
   versions: [];
   models: string[];
   isMaintained: boolean;
   url: string;
 }
 
-export interface Pmos {
+export interface PmOS {
   category: string;
   url: string;
 }
 
-export enum eOSMaturity {
+export enum EOSMaturity {
   red,
   orange,
   green,
 }
 
-export enum eOSInstallMode {
+export enum EOSInstallMode {
   installDoc,
   easyInstaller,
   eSmartphones,
 }
 
-export interface eOS {
-  maturity: eOSMaturity;
-  installModes: eOSInstallMode[];
+export interface EOS {
+  maturity: EOSMaturity;
+  installModes: EOSInstallMode[];
   models: string[];
   url: string;
 }
@@ -58,7 +58,7 @@ interface ResurrectionRemix {
   url?: string;
 }
 
-interface crDroid {
+interface CrDroid {
   url: string;
 }
 
@@ -68,7 +68,7 @@ interface Kali {
   isLatest: boolean;
 }
 
-interface Omnirom {
+interface OmniROM {
   url: string;
   isOfficial: boolean;
 }

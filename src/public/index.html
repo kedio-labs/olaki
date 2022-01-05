@@ -83,8 +83,8 @@
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.eOS) {
-      const link = getOsDownloadATag(deviceSummary.eOS.url, deviceSummary.eOS.maturity);
+    if (deviceSummary.eos) {
+      const link = getOsDownloadATag(deviceSummary.eos.url, deviceSummary.eos.maturity);
       nextOsCell.append(link);
     }
 
@@ -95,8 +95,8 @@
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.lineageOs) {
-      const link = getOsDownloadATag(deviceSummary.lineageOs.url, deviceSummary.lineageOs.isMaintained ? "maintained" : "unmaintained");
+    if (deviceSummary.lineageos) {
+      const link = getOsDownloadATag(deviceSummary.lineageos.url, deviceSummary.lineageos.isMaintained ? "maintained" : "unmaintained");
       nextOsCell.append(link);
     }
 
@@ -113,14 +113,14 @@
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.resurrectionRemix) {
-      const link = getOsDownloadATag(deviceSummary.resurrectionRemix.url, deviceSummary.resurrectionRemix.isMaintained ? "maintained" : "unmaintained");
+    if (deviceSummary.resurrectionremix) {
+      const link = getOsDownloadATag(deviceSummary.resurrectionremix.url, deviceSummary.resurrectionremix.isMaintained ? "maintained" : "unmaintained");
       nextOsCell.append(link);
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.ubuntuTouch) {
-      const link = getOsDownloadATag(deviceSummary.ubuntuTouch.url, deviceSummary.ubuntuTouch.progress + '%');
+    if (deviceSummary.ubuntutouch) {
+      const link = getOsDownloadATag(deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + '%');
       nextOsCell.append(link);
     }
 

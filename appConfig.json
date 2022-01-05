@@ -1,6 +1,6 @@
 {
   "logLevel": "info",
-  "lineageOs": {
+  "lineageos": {
     "includeMaintained": true,
     "includeUnmaintained": false
   },
@@ -10,15 +10,15 @@
     "includeTesting": false,
     "includeUnmaintained": false
   },
-  "ubuntuTouch": {
+  "ubuntutouch": {
     "includeProgressLevelAboveThreshold": 80
   },
-  "resurrectionRemix": {
+  "resurrectionremix": {
     "includeMaintained": true,
     "includeUnmaintained": false,
     "includeMissingImageDownloadLink": false
   },
-  "eOs": {
+  "eos": {
     "includeGreenMaturity": true,
     "includeOrangeMaturity": true,
     "includeRedMaturity": false

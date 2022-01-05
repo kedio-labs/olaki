@@ -69,7 +69,7 @@ const extractDeviceVendorAndName = (codename: string, text: string) => {
   };
 };
 
-const shouldIncludeDevice = (progress: number) => progress >= appConfig.ubuntuTouch.includeProgressLevelAboveThreshold;
+const shouldIncludeDevice = (progress: number) => progress >= appConfig.ubuntutouch.includeProgressLevelAboveThreshold;
 
 export default async function extractUbuntuTouchDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
@@ -112,14 +112,14 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
           codename: normalisedCodename,
           vendor: deviceVendorAndName.vendor,
           name: deviceVendorAndName.name,
-          ubuntuTouch: {
+          ubuntutouch: {
             progress: progressAsNumber,
             url: getDeviceUrl(normalisedCodename),
           },
         };
       } else {
         logger.debug(
-          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${normalisedCodename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntuTouch.includeProgressLevelAboveThreshold}`
+          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${normalisedCodename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntutouch.includeProgressLevelAboveThreshold}`
         );
       }
     });

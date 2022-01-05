@@ -34,8 +34,8 @@ const isMaintained = (elementText: string) => elementText.trim().length > 0;
 
 const shouldIncludeDevice = (codename: string, deviceSummary: DeviceSummary) =>
   !isFunkyCodename(codename) &&
-  ((deviceSummary.resurrectionRemix?.isMaintained && appConfig.resurrectionRemix.includeMaintained) ||
-    (!deviceSummary.resurrectionRemix?.isMaintained && appConfig.resurrectionRemix.includeUnmaintained));
+  ((deviceSummary.resurrectionremix?.isMaintained && appConfig.resurrectionremix.includeMaintained) ||
+    (!deviceSummary.resurrectionremix?.isMaintained && appConfig.resurrectionremix.includeUnmaintained));
 
 // use response.request.res.responseUrl as it represents the final value after axios has followed redirects
 const getDownloadUrl = (response: AxiosResponse, codename: string) => `${response.request.res.responseUrl}${codename}`;
@@ -89,7 +89,7 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
         } else if (isCodename(nameAttrib)) {
           deviceKeyToDeviceSummary[normalisedDeviceKey].codename = normaliseCodename(elementText);
         } else if (isMaintainer(nameAttrib)) {
-          deviceKeyToDeviceSummary[normalisedDeviceKey].resurrectionRemix = {
+          deviceKeyToDeviceSummary[normalisedDeviceKey].resurrectionremix = {
             isMaintained: isMaintained(elementText),
           };
         }
@@ -120,21 +120,21 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
 
     const normalisedCodename = normaliseCodename(codename);
     if (codenameToDeviceSummary[normalisedCodename]) {
-      if (!codenameToDeviceSummary[normalisedCodename].resurrectionRemix) {
+      if (!codenameToDeviceSummary[normalisedCodename].resurrectionremix) {
         throw new Error(
-          `[RESURRECTIONREMIX] ERROR - Found device summary without property resurrectionRemix: ${codenameToDeviceSummary[normalisedCodename]}`
+          `[RESURRECTIONREMIX] ERROR - Found device summary without property resurrectionremix: ${codenameToDeviceSummary[normalisedCodename]}`
         );
       }
 
-      // @ts-ignore: TypeScript compiler sees that resurrectionRemix is an optional property
+      // @ts-ignore: TypeScript compiler sees that resurrectionremix is an optional property
       // it doesn't pick up the fact that we have actually instantiated it earlier when parsing DEVICE_MAINTAINERS_XML_FILE_PATH
-      codenameToDeviceSummary[normalisedCodename].resurrectionRemix.url = getDownloadUrl(response, codename);
+      codenameToDeviceSummary[normalisedCodename].resurrectionremix.url = getDownloadUrl(response, codename);
     }
   });
 
-  if (!appConfig.resurrectionRemix.includeMissingImageDownloadLink) {
+  if (!appConfig.resurrectionremix.includeMissingImageDownloadLink) {
     for (const codename in codenameToDeviceSummary) {
-      if (!codenameToDeviceSummary[codename].resurrectionRemix?.url) {
+      if (!codenameToDeviceSummary[codename].resurrectionremix?.url) {
         logger.debug(`[RESURRECTIONREMIX] Excluding codename as it has no download link: ${codename}`);
         delete codenameToDeviceSummary[codename];
       }

@@ -1,6 +1,6 @@
 import appConfig from '../../../appConfig.json';
 import logger from '../../logger';
-import { CodenameToDeviceSummary, eOSInstallMode, eOSMaturity } from './model';
+import { CodenameToDeviceSummary, EOSInstallMode, EOSMaturity } from './model';
 import { normaliseCodename } from './util';
 import { readdirSync, readFileSync } from 'fs';
 import { load } from 'js-yaml';
@@ -11,22 +11,22 @@ const E_OS_BASE_DEVICE_URL = 'https://doc.e.foundation/devices';
 
 const shouldIncludeDevice = (maturity: string) => {
   return (
-    (maturity === eOSMaturity[eOSMaturity.red] && appConfig.eOs.includeRedMaturity) ||
-    (maturity === eOSMaturity[eOSMaturity.orange] && appConfig.eOs.includeOrangeMaturity) ||
-    (maturity === eOSMaturity[eOSMaturity.green] && appConfig.eOs.includeGreenMaturity)
+    (maturity === EOSMaturity[EOSMaturity.red] && appConfig.eos.includeRedMaturity) ||
+    (maturity === EOSMaturity[EOSMaturity.orange] && appConfig.eos.includeOrangeMaturity) ||
+    (maturity === EOSMaturity[EOSMaturity.green] && appConfig.eos.includeGreenMaturity)
   );
 };
 
-const getInstallModes = (installArray: { mode: string }[]): eOSInstallMode[] =>
+const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
   installArray.map(install => {
     if (install.mode === 'Install doc') {
-      return eOSInstallMode.installDoc;
+      return EOSInstallMode.installDoc;
     }
     if (install.mode === 'Easy Installer') {
-      return eOSInstallMode.easyInstaller;
+      return EOSInstallMode.easyInstaller;
     }
     if (install.mode === '/e/ smartphones') {
-      return eOSInstallMode.eSmartphones;
+      return EOSInstallMode.eSmartphones;
     }
 
     throw Error(`[EOS] Unknown install mode: ${install.mode}`);
@@ -58,7 +58,7 @@ export default function extractEOsDeviceSummaries(): CodenameToDeviceSummary {
       name: deviceInfo.name,
       vendor: deviceInfo.vendor,
       releaseDate: deviceInfo.release,
-      eOS: {
+      eos: {
         maturity,
         installModes: getInstallModes(deviceInfo.install),
         models: deviceInfo.models,
