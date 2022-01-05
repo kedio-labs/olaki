@@ -14,11 +14,19 @@
   <meta property="og:url" content="https://olaki-android.github.io/olaki">
   <meta property="og:description" content="A table that lists Android devices and compatible Operating Systems.">
   <style>
+    :root {
+      --body-backrgound-color: #eeeaea;
+      --table-border: 1px solid black;
+      --table-odd-row-backrgound-color: #d9b1ea;
+      --table-even-row-backrgound-color: #e5e3e3;
+      --appendix-code-backrgound-color: #d0d0d0;
+    }
+
     html, body {
       font-family: sans-serif;
       font-size: 1em;
       color: #0c0c0c;
-      background-color: #eeeaea;
+      background-color: var(--body-backrgound-color);
     }
 
     header div {
@@ -28,8 +36,8 @@
     table {
       font-size: 0.85rem;
       margin-top: 25px;
-      border-top: 1px solid black;
-      border-left: 1px solid black;
+      border-top: var(--table-border);
+      border-left: var(--table-border);
       border-spacing: 0;
 
       table-layout: fixed;
@@ -38,8 +46,8 @@
 
     th, td {
       padding: 10px 5px;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      border-bottom: var(--table-border);
+      border-right: var(--table-border);
       word-wrap: break-word;
       text-align: center;
     }
@@ -49,16 +57,16 @@
       position: -webkit-sticky;
       position: sticky;
       top: 0;
-      background-color: #e5e3e3;
+      background-color: var(--table-even-row-backrgound-color);
       z-index: 10;
     }
 
     tbody tr:nth-child(odd) {
-      background-color: #d9b1ea;
+      background-color: var(--table-odd-row-backrgound-color);
     }
 
     tbody tr:nth-child(even) {
-      background-color: #e5e3e3;
+      background-color: var(--table-even-row-backrgound-color);
     }
 
     /* device name column */
@@ -67,7 +75,7 @@
     }
 
     footer .code {
-      background-color: #d0d0d0;
+      background-color: var(--appendix-code-backrgound-color);
       /*background-color: #bdbaba;*/
       width: 360px;
       padding: 5px 10px;
