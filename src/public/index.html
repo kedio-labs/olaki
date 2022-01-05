@@ -102,19 +102,20 @@
 </header>
 <main>
   <h2>Table</h2>
+  <div id="quick-table-stats"></div>
   <table id="olaki-table">
     <thead>
     <tr>
       <th>Device name</th>
       <th>Codename</th>
-      <th>crDroid</th>
-      <th>/e/OS</th>
-      <th>Kali<br>Linux</th>
-      <th>LineageOS</th>
-      <th>OmniROM</th>
-      <th>postmarket<br>OS</th>
-      <th>Resurrection<br>Remix OS</th>
-      <th>Ubuntu<br>Touch</th>
+      <th class="os-column-header">crDroid</th>
+      <th class="os-column-header">/e/OS</th>
+      <th class="os-column-header">Kali<br>Linux</th>
+      <th class="os-column-header">LineageOS</th>
+      <th class="os-column-header">OmniROM</th>
+      <th class="os-column-header">postmarket<br>OS</th>
+      <th class="os-column-header">Resurrection<br>Remix OS</th>
+      <th class="os-column-header">Ubuntu<br>Touch</th>
     </tr>
     </thead>
     <tbody>
@@ -151,10 +152,15 @@
   //
   document.getElementById("last-update-date").innerText = new Date(olakiData.lastUpdated).toUTCString();
 
-
   //
   // populate table
   //
+  let numberOfDeviceToOsCombinations = 0;
+  const populateOsCell = (osCell, url, urlText) => {
+    numberOfDeviceToOsCombinations++; // mutating a variable outside this function. Sorry :p
+    const link = getOsDownloadATag(url, urlText);
+    osCell.append(link);
+  };
   const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
 
   const getOsDownloadATag = (url, text) => {
@@ -172,53 +178,50 @@
 
     let nextOsCell = row.insertCell();
     if (deviceSummary.crdroid) {
-      const link = getOsDownloadATag(deviceSummary.crdroid.url, "yes");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.crdroid.url, "yes");
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.eos) {
-      const link = getOsDownloadATag(deviceSummary.eos.url, deviceSummary.eos.maturity);
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.eos.url, deviceSummary.eos.maturity);
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.kali) {
-      const link = getOsDownloadATag(deviceSummary.kali.url, deviceSummary.kali.isStable ? "stable" : "latest");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.kali.url, deviceSummary.kali.isStable ? "stable" : "latest");
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.lineageos) {
-      const link = getOsDownloadATag(deviceSummary.lineageos.url, deviceSummary.lineageos.isMaintained ? "maintained" : "unmaintained");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.lineageos.url, deviceSummary.lineageos.isMaintained ? "maintained" : "unmaintained");
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.omnirom) {
-      const link = getOsDownloadATag(deviceSummary.omnirom.url, deviceSummary.omnirom.isOfficial ? "official" : "unofficial");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.omnirom.url, deviceSummary.omnirom.isOfficial ? "official" : "unofficial");
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.pmos) {
-      const link = getOsDownloadATag(deviceSummary.pmos.url, deviceSummary.pmos.category);
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.pmos.url, deviceSummary.pmos.category);
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.resurrectionremix) {
-      const link = getOsDownloadATag(deviceSummary.resurrectionremix.url, deviceSummary.resurrectionremix.isMaintained ? "maintained" : "unmaintained");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.resurrectionremix.url, deviceSummary.resurrectionremix.isMaintained ? "maintained" : "unmaintained");
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.ubuntutouch) {
-      const link = getOsDownloadATag(deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
-      nextOsCell.append(link);
+      populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
     }
-
   }
+
+  //
+  // populate table stats
+  //
+  document.getElementById("quick-table-stats").innerHTML =
+    `Quick stats: ${Object.keys(olakiData.deviceSummaries).length} devices. ${document.getElementsByClassName("os-column-header").length} operating systems. ${numberOfDeviceToOsCombinations} <code>(device, OS)</code> combinations available.`;
 
 
   //
