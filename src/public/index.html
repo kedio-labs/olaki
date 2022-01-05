@@ -16,6 +16,56 @@
   <style>
     html, body {
       font-family: sans-serif;
+      font-size: 1em;
+      color: #0c0c0c;
+      background-color: #eeeaea;
+    }
+
+    header div {
+      line-height: 1.7rem;
+    }
+
+    table {
+      font-size: 0.85rem;
+      margin-top: 25px;
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      border-spacing: 0;
+
+      table-layout: fixed;
+      width: 1200px;
+    }
+
+    th, td {
+      padding: 10px 5px;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      word-wrap: break-word;
+      text-align: center;
+    }
+
+    th {
+      /* safari */
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      /*background-color: #e5e0e0;*/
+      background-color: #f1ebeb;
+      z-index: 10;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #deaaef;
+    }
+
+    tbody tr:nth-child(even) {
+      /*background-color: #e5e0e0;*/
+      background-color: #f1ebeb;
+    }
+
+    /* device name column */
+    tr th:first-child, tr td:first-child {
+      width: 160px;
     }
   </style>
 </head>
@@ -27,19 +77,20 @@
   <div>Last updated on <span id="last-updated"></span>.</div>
 </header>
 <main>
-  <table id="device-summaries-table">
+  <h2>Table</h2>
+  <table id="olaki-table">
     <thead>
     <tr>
       <th>Device name</th>
       <th>Codename</th>
       <th>crDroid</th>
       <th>/e/OS</th>
-      <th>Kali Linux</th>
+      <th>Kali<br>Linux</th>
       <th>LineageOS</th>
       <th>OmniROM</th>
-      <th>postmarketOS</th>
-      <th>Resurrection Remix OS</th>
-      <th>Ubuntu Touch</th>
+      <th>postmarket<br>OS</th>
+      <th>Resurrection<br>Remix OS</th>
+      <th>Ubuntu<br>Touch</th>
     </tr>
     </thead>
     <tbody>
@@ -51,7 +102,7 @@
 <script>
   document.getElementById("last-updated").innerText = new Date(olakiData.lastUpdated).toLocaleDateString();
 
-  const tbody = document.getElementById("device-summaries-table").getElementsByTagName("tbody")[0];
+  const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
 
 
   const getOsDownloadATag = (url, text) => {
@@ -64,7 +115,7 @@
 
   for (const deviceSummary of olakiData.deviceSummaries) {
     const row = tbody.insertRow();
-    row.insertCell().append(deviceSummary.vendor + ' ' + deviceSummary.name);
+    row.insertCell().append(deviceSummary.vendor + " " + deviceSummary.name);
     row.insertCell().append(deviceSummary.codename);
 
     let nextOsCell = row.insertCell();
@@ -111,7 +162,7 @@
 
     nextOsCell = row.insertCell();
     if (deviceSummary.ubuntutouch) {
-      const link = getOsDownloadATag(deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + '%');
+      const link = getOsDownloadATag(deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
       nextOsCell.append(link);
     }
 
