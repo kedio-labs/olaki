@@ -15,7 +15,7 @@
   <meta property="og:description" content="A table that lists Android devices and compatible Operating Systems.">
   <style>
     :root {
-      --body-backrgound-color: #eeeaea;
+      --body-backrgound-color: #ffff;
       --table-border: 1px solid black;
       --table-odd-row-backrgound-color: #d9b1ea;
       --table-even-row-backrgound-color: #e5e3e3;
@@ -27,21 +27,21 @@
       font-size: 1em;
       color: #0c0c0c;
       background-color: var(--body-backrgound-color);
+      padding: 0 7px;
     }
 
-    header div {
-      line-height: 1.7rem;
+    #table-container {
+      overflow: auto;
+      width: 1200px;
+      height: 1000px;
     }
 
     table {
       font-size: 0.85rem;
-      margin-top: 25px;
       border-top: var(--table-border);
       border-left: var(--table-border);
       border-spacing: 0;
-
-      table-layout: fixed;
-      width: 1200px;
+      width: 100%;
     }
 
     th, td {
@@ -87,40 +87,42 @@
 <body>
 <header>
   <h1>Welcome to Olaki.</h1>
-  <div>
+  <p>
     An automatically generated list of Android devices that can run alternative operating systems. With links to download or
     project pages.
-  </div>
-  <div>
+  </p>
+  <p>
     Sensible defaults are set to only try and include <code>(device, OS)</code> combinations with high compatibility rates. See
     this <a href="#appendix">Appendix</a> for more details.
-  </div>
-  <div>Last update: <span id="last-update-date"></span>. Updated at least once a month.</div>
-  <div>Please <a href="https://github.com/olaki-android/olaki" target="_blank">contribute</a> if you'd like see other operating
+  </p>
+  <p>Last update: <span id="last-update-date"></span>. Updated at least once a month.</p>
+  <p>Please <a href="https://github.com/olaki-android/olaki" target="_blank">contribute</a> if you'd like see other operating
     systems listed here.
-  </div>
+  </p>
 </header>
 <main>
   <h2>Table</h2>
-  <div id="quick-table-stats"></div>
-  <table id="olaki-table">
-    <thead>
-    <tr>
-      <th>Device name</th>
-      <th>Codename</th>
-      <th class="os-column-header">crDroid</th>
-      <th class="os-column-header">/e/OS</th>
-      <th class="os-column-header">Kali<br>Linux</th>
-      <th class="os-column-header">LineageOS</th>
-      <th class="os-column-header">OmniROM</th>
-      <th class="os-column-header">postmarket<br>OS</th>
-      <th class="os-column-header">Resurrection<br>Remix OS</th>
-      <th class="os-column-header">Ubuntu<br>Touch</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+  <p id="quick-table-stats"></p>
+  <div id="table-container">
+    <table id="olaki-table">
+      <thead>
+      <tr>
+        <th>Device name</th>
+        <th>Codename</th>
+        <th class="os-column-header">crDroid</th>
+        <th class="os-column-header">/e/OS</th>
+        <th class="os-column-header">Kali<br>Linux</th>
+        <th class="os-column-header">LineageOS</th>
+        <th class="os-column-header">OmniROM</th>
+        <th class="os-column-header">postmarket<br>OS</th>
+        <th class="os-column-header">Resurrection<br>Remix OS</th>
+        <th class="os-column-header">Ubuntu<br>Touch</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
   <footer>
     <h2 id="appendix">Appendix - Parameters used to build this table</h2>
     <div>Parameters used to build this table:</div>
