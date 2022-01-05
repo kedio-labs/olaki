@@ -30,6 +30,7 @@ export default async function extractCDroidDeviceSummaries(): Promise<CodenameTo
       if (vendorToCodenames[vendor][codename][latestMajorVersion]) {
         const normalisedCodename = normaliseCodename(codename);
         codenameToDeviceSummary[normalisedCodename] = {
+          codename: normalisedCodename,
           name: removeVendorPrefixFromModelAndTrim(vendor, vendorToCodenames[vendor][codename][latestMajorVersion].device),
           vendor: vendor,
           cDroid: {

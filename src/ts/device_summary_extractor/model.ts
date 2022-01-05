@@ -2,7 +2,7 @@ export interface DeviceSummary extends DeviceSummaryOSSpecific {
   name: string;
   vendor: string;
   releaseDate?: string;
-  codename?: string;
+  codename: string;
 }
 
 export interface DeviceSummaryOSSpecific {

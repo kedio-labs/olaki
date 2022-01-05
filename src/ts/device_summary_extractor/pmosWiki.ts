@@ -63,6 +63,7 @@ export default async function extractPmOsWikiDeviceSummaries(): Promise<Codename
     if (deviceInfo.codename) {
       const normalisedCodename = normaliseCodename(removeManufacturerPrefix(deviceInfo.codename));
       result[normalisedCodename] = {
+        codename: normalisedCodename,
         vendor: deviceInfo.manufacturer,
         name: deviceInfo.name,
         releaseDate: deviceInfo.released,

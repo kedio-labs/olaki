@@ -54,6 +54,7 @@ export default function extractEOsDeviceSummaries(): CodenameToDeviceSummary {
 
     const normalisedCodename = normaliseCodename(codename);
     codenameToDeviceSummary[normalisedCodename] = {
+      codename: normalisedCodename,
       name: deviceInfo.name,
       vendor: deviceInfo.vendor,
       releaseDate: deviceInfo.release,

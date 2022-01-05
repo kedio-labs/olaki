@@ -84,41 +84,42 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
       const href: string = $($(aElement)).attr('href') || '';
       const title: string = $($(aElement)).attr('title') || '';
 
-      const codename = normaliseCodename(extractCodenameFromHref(href));
+      const normalisedCodename = normaliseCodename(extractCodenameFromHref(href));
       const [deviceVendorAndNameCandidates, progress] = title
         .replaceAll('%', '')
         .split('- Progress:')
         .map(s => s.trim());
 
-      if (!codename) {
+      if (!normalisedCodename) {
         logger.error(`[PMOS] ERROR - Found device without codename: ${title}`);
         return;
       }
 
-      logger.debug(`[UBTOUCH] Processing codename: ${codename}`);
+      logger.debug(`[UBTOUCH] Processing codename: ${normalisedCodename}`);
 
       // do not process Raspberry Pi or Desktop PC
-      if (codename === 'rpi' || codename === 'x86') {
-        logger.debug(`[UBTOUCH] Excluding codename: ${codename}`);
+      if (normalisedCodename === 'rpi' || normalisedCodename === 'x86') {
+        logger.debug(`[UBTOUCH] Excluding codename: ${normalisedCodename}`);
         return;
       }
 
       const progressAsNumber = +progress;
 
       if (shouldIncludeDevice(progressAsNumber)) {
-        const deviceVendorAndName = extractDeviceVendorAndName(codename, deviceVendorAndNameCandidates);
+        const deviceVendorAndName = extractDeviceVendorAndName(normalisedCodename, deviceVendorAndNameCandidates);
 
-        codenameToDeviceSummary[codename] = {
+        codenameToDeviceSummary[normalisedCodename] = {
+          codename: normalisedCodename,
           vendor: deviceVendorAndName.vendor,
           name: deviceVendorAndName.name,
           ubuntuTouch: {
             progress: progressAsNumber,
-            url: getDeviceUrl(codename),
+            url: getDeviceUrl(normalisedCodename),
           },
         };
       } else {
         logger.debug(
-          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${codename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntuTouch.includeProgressLevelAboveThreshold}`
+          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${normalisedCodename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntuTouch.includeProgressLevelAboveThreshold}`
         );
       }
     });

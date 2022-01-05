@@ -92,12 +92,12 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
     if (shouldIncludePmosCategory(pmosCategory)) {
       const lines = deviceInfoFileContent.split(/\r?\n/);
       const deviceSummary = {} as DeviceSummary;
+      let normalisedCodename = '';
       let codename = '';
-      let rawCodename = '';
       lines.forEach(line => {
         if (line.includes(DEVICE_INFO_KEYS.codename)) {
-          rawCodename = getDeviceInfoLineValue(line);
-          codename = normaliseCodename(removeManufacturerPrefix(rawCodename));
+          codename = getDeviceInfoLineValue(line);
+          normalisedCodename = normaliseCodename(removeManufacturerPrefix(codename));
         } else if (line.includes(DEVICE_INFO_KEYS.manufacturer)) {
           deviceSummary.vendor = getDeviceInfoLineValue(line);
         } else if (line.includes(DEVICE_INFO_KEYS.name)) {
@@ -107,12 +107,14 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
         }
       });
 
-      if (codename === '') {
+      if (normalisedCodename === '') {
         logger.error(
           `[PMOS] ERROR - Could not create device summary as codename absent in deviceinfo file ${deviceInfoFilePath}.`
         );
       } else {
-        logger.debug(`[PMOS] Adding codename ${codename}`);
+        logger.debug(`[PMOS] Adding codename ${normalisedCodename}`);
+
+        deviceSummary.codename = normalisedCodename;
 
         // sanitise name
         if (deviceSummary.name.startsWith(deviceSummary.vendor)) {
@@ -121,10 +123,10 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
 
         deviceSummary.pmos = {
           category: pmosCategory,
-          url: getDeviceUrl(rawCodename, deviceSummary.name),
+          url: getDeviceUrl(codename, deviceSummary.name),
         };
 
-        codenameToDeviceSummary[codename] = deviceSummary;
+        codenameToDeviceSummary[normalisedCodename] = deviceSummary;
       }
     }
   });

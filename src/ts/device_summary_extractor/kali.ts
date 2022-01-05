@@ -91,6 +91,7 @@ export default async function extractKaliDeviceSummaries(): Promise<CodenameToDe
       const vendorAndName = extractDeviceVendorAndName(normalisedCodename, deviceName);
 
       codenameToDeviceSummary[normalisedCodename] = {
+        codename: normalisedCodename,
         vendor: vendorAndName.vendor,
         name: vendorAndName.name,
         kali: {

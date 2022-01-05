@@ -35,6 +35,7 @@ export default function extractLineageOsDeviceSummaries(): CodenameToDeviceSumma
       logger.debug(`[LNOS] Processing codename ${normalisedCodename}`);
 
       codenameToDeviceSummary[normalisedCodename] = {
+        codename: normalisedCodename,
         name: deviceInfo.name,
         vendor: deviceInfo.vendor,
         releaseDate: getReleaseDate(deviceInfo.release),

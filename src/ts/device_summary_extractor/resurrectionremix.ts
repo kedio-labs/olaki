@@ -43,11 +43,8 @@ const getDownloadUrl = (response: AxiosResponse, codename: string) => `${respons
 export default async function extractResurrectionRemixDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const deviceKeyToVendorKey: { [k: string]: string } = {};
   const vendorKeyToVendorName: { [k: string]: string } = {};
-  const deviceKeyToDeviceSummaryWithCodename: {
-    [k: string]: {
-      codename: string;
-      deviceSummary: DeviceSummary;
-    };
+  const deviceKeyToDeviceSummary: {
+    [k: string]: DeviceSummary;
   } = {};
 
   logger.debug('[RESURRECTIONREMIX] Getting device metadata');
@@ -78,23 +75,21 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
         const elementText = $(element).text();
         const deviceKey = getDeviceKey(nameAttrib);
         const normalisedDeviceKey = normaliseDeviceKey(deviceKey);
-        if (!deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey]) {
-          deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey] = {
+        if (!deviceKeyToDeviceSummary[normalisedDeviceKey]) {
+          deviceKeyToDeviceSummary[normalisedDeviceKey] = {
             codename: '',
-            deviceSummary: {
-              vendor: vendorKeyToVendorName[deviceKeyToVendorKey[normalisedDeviceKey]],
-            } as DeviceSummary,
-          };
+            vendor: vendorKeyToVendorName[deviceKeyToVendorKey[normalisedDeviceKey]],
+          } as DeviceSummary;
         }
         if (isDeviceModel(nameAttrib)) {
-          deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey].deviceSummary.name = removeVendorPrefixFromModelAndTrim(
-            deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey].deviceSummary.vendor,
+          deviceKeyToDeviceSummary[normalisedDeviceKey].name = removeVendorPrefixFromModelAndTrim(
+            deviceKeyToDeviceSummary[normalisedDeviceKey].vendor,
             elementText
           );
         } else if (isCodename(nameAttrib)) {
-          deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey].codename = normaliseCodename(elementText);
+          deviceKeyToDeviceSummary[normalisedDeviceKey].codename = normaliseCodename(elementText);
         } else if (isMaintainer(nameAttrib)) {
-          deviceKeyToDeviceSummaryWithCodename[normalisedDeviceKey].deviceSummary.resurrectionRemix = {
+          deviceKeyToDeviceSummary[normalisedDeviceKey].resurrectionRemix = {
             isMaintained: isMaintained(elementText),
           };
         }
@@ -102,9 +97,9 @@ export default async function extractResurrectionRemixDeviceSummaries(): Promise
     });
 
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
-  for (const deviceKey in deviceKeyToDeviceSummaryWithCodename) {
-    const codename = deviceKeyToDeviceSummaryWithCodename[deviceKey].codename;
-    const deviceSummary = deviceKeyToDeviceSummaryWithCodename[deviceKey].deviceSummary;
+  for (const deviceKey in deviceKeyToDeviceSummary) {
+    const codename = deviceKeyToDeviceSummary[deviceKey].codename;
+    const deviceSummary = deviceKeyToDeviceSummary[deviceKey];
     if (shouldIncludeDevice(codename, deviceSummary)) {
       codenameToDeviceSummary[codename] = deviceSummary;
     } else {

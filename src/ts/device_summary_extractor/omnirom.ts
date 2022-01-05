@@ -98,8 +98,9 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
     const deviceInfo = await fetchDeviceInfo(deviceId, androidVersion);
 
     if (Object.keys(deviceInfo).length > 0 && shouldIncludeDevice(deviceInfo)) {
-      const codename = normaliseCodename(deviceInfo.device);
-      codenameToDeviceSummary[codename] = {
+      const normalisedCodename = normaliseCodename(deviceInfo.device);
+      codenameToDeviceSummary[normalisedCodename] = {
+        codename: normalisedCodename,
         vendor: deviceInfo.make,
         name: deviceInfo.model,
         omnirom: {
