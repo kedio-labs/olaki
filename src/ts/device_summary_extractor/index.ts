@@ -12,7 +12,7 @@ import { copyFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 
 const SRC_PUBLIC_DIRECTORY = './src/public';
 const DIST_PUBLIC_DIRECTORY = './dist/public';
-const JS_RESULT_FILENAME = 'device-summaries.js';
+const JS_RESULT_FILENAME = 'olaki-data.js';
 const INDEX_FILENAME = 'index.html';
 const JS_RESULT_FILE_PATH = `${DIST_PUBLIC_DIRECTORY}/${JS_RESULT_FILENAME}`;
 
