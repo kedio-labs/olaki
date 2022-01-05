@@ -1,6 +1,6 @@
 # Olaki
 
-Olaki is a product that lists alternative operating systems for Android phones.
+Olaki is a tool that lists alternative operating systems for Android phones.
 
 Android phones are uniquely identified by their codenames.
 
