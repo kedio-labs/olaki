@@ -80,4 +80,5 @@ export interface CodenameToDeviceSummary {
 export interface JsonResult {
   lastUpdated: number;
   deviceSummaries: DeviceSummary[];
+  appConfig: object;
 }
