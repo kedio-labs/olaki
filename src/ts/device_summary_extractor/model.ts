@@ -2,6 +2,7 @@ export interface DeviceSummary extends DeviceSummaryOSSpecific {
   name: string;
   vendor: string;
   releaseDate?: string;
+  codename?: string;
 }
 
 export interface DeviceSummaryOSSpecific {
@@ -78,5 +79,5 @@ export interface CodenameToDeviceSummary {
 
 export interface JsonResult {
   lastUpdated: number;
-  codenameToDeviceSummary: CodenameToDeviceSummary;
+  deviceSummaries: DeviceSummary[];
 }

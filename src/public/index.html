@@ -1,0 +1,132 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Olaki - List of Android devices that can run alternative Operating Systems</title>
+  <meta name="description" content="A table that lists Android devices and compatible Operating Systems.">
+  <meta name="author" content="olaki-android">
+
+  <meta property="og:title" content="Olaki - List of Android devices that can run alternative Operating Systems">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://olaki-android.github.io/olaki">
+  <meta property="og:description" content="A table that lists Android devices and compatible Operating Systems.">
+  <!--
+    <meta property="og:image" content="image.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+  -->
+  <style>
+    html, body {
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Welcome to Olaki.</h1>
+  An automatically generated list of Android devices that can run alternative Operating Systems. With download links.
+  <div>Last updated on <span id="last-updated"></span>.</div>
+</header>
+<main>
+  <table id="device-summaries-table">
+    <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Model</th>
+      <th>Codename</th>
+      <th>cDroid</th>
+      <th>/e/OS</th>
+      <th>Kali Linux</th>
+      <th>LineageOS</th>
+      <th>OmniROM</th>
+      <th>postmarketOS</th>
+      <th>Resurrection Remix OS</th>
+      <th>Ubuntu Touch</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</main>
+
+<script src="device-summaries.js"></script>
+<script>
+  document.getElementById("last-updated").innerText = new Date(olakiData.lastUpdated).toLocaleDateString();
+
+  const tbody = document.getElementById("device-summaries-table").getElementsByTagName("tbody")[0];
+
+
+  const getOsDownloadATag = (url, text) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.innerText = text;
+    return link;
+  };
+
+  for (const deviceSummary of olakiData.deviceSummaries) {
+    const row = tbody.insertRow();
+    row.insertCell().append(deviceSummary.vendor);
+    row.insertCell().append(deviceSummary.name);
+    row.insertCell().append(deviceSummary.codename);
+
+    let nextOsCell = row.insertCell();
+    if (deviceSummary.cDroid) {
+      const link = getOsDownloadATag(deviceSummary.cDroid.url, "yes");
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.eOS) {
+      const link = getOsDownloadATag(deviceSummary.eOS.url, deviceSummary.eOS.maturity);
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.kali) {
+      const link = getOsDownloadATag(deviceSummary.kali.url, deviceSummary.kali.isStable ? "stable" : "latest");
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.lineageOs) {
+      const link = getOsDownloadATag(deviceSummary.lineageOs.url, deviceSummary.lineageOs.isMaintained ? "maintained" : "unmaintained");
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.omnirom) {
+      const link = getOsDownloadATag(deviceSummary.omnirom.url, deviceSummary.omnirom.isOfficial ? "official" : "unofficial");
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.pmos) {
+      const link = getOsDownloadATag(deviceSummary.pmos.url, deviceSummary.pmos.category);
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.resurrectionRemix) {
+      const link = getOsDownloadATag(deviceSummary.resurrectionRemix.url, deviceSummary.resurrectionRemix.isMaintained ? "maintained" : "unmaintained");
+      nextOsCell.append(link);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.ubuntuTouch) {
+      const link = getOsDownloadATag(deviceSummary.ubuntuTouch.url, deviceSummary.ubuntuTouch.progress + '%');
+      nextOsCell.append(link);
+    }
+
+  }
+</script>
+</body>
+</html>
