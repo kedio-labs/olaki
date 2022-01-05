@@ -39,8 +39,7 @@
   <table id="device-summaries-table">
     <thead>
     <tr>
-      <th>Vendor</th>
-      <th>Model</th>
+      <th>Device name</th>
       <th>Codename</th>
       <th>crDroid</th>
       <th>/e/OS</th>
@@ -74,8 +73,7 @@
 
   for (const deviceSummary of olakiData.deviceSummaries) {
     const row = tbody.insertRow();
-    row.insertCell().append(deviceSummary.vendor);
-    row.insertCell().append(deviceSummary.name);
+    row.insertCell().append(deviceSummary.vendor + ' ' + deviceSummary.name);
     row.insertCell().append(deviceSummary.codename);
 
     let nextOsCell = row.insertCell();
