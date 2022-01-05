@@ -71,10 +71,13 @@ const shouldIncludePmosCategory = (pmosCategory: string) => {
   );
 };
 
-const getDeviceUrl = (rawCodename: string, name: string) => {
-  const formattedName = name.replaceAll(' ', '_').replaceAll(/[(|)]/g, '');
+const encodeToWikiUrlFormat = (text: string) => text.replaceAll(' ', '_').replaceAll(/[(|)]/g, '');
+
+const getDeviceUrl = (rawCodename: string, deviceSummary: DeviceSummary) => {
+  const formattedVendor = encodeToWikiUrlFormat(deviceSummary.vendor);
+  const formattedName = encodeToWikiUrlFormat(deviceSummary.name);
   const formattedCodename = `(${rawCodename})`;
-  const path = encodeURIComponent(`${formattedName}_${formattedCodename}`);
+  const path = encodeURIComponent(`${formattedVendor}_${formattedName}_${formattedCodename}`);
 
   return `${PMOS_WIKI_BASE_URL}/${path}`;
 };
@@ -93,11 +96,11 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
       const lines = deviceInfoFileContent.split(/\r?\n/);
       const deviceSummary = {} as DeviceSummary;
       let normalisedCodename = '';
-      let codename = '';
+      let rawCodename = '';
       lines.forEach(line => {
         if (line.includes(DEVICE_INFO_KEYS.codename)) {
-          codename = getDeviceInfoLineValue(line);
-          normalisedCodename = normaliseCodename(removeManufacturerPrefix(codename));
+          rawCodename = getDeviceInfoLineValue(line);
+          normalisedCodename = normaliseCodename(removeManufacturerPrefix(rawCodename));
         } else if (line.includes(DEVICE_INFO_KEYS.manufacturer)) {
           deviceSummary.vendor = getDeviceInfoLineValue(line);
         } else if (line.includes(DEVICE_INFO_KEYS.name)) {
@@ -123,7 +126,7 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
 
         deviceSummary.pmos = {
           category: pmosCategory,
-          url: getDeviceUrl(codename, deviceSummary.name),
+          url: getDeviceUrl(rawCodename, deviceSummary),
         };
 
         codenameToDeviceSummary[normalisedCodename] = deviceSummary;
