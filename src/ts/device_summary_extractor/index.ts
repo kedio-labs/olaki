@@ -1,5 +1,5 @@
 import logger from '../../logger';
-import extractCDroidDeviceSummaries from './cdroid';
+import extractCrDroidDeviceSummaries from './crdroid';
 import extractEOsDeviceSummaries from './eos';
 import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
@@ -87,9 +87,9 @@ const eOsDeviceSummaries = extractEOsDeviceSummaries();
 logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eOS');
 
-logger.info('[Extractor] cDroid: Extracting device summaries');
-const cDroidPromise = extractCDroidDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] cDroid: Successfully extracted device summaries. Merging into overall result.');
+logger.info('[Extractor] crDroid: Extracting device summaries');
+const crDroidPromise = extractCrDroidDeviceSummaries().then(deviceSummaries => {
+  logger.info('[Extractor] crDroid: Successfully extracted device summaries. Merging into overall result.');
   return deviceSummaries;
 });
 
@@ -117,16 +117,16 @@ const kaliPromise = extractKaliDeviceSummaries().then(deviceSummaries => {
   return deviceSummaries;
 });
 
-Promise.all([cDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionRemixPromise, kaliPromise])
+Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionRemixPromise, kaliPromise])
   .then(
     ([
-      cDroidDeviceSummaries,
+      crDroidDeviceSummaries,
       ubuntuTouchDeviceSummaries,
       omniromDeviceSummaries,
       resurrectionRemixDeviceSummaries,
       kaliDeviceSummaries,
     ]) => {
-      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, cDroidDeviceSummaries, 'cDroid');
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, crDroidDeviceSummaries, 'crdroid');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntuTouchDeviceSummaries, 'ubuntuTouch');
 

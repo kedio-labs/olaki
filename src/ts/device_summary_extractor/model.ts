@@ -11,7 +11,7 @@ export interface DeviceSummaryOSSpecific {
   eOS?: eOS;
   ubuntuTouch?: UbuntuTouch;
   resurrectionRemix?: ResurrectionRemix;
-  cDroid?: CDroid;
+  crdroid?: crDroid;
   kali?: Kali;
   omnirom?: Omnirom;
 }
@@ -58,7 +58,7 @@ interface ResurrectionRemix {
   url?: string;
 }
 
-interface CDroid {
+interface crDroid {
   url: string;
 }
 

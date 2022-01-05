@@ -42,7 +42,7 @@
       <th>Vendor</th>
       <th>Model</th>
       <th>Codename</th>
-      <th>cDroid</th>
+      <th>crDroid</th>
       <th>/e/OS</th>
       <th>Kali Linux</th>
       <th>LineageOS</th>
@@ -79,8 +79,8 @@
     row.insertCell().append(deviceSummary.codename);
 
     let nextOsCell = row.insertCell();
-    if (deviceSummary.cDroid) {
-      const link = getOsDownloadATag(deviceSummary.cDroid.url, "yes");
+    if (deviceSummary.crdroid) {
+      const link = getOsDownloadATag(deviceSummary.crdroid.url, "yes");
       nextOsCell.append(link);
     }
 
