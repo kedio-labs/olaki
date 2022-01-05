@@ -49,23 +49,29 @@
       position: -webkit-sticky;
       position: sticky;
       top: 0;
-      /*background-color: #e5e0e0;*/
-      background-color: #f1ebeb;
+      background-color: #e5e3e3;
       z-index: 10;
     }
 
     tbody tr:nth-child(odd) {
-      background-color: #deaaef;
+      background-color: #d9b1ea;
     }
 
     tbody tr:nth-child(even) {
-      /*background-color: #e5e0e0;*/
-      background-color: #f1ebeb;
+      background-color: #e5e3e3;
     }
 
     /* device name column */
     tr th:first-child, tr td:first-child {
       width: 160px;
+    }
+
+    footer .code {
+      background-color: #d0d0d0;
+      /*background-color: #bdbaba;*/
+      width: 360px;
+      padding: 5px 10px;
+      line-height: 1.5rem;
     }
   </style>
 </head>
@@ -81,7 +87,7 @@
     Sensible defaults are set to only try and include <code>(device, OS)</code> combinations with high compatibility rates. See
     this <a href="#appendix">Appendix</a> for more details.
   </div>
-  <div>Last update: <span id="last-update-date"></span>. Automatically updated at least once a month.</div>
+  <div>Last update: <span id="last-update-date"></span>. Updated at least once a month.</div>
   <div>Please <a href="https://github.com/olaki-android/olaki" target="_blank">contribute</a> if you'd like see other operating
     systems listed here.
   </div>
@@ -106,14 +112,42 @@
     <tbody>
     </tbody>
   </table>
+  <footer>
+    <h2 id="appendix">Appendix - Parameters used to build this table</h2>
+    <div>Parameters used to build this table:</div>
+    <h3>crDroid</h3>
+    <div class="code" id="crdroid-parameters">
+      N/A
+    </div>
+    <h3>/e/OS</h3>
+    <div class="code" id="eos-parameters"></div>
+    <h3>Kali Linux</h3>
+    <div class="code" id="kali-parameters"></div>
+    <h3>LineageOS</h3>
+    <div class="code" id="lineageos-parameters"></div>
+    <h3>OmniROM</h3>
+    <div class="code" id="omnirom-parameters"></div>
+    <h3>postmarketOS</h3>
+    <div class="code" id="pmos-parameters"></div>
+    <h3>Resurrection Remix OS</h3>
+    <div class="code" id="resurrectionremix-parameters"></div>
+    <h3>Ubuntu Touch</h3>
+    <div class="code" id="ubuntutouch-parameters"></div>
+  </footer>
 </main>
 
 <script src="olaki-data.js"></script>
 <script>
+  //
+  // populate last updated timestamp
+  //
   document.getElementById("last-update-date").innerText = new Date(olakiData.lastUpdated).toUTCString();
 
-  const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
 
+  //
+  // populate table
+  //
+  const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
 
   const getOsDownloadATag = (url, text) => {
     const link = document.createElement("a");
@@ -177,6 +211,21 @@
     }
 
   }
+
+
+  //
+  // populate appendix
+  //
+  const populateAppendixSectionForOS = (os) => document.getElementById(`${os}-parameters`).innerText = JSON.stringify(olakiData.appConfig[os], null, " ");
+
+  populateAppendixSectionForOS("eos");
+  populateAppendixSectionForOS("kali");
+  populateAppendixSectionForOS("lineageos");
+  populateAppendixSectionForOS("omnirom");
+  populateAppendixSectionForOS("pmos");
+  populateAppendixSectionForOS("resurrectionremix");
+  populateAppendixSectionForOS("ubuntutouch");
+
 </script>
 </body>
 </html>
