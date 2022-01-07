@@ -67,16 +67,16 @@ An `.editorconfig` file is also provided for IDEs compatible with that standard.
 
 ### CI / CD
 
-#### On `push` to any branch
+#### On pull request against the `main` branch
 
 The following GitHub workflow steps are run:
+- CodeQL analysis
 - lint
 - build
 
-#### On PR merge to `main`
+#### On `push` to the `main` branch (including PR merge)
 
 Additional GitHub workflow steps that are run:
-- CodeQL analysis
 - run the app to extract device summaries
 - publish the generated list to the page on GitHub Pages
 

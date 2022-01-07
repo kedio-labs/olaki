@@ -6,14 +6,12 @@ name: CD - main branch
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   schedule:
     - cron: '0 10 10 * *'
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy - main branch
+    name: Build, Run and Deploy - main branch
 
     runs-on: ubuntu-latest
 

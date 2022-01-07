@@ -4,12 +4,12 @@
 name: CD - non-main branch
 
 on:
-  push:
-    branches-ignore: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-run:
-    name: Build and Run - non-main branch
+    name: Build - non-main branch
 
     runs-on: ubuntu-latest
 
