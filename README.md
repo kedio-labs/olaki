@@ -4,6 +4,8 @@ Olaki is a tool that lists alternative operating systems for Android phones.
 
 Android phones are uniquely identified by their codenames.
 
+The generated list is hosted [here](https://olaki-android.github.io/olaki/).
+
 ## Architecture overview
 
 Olaki comprises a Node.js app that fetches data from codebases or websites of known alternative OSes for Android.
@@ -62,6 +64,26 @@ The `submodules` directory contains clones of some alternative OS project codeba
 Linting and formatting rules are defined in `.eslintrc.json` and `.prettierrc.json`.
 
 An `.editorconfig` file is also provided for IDEs compatible with that standard.
+
+### CI / CD
+
+#### On `push` to any branch
+
+The following GitHub workflow steps are run:
+- lint
+- build
+
+#### On PR merge to `main`
+
+Additional GitHub workflow steps that are run:
+- CodeQL analysis
+- run the app to extract device summaries
+- publish the generated list to the page on GitHub Pages
+
+#### Cron jobs
+The followin cron jobs are run on the `main` branch:
+- CodeQL analysis once a month
+- full build + deploy once a month, so that even if no commits are pushed the generated list is regularly updated.
 
 ## License
 

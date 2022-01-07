@@ -1,19 +1,15 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: CD - non-main branch
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: '0 10 10 * *'
+    branches-ignore: [ main ]
 
 jobs:
-  build:
-    name: Build and Publish
+  build-and-run:
+    name: Build and Run - non-main branch
 
     runs-on: ubuntu-latest
 
@@ -36,13 +32,5 @@ jobs:
     - run: npm run lint
     #- run: npm test
     - run: npm run build
-    - name: Generate device summaries JSON
-      run: npm run extract-device-summaries
-    - name: Publish to GitHub Pages
-      if: success()
-      uses: crazy-max/ghaction-github-pages@v2
-      with:
-        target_branch: gh-pages
-        build_dir: dist/public
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

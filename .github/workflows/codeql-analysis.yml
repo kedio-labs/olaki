@@ -21,8 +21,8 @@ on:
     - cron: '45 21 * * 1'
 
 jobs:
-  analyze:
-    name: Analyze
+  analyse:
+    name: Analyse
     runs-on: ubuntu-latest
     permissions:
       actions: read
