@@ -81,9 +81,9 @@ Additional GitHub workflow steps that are run:
 - publish the generated list to the page on GitHub Pages
 
 #### Cron jobs
-The followin cron jobs are run on the `main` branch:
+The following cron jobs are run on the `main` branch:
 - CodeQL analysis once a month
-- full build + deploy once a month, so that even if no commits are pushed the generated list is regularly updated.
+- full build + deploy once a month, so that the generated list is regularly updated even when no commits are pushed 
 
 ## License
 
