@@ -27,7 +27,7 @@
       font-size: 1em;
       color: #0c0c0c;
       background-color: var(--body-backrgound-color);
-      padding: 0 7px;
+      padding: 0 7px 10px;
     }
 
     #table-container {
@@ -86,6 +86,11 @@
       background-color: var(--table-even-row-backrgound-color);
     }
 
+    .back-to-top {
+      margin-left: 10px;
+      font-size: 0.85rem;
+    }
+
     footer .code {
       background-color: var(--appendix-code-backrgound-color);
       width: 355px;
@@ -100,19 +105,27 @@
   <h1>Welcome to Olaki.</h1>
   <p>
     An automatically generated list of Android devices by compatible operating systems, with links to download or
-    project pages.
+    project pages. See the source code <a href="https://github.com/olaki-android/olaki">here.</a>
   </p>
   <p>
-    Sensible defaults are defined to try and only include <code>(device, OS)</code> combinations with high compatibility rates. See
-    the <a href="#appendix">Appendix</a> for more details.
+    Sensible defaults are defined to try and only include <code>(device, OS)</code> pairs with high enough compatibility rates.
+    See the <a href="#appendix-header">Appendix</a> for more details.
   </p>
   <p>Last update: <span id="last-update-date"></span>. Updated at least once a month.</p>
   <p>Please <a href="https://github.com/olaki-android/olaki" target="_blank">contribute</a> if you'd like to see other operating
     systems listed here.
   </p>
+  <div class="contents-container">
+    <span class="contents">Contents:</span>
+    <ul>
+      <li><a href="#olaki-table-header">Table</a></li>
+      <li><a href="#appendix-header">Appendix</a></li>
+      <li><a href="#faq-header">F.A.Q.</a></li>
+    </ul>
+  </div>
 </header>
 <main>
-  <h2>Table</h2>
+  <h2 id="olaki-table-header">Table</h2>
   <p id="quick-table-stats"></p>
   <div id="table-container">
     <table id="olaki-table">
@@ -135,7 +148,8 @@
     </table>
   </div>
   <footer>
-    <h2 id="appendix">Appendix - Parameters used to build this table</h2>
+    <h2 id="appendix-header"><span>Appendix - Parameters used to build this table</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
+    </h2>
     <h3>crDroid</h3>
     <div class="code" id="crdroid-parameters">
       N/A
@@ -154,6 +168,68 @@
     <div class="code" id="resurrectionremix-parameters"></div>
     <h3>Ubuntu Touch</h3>
     <div class="code" id="ubuntutouch-parameters"></div>
+    <h2 id="faq-header"><span>F.A.Q.</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
+    </h2>
+    <h3>Why should I install a custom OS on my Android device?</h3>
+    <div>
+      <span>You could benefit from some of the following</span>
+      <ul>
+        <li>Increase the lifespan of your device
+          <ul>
+            <li>Once your device's manufacturer stops providing OS updates, you may not be able to install apps that require a
+              newer OS version.
+            </li>
+            <li>You phone may also not receive further security updates, which poses a risk.</li>
+          </ul>
+        </li>
+        <li>Sustainability
+          <ul>
+            <li>Mining and manufacturing processes involved in making smartphones have a sizeable impact on the environment. Using
+              them as long as practically possible helps reduce that impact.
+            </li>
+          </ul>
+        </li>
+        <li>Increased privacy
+          <ul>
+            <li>With most of the custom OSes listed above, you can unGoogle your smartphone. This means not having to install
+              Google apps or services.
+            </li>
+          </ul>
+        </li>
+        <li>Repurpose your device
+          <ul>
+            <li>If your phone is not fitted to be used as such anymore, you can repurpose it as a small computer, a small gaming
+              device, a glorified remote control for connected devices, etc. You can also achieve some of these without a custom OS if relevant apps are compatible with your Android OS version (i.e. it's not too old).
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <h3>Is it easy to install a custom OS on my Android device?</h3>
+    <p>Your mileage may vary. It will require learning about concepts such as
+      rooting, bootloader, flashing, ROM, etc. Luckily, many people have been through this before so there is extensive documentation out there and the list above is aimed at
+      providing <code>(device, os)</code> pairs with high enough compatibility rates.
+    </p>
+    <h3>Can you please add OS [XYZ] to the list?</h3>
+    <p>Sounds like a plan. :) Please raise <a href="https://github.com/olaki-android/olaki/issues">an issue</a> once you've
+      confirmed it's not a duplicate or, if you have coding
+      skills, raise <a href="https://github.com/olaki-android/olaki/pulls">a PR!</a>
+    </p>
+    <h3>I have found a bug/inconsistency!</h3>
+    <p>Well, thank you for spotting that! Please let us know by raising <a href="https://github.com/olaki-android/olaki/issues">an
+      issue</a> once you've
+      confirmed it's not a duplicate or better still, raise <a href="https://github.com/olaki-android/olaki/pulls">a PR</a> if
+      that's possible.
+    </p>
+    <h3>I want to repurpose my phone as a headless single-board computer à la Raspberry Pi without installing a custom OS</h3>
+    <p>You can give <a href="https://termux.com/">termux</a> a try if your Android OS version is not too old. And if you'd like to play with linux distros, have a
+      look at tools such as <a href="https://github.com/termux/proot-distro#supported-distributions">proot-distro.</a></p>
+    <p>If you'd like your phone to be always on, an important aspect to consider is how to run your phone without a battery. Manufacturers most likely don't design their
+      phones with that in mind. See the question below for a quick tip.</p>
+    <h3>How do I run my phone without a battery?</h3>
+    <p>If you find a way to do so please let us know! Alternatively, you can use a cheap plug-in timer so that the phone is not constantly being charged.
+    </p>
   </footer>
 </main>
 
@@ -167,9 +243,9 @@
   //
   // populate table
   //
-  let numberOfDeviceToOsCombinations = 0;
+  let numberOfDeviceToOsPairs = 0;
   const populateOsCell = (osCell, url, urlText) => {
-    numberOfDeviceToOsCombinations++; // mutating a variable outside this function. Sorry :p
+    numberOfDeviceToOsPairs++; // mutating a variable outside this function. Sorry :p
     const link = getOsDownloadATag(url, urlText);
     osCell.append(link);
   };
@@ -233,7 +309,7 @@
   // populate table stats
   //
   document.getElementById("quick-table-stats").innerHTML =
-    `Quick stats: ${Object.keys(olakiData.deviceSummaries).length} devices. ${document.getElementsByClassName("os-column-header").length} operating systems. ${numberOfDeviceToOsCombinations} <code>(device, OS)</code> combinations available.`;
+    `Quick stats: ${Object.keys(olakiData.deviceSummaries).length} devices. ${document.getElementsByClassName("os-column-header").length} operating systems. ${numberOfDeviceToOsPairs} <code>(device, OS)</code> pairs available.`;
 
 
   //
