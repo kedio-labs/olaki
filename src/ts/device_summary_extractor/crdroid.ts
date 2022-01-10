@@ -5,42 +5,30 @@ import { fetchUrl, normaliseCodename, removeVendorPrefixFromModelAndTrim } from 
 const CRDROID_BASE_URL = 'https://crdroid.net';
 const CRDROID_DEVICES_LIST_JSON_URL = `${CRDROID_BASE_URL}/devices_handler/compiled.json`;
 
+const IGNORE_VERSIONS = ['6'];
+
 export default async function extractCrDroidDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
 
   logger.debug('[CRDROID] Discovering latest crDroid major version');
-  let latestMajorVersion = Number.MIN_VALUE;
   const response = await fetchUrl('[CRDROID]', CRDROID_DEVICES_LIST_JSON_URL);
   const vendorToCodenames = response.data;
-  for (const vendor in vendorToCodenames) {
-    for (const codename in vendorToCodenames[vendor]) {
-      for (const version in vendorToCodenames[vendor][codename]) {
-        const versionAsNumber = +version;
-        if (versionAsNumber > latestMajorVersion) {
-          latestMajorVersion = versionAsNumber;
-        }
-      }
-    }
-  }
-  logger.debug(`[CRDROID] Latest crDroid major version is ${latestMajorVersion}`);
 
   logger.debug('[CRDROID] Parsing list of crDroid devices');
   for (const vendor in vendorToCodenames) {
     for (const codename in vendorToCodenames[vendor]) {
-      if (vendorToCodenames[vendor][codename][latestMajorVersion]) {
+      const latestAvailableVersion = Object.keys(vendorToCodenames[vendor][codename]).sort().pop() as string;
+      if (!IGNORE_VERSIONS.includes(latestAvailableVersion)) {
         const normalisedCodename = normaliseCodename(codename);
         codenameToDeviceSummary[normalisedCodename] = {
           codename: normalisedCodename,
-          name: removeVendorPrefixFromModelAndTrim(vendor, vendorToCodenames[vendor][codename][latestMajorVersion].device),
+          name: removeVendorPrefixFromModelAndTrim(vendor, vendorToCodenames[vendor][codename][latestAvailableVersion].device),
           vendor: vendor,
           crdroid: {
-            url: `${CRDROID_BASE_URL}/${codename}/${latestMajorVersion}`,
+            url: `${CRDROID_BASE_URL}/${codename}/${latestAvailableVersion}`,
+            latestAvailableVersion: +latestAvailableVersion,
           },
         };
-      } else {
-        logger.debug(
-          `[CRDROID] Excluding codename as there is no image available for latest major version ${latestMajorVersion}: ${codename}`
-        );
       }
     }
   }
