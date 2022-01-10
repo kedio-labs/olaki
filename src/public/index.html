@@ -270,7 +270,7 @@
 
     let nextOsCell = row.insertCell();
     if (deviceSummary.crdroid) {
-      populateOsCell(nextOsCell, deviceSummary.crdroid.url, "yes");
+      populateOsCell(nextOsCell, deviceSummary.crdroid.url, `version ${deviceSummary.crdroid.latestAvailableVersion}`);
     }
 
     nextOsCell = row.insertCell();

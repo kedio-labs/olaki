@@ -60,6 +60,7 @@ interface ResurrectionRemix {
 
 interface CrDroid {
   url: string;
+  latestAvailableVersion: number;
 }
 
 interface Kali {
