@@ -145,6 +145,7 @@
         <th class="os-column-header">postmarket<br>OS</th>
         <th class="os-column-header">Resurrection<br>Remix OS</th>
         <th class="os-column-header">Ubuntu<br>Touch</th>
+        <th class="os-column-header">CalyxOS</th>
       </tr>
       </thead>
       <tbody>
@@ -307,6 +308,11 @@
     if (deviceSummary.ubuntutouch) {
       populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
     }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.calyxos) {
+      populateOsCell(nextOsCell, deviceSummary.calyxos.url, 'yes');
+    }
   }
 
   //
@@ -328,6 +334,8 @@
   populateAppendixSectionForOS("pmos");
   populateAppendixSectionForOS("resurrectionremix");
   populateAppendixSectionForOS("ubuntutouch");
+  // no need for an appendix section for CalyxOS
+
 
 </script>
 </body>

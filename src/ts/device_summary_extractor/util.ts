@@ -2,6 +2,12 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 export const normaliseCodename = (codename: string) => codename.toLowerCase().trim();
 
+export const capitalise = (text: string) =>
+  text
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
 // e.g. Asus ZenFone 5 -> ZenFone 5
 export const removeVendorPrefixFromModelAndTrim = (vendor: string, model: string) => model.replace(vendor, '').trim();
 

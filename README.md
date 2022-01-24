@@ -65,6 +65,16 @@ Linting and formatting rules are defined in `.eslintrc.json` and `.prettierrc.js
 
 An `.editorconfig` file is also provided for IDEs compatible with that standard.
 
+### Compile TypeScript code to JavaScript
+
+`npm run build`
+
+### Extract device summaries and build public assets
+
+`npm run extract-device-summaries`
+
+If that command runs successfully, you should be able to open in your browser the file `public/index.html` 
+
 ### CI / CD
 
 #### On pull request against the `main` branch
