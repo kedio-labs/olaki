@@ -10,3 +10,6 @@
 [submodule "submodules/Resurrection_packages_apps_Settings"]
 	path = submodules/Resurrection_packages_apps_Settings
 	url = https://github.com/ResurrectionRemix/Resurrection_packages_apps_Settings.git
+[submodule "submodules/calyxos.org"]
+	path = submodules/calyxos.org
+	url = https://gitlab.com/CalyxOS/calyxos.org.git
