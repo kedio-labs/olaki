@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-export const normaliseCodename = (codename: string) => codename.toLowerCase().trim();
+export const normaliseCodename = (codename: string) => codename.toLowerCase().replaceAll('-', '_').trim();
 
 export const capitalise = (text: string) =>
   text
