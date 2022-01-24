@@ -15,6 +15,7 @@ export interface DeviceSummaryOSSpecific {
   kali?: Kali;
   omnirom?: OmniROM;
   calyxos?: HasUrl;
+  grapheneos?: HasUrl;
 }
 
 interface HasUrl {

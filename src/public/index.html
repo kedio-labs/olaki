@@ -31,7 +31,7 @@
     }
 
     #table-container {
-      width: 1100px;
+      width: 1300px;
     }
 
     table {
@@ -140,12 +140,13 @@
         <th class="os-column-header">crDroid</th>
         <th class="os-column-header">/e/OS</th>
         <th class="os-column-header">Kali<br>Linux</th>
-        <th class="os-column-header">LineageOS</th>
+        <th class="os-column-header">Lineage<br>OS</th>
         <th class="os-column-header">OmniROM</th>
         <th class="os-column-header">postmarket<br>OS</th>
         <th class="os-column-header">Resurrection<br>Remix OS</th>
         <th class="os-column-header">Ubuntu<br>Touch</th>
-        <th class="os-column-header">CalyxOS</th>
+        <th class="os-column-header">Calyx<br>OS</th>
+        <th class="os-column-header">Graphene<br>OS</th>
       </tr>
       </thead>
       <tbody>
@@ -313,6 +314,11 @@
     if (deviceSummary.calyxos) {
       populateOsCell(nextOsCell, deviceSummary.calyxos.url, 'yes');
     }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.grapheneos) {
+      populateOsCell(nextOsCell, deviceSummary.grapheneos.url, 'yes');
+    }
   }
 
   //
@@ -335,7 +341,7 @@
   populateAppendixSectionForOS("resurrectionremix");
   populateAppendixSectionForOS("ubuntutouch");
   // no need for an appendix section for CalyxOS
-
+  // no need for an appendix section for GrapheneOS
 
 </script>
 </body>
