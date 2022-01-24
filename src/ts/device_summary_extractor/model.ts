@@ -14,18 +14,21 @@ export interface DeviceSummaryOSSpecific {
   crdroid?: CrDroid;
   kali?: Kali;
   omnirom?: OmniROM;
+  calyxos?: HasUrl;
 }
 
-export interface LineageOS {
+interface HasUrl {
+  url: string;
+}
+
+export interface LineageOS extends HasUrl {
   versions: [];
   models: string[];
   isMaintained: boolean;
-  url: string;
 }
 
-export interface PmOS {
+export interface PmOS extends HasUrl {
   category: string;
-  url: string;
 }
 
 export enum EOSMaturity {
@@ -40,17 +43,15 @@ export enum EOSInstallMode {
   eSmartphones,
 }
 
-export interface EOS {
+export interface EOS extends HasUrl {
   maturity: EOSMaturity;
   installModes: EOSInstallMode[];
   models: string[];
-  url: string;
 }
 
-export interface UbuntuTouch {
+export interface UbuntuTouch extends HasUrl {
   // 0 -> 0%, 1 -> 100%
   progress: number;
-  url: string;
 }
 
 interface ResurrectionRemix {
@@ -58,19 +59,16 @@ interface ResurrectionRemix {
   url?: string;
 }
 
-interface CrDroid {
-  url: string;
+interface CrDroid extends HasUrl {
   latestAvailableVersion: number;
 }
 
-interface Kali {
-  url: string;
+interface Kali extends HasUrl {
   isStable: boolean;
   isLatest: boolean;
 }
 
-interface OmniROM {
-  url: string;
+interface OmniROM extends HasUrl {
   isOfficial: boolean;
 }
 

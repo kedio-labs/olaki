@@ -1,4 +1,5 @@
 import logger from '../../logger';
+import extractCalyxOsDeviceSummaries from './calyxos';
 import extractCrDroidDeviceSummaries from './crdroid';
 import extractEOsDeviceSummaries from './eos';
 import extractKaliDeviceSummaries from './kali';
@@ -42,6 +43,11 @@ logger.info('[Extractor] /e/OS: Extracting device summaries');
 const eOsDeviceSummaries = extractEOsDeviceSummaries();
 logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eos');
+
+logger.info('[Extractor] CalyxOS: Extracting device summaries');
+const calyxOsDeviceSummaries = extractCalyxOsDeviceSummaries();
+logger.info('[Extractor] CalyxOS: Successfully extracted device summaries. Merging into overall result.');
+mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, calyxOsDeviceSummaries, 'calyxos');
 
 logger.info('[Extractor] crDroid: Extracting device summaries');
 const crDroidPromise = extractCrDroidDeviceSummaries().then(deviceSummaries => {
