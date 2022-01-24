@@ -31,7 +31,7 @@ const sortAlphabetically = (codenameToDeviceSummary: CodenameToDeviceSummary): D
 
 // save to JavaScript file so that it can be easily loaded in public/index.html
 const createJavaScriptFileInPublicDirectory = (codenameToDeviceSummary: CodenameToDeviceSummary) => {
-  logger.info(`[Extractor] Writing results into file: ${JS_RESULT_FILE_PATH}`);
+  logger.info(`[Public Assets Builder] Writing results into file: ${JS_RESULT_FILE_PATH}`);
 
   const jsonResult: JsonResult = {
     lastUpdated: new Date().getTime(),
@@ -53,4 +53,6 @@ const copyIndexFileToPublicDirectory = () =>
 export const buildPublicDirectory = (codenameToDeviceSummary: CodenameToDeviceSummary) => {
   createJavaScriptFileInPublicDirectory(codenameToDeviceSummary);
   copyIndexFileToPublicDirectory();
+
+  logger.info('[Public Assets Builder] Success.');
 };

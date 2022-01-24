@@ -2,12 +2,13 @@ import logger from '../../logger';
 import extractCalyxOsDeviceSummaries from './calyxos';
 import extractCrDroidDeviceSummaries from './crdroid';
 import extractEOsDeviceSummaries from './eos';
+import extractGrapheneOsDeviceSummaries from './grapheneos';
 import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
 import { CodenameToDeviceSummary, DeviceSummaryOSSpecific } from './model';
 import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
-import { buildPublicDirectory } from './publicFilesBuilder';
+import { buildPublicDirectory } from './publicAssetsBuilder';
 import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 
@@ -79,7 +80,13 @@ const kaliPromise = extractKaliDeviceSummaries().then(deviceSummaries => {
   return deviceSummaries;
 });
 
-Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionremixPromise, kaliPromise])
+logger.info('[Extractor] GrapheneOs: Extracting device summaries');
+const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(deviceSummaries => {
+  logger.info('[Extractor] GrapheneOs: Successfully extracted device summaries. Merging into overall result.');
+  return deviceSummaries;
+});
+
+Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionremixPromise, kaliPromise, grapheneOsPromise])
   .then(
     ([
       crdroidDeviceSummaries,
@@ -87,6 +94,7 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionrem
       omniromDeviceSummaries,
       resurrectionremixDeviceSummaries,
       kaliDeviceSummaries,
+      grapheneOsDeviceSummaries,
     ]) => {
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, crdroidDeviceSummaries, 'crdroid');
 
@@ -101,6 +109,8 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionrem
       );
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
+
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, grapheneOsDeviceSummaries, 'grapheneos');
 
       buildPublicDirectory(overallCodenameToDeviceSummary);
     }
