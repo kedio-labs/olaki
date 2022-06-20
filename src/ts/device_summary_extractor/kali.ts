@@ -55,8 +55,8 @@ const extractDeviceVendorAndName = (codename: string, deviceName: string) => {
 const normaliseStatus = (status: string) => status.toLowerCase().trim();
 
 enum Status {
-  Stable = 'stable',
-  Latest = 'latest',
+  Stable = 'Stable',
+  Latest = 'Latest',
 }
 
 export default async function extractKaliDeviceSummaries(): Promise<CodenameToDeviceSummary> {
@@ -68,16 +68,15 @@ export default async function extractKaliDeviceSummaries(): Promise<CodenameToDe
 
   $('tr').each((index, trElement) => {
     // rows on the devices list page are of the form
-    // | Display Name (Android OS) | codename   | ignore     | ignore      | Status | ignore         |
-    // | Nexus 5 (Marshmallow)     | hammerhead | hammerhead | marshmallow | Stable | Nexmon support |
+    // | Display Name (Android OS) | Device (i.e. codename) | Kernel ID (ignore) | Android Version (ignore) | Rootfs (ignore) | Status | Documentation Link (ignore) | Notes (ignore) |
+    // | Nexus 5 (Marshmallow 6.x) | hammerhead             | hammerhead         | marshmallow 	            | full            | Stable | <empty>                     | Nexmon support |
     // see https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-devices/-/blob/master/scripts/generate_images_table.py
 
     // codename
     const codename: string = $($(trElement).find('td').get(1)).text();
     const normalisedCodename = normaliseCodename(codename);
 
-    // device name may include vendor name
-    const status: string = normaliseStatus($($(trElement).find('td').get(4)).text());
+    const status: string = normaliseStatus($($(trElement).find('td').get(5)).text());
 
     if (
       (status === Status.Stable && appConfig.kali.includeStable) ||
