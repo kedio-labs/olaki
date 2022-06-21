@@ -55,8 +55,8 @@ const extractDeviceVendorAndName = (codename: string, deviceName: string) => {
 const normaliseStatus = (status: string) => status.toLowerCase().trim();
 
 enum Status {
-  Stable = 'Stable',
-  Latest = 'Latest',
+  Stable = 'stable',
+  Latest = 'latest',
 }
 
 export default async function extractKaliDeviceSummaries(): Promise<CodenameToDeviceSummary> {

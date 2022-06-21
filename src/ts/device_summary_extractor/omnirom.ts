@@ -23,7 +23,7 @@ enum DeviceState {
 }
 
 const DEVICES_LIST_BASE_URL = 'https://gerrit.omnirom.org/projects';
-const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['12.0', '11', '10']; // note android 12.0 instead of 12
+const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['12.1', '12.0', '11', '10']; // note android 12.0 instead of 12
 
 const getDevicesListUrl = (androidVersion: AndroidVersion) =>
   `${DEVICES_LIST_BASE_URL}/?b=android-${androidVersion}&p=android_device`;
