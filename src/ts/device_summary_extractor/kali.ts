@@ -4,7 +4,7 @@ import { CodenameToDeviceSummary } from './model';
 import { fetchUrl, normaliseCodename } from './util';
 import { load } from 'cheerio';
 
-const KALI_DEVICES_LIST_URL = 'https://stats.nethunter.com/nethunter-images.html';
+const KALI_DEVICES_LIST_URL = 'https://stats.nethunter.com/images.html';
 const KALI_MOBILE_DOWNLOAD_URL = 'https://www.kali.org/get-kali/#kali-mobile';
 
 const extractDeviceVendorAndName = (codename: string, deviceName: string) => {
