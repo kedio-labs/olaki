@@ -25,7 +25,7 @@ const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
     if (install.mode === 'Easy Installer') {
       return EOSInstallMode.easyInstaller;
     }
-    if (install.mode === '/e/ smartphones') {
+    if (install.mode === '/e/ smartphones' || install.mode === 'Murena smartphones') {
       return EOSInstallMode.eSmartphones;
     }
 
