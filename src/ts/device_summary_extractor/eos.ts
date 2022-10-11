@@ -28,6 +28,9 @@ const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
     if (install.mode === '/e/ smartphones' || install.mode === 'Murena smartphones') {
       return EOSInstallMode.eSmartphones;
     }
+    if (install.mode === 'Roll-back') {
+      return EOSInstallMode.rollBack;
+    }
 
     throw Error(`[EOS] Unknown install mode: ${install.mode}`);
   });
