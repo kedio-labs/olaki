@@ -42,6 +42,7 @@ export enum EOSInstallMode {
   installDoc,
   easyInstaller,
   eSmartphones,
+  rollBack,
 }
 
 export interface EOS extends HasUrl {
