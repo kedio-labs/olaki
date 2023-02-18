@@ -15,7 +15,7 @@ import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: keyof DeviceSummaryOSSpecific,
+  osName: keyof DeviceSummaryOSSpecific
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
@@ -28,7 +28,12 @@ const mergeIntoOverallCodenameToDeviceSummary = (
   Object.assign(overallCodenameToDeviceSummary, osCodenameToDeviceSummary);
 };
 
-const logDeviceSummaries = (osName: string, deviceSummaries: CodenameToDeviceSummary) => logger.info(`[Extractor] ${osName}: Successfully extracted ${Object.keys(deviceSummaries).length} device summaries. Merging into overall result.`);
+const logDeviceSummaries = (osName: string, deviceSummaries: CodenameToDeviceSummary) =>
+  logger.info(
+    `[Extractor] ${osName}: Successfully extracted ${
+      Object.keys(deviceSummaries).length
+    } device summaries. Merging into overall result.`
+  );
 
 const logAndReturnDeviceSummaries = (osName: string) => (deviceSummaries: CodenameToDeviceSummary) => {
   logDeviceSummaries(osName, deviceSummaries);
@@ -78,26 +83,30 @@ const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(logAndReturnDe
 Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionremixPromise, kaliPromise, grapheneOsPromise])
   .then(
     ([
-       crdroidDeviceSummaries,
-       ubuntutouchDeviceSummaries,
-       omniromDeviceSummaries,
-       resurrectionremixDeviceSummaries,
-       kaliDeviceSummaries,
-       grapheneOsDeviceSummaries,
-     ]) => {
+      crdroidDeviceSummaries,
+      ubuntutouchDeviceSummaries,
+      omniromDeviceSummaries,
+      resurrectionremixDeviceSummaries,
+      kaliDeviceSummaries,
+      grapheneOsDeviceSummaries,
+    ]) => {
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, crdroidDeviceSummaries, 'crdroid');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntutouchDeviceSummaries, 'ubuntutouch');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, omniromDeviceSummaries, 'omnirom');
 
-      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, resurrectionremixDeviceSummaries, 'resurrectionremix');
+      mergeIntoOverallCodenameToDeviceSummary(
+        overallCodenameToDeviceSummary,
+        resurrectionremixDeviceSummaries,
+        'resurrectionremix'
+      );
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, grapheneOsDeviceSummaries, 'grapheneos');
 
       buildPublicDirectory(overallCodenameToDeviceSummary);
-    },
+    }
   )
   .catch(e => logger.error(e));
