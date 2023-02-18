@@ -28,63 +28,57 @@ const mergeIntoOverallCodenameToDeviceSummary = (
   Object.assign(overallCodenameToDeviceSummary, osCodenameToDeviceSummary);
 };
 
+const logDeviceSummaries = (osName: string, deviceSummaries: CodenameToDeviceSummary) =>
+  logger.info(
+    `[Extractor] ${osName}: Successfully extracted ${
+      Object.keys(deviceSummaries).length
+    } device summaries. Merging into overall result.`
+  );
+
+const logAndReturnDeviceSummaries = (osName: string) => (deviceSummaries: CodenameToDeviceSummary) => {
+  logDeviceSummaries(osName, deviceSummaries);
+  return deviceSummaries;
+};
+
 const overallCodenameToDeviceSummary = {};
 
 logger.info('[Extractor] lineageos: Extracting device summaries');
 const lineageosDeviceSummaries = extractLineageOsDeviceSummaries();
-logger.info('[Extractor] lineageos: Successfully extracted device summaries. Merging into overall result.');
+logDeviceSummaries('lineageos', lineageosDeviceSummaries);
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, lineageosDeviceSummaries, 'lineageos');
 
 logger.info('[Extractor] postmarketOs: Extracting device summaries');
 const pmOsDeviceSummaries = extractPmOsDeviceSummaries();
-logger.info('[Extractor] postmarketOs: Successfully extracted device summaries. Merging into overall result.');
+logDeviceSummaries('postmarketOs', pmOsDeviceSummaries);
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, pmOsDeviceSummaries, 'pmos');
 
 logger.info('[Extractor] /e/OS: Extracting device summaries');
 const eOsDeviceSummaries = extractEOsDeviceSummaries();
-logger.info('[Extractor] /e/OS: Successfully extracted device summaries. Merging into overall result.');
+logDeviceSummaries('/e/OS', eOsDeviceSummaries);
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, eOsDeviceSummaries, 'eos');
 
 logger.info('[Extractor] CalyxOS: Extracting device summaries');
 const calyxOsDeviceSummaries = extractCalyxOsDeviceSummaries();
-logger.info('[Extractor] CalyxOS: Successfully extracted device summaries. Merging into overall result.');
+logDeviceSummaries('CalyxOS', calyxOsDeviceSummaries);
 mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, calyxOsDeviceSummaries, 'calyxos');
 
 logger.info('[Extractor] crDroid: Extracting device summaries');
-const crDroidPromise = extractCrDroidDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] crDroid: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const crDroidPromise = extractCrDroidDeviceSummaries().then(logAndReturnDeviceSummaries('crDroid'));
 
 logger.info('[Extractor] ubuntutouch: Extracting device summaries');
-const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] ubuntutouch: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(logAndReturnDeviceSummaries('ubuntutouch'));
 
 logger.info('[Extractor] omnirom: Extracting device summaries');
-const omniromPromise = extractOmniRomDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] omnirom: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const omniromPromise = extractOmniRomDeviceSummaries().then(logAndReturnDeviceSummaries('omnirom'));
 
 logger.info('[Extractor] resurrectionremix: Extracting device summaries');
-const resurrectionremixPromise = extractResurrectionRemixDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] resurrectionremix: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const resurrectionremixPromise = extractResurrectionRemixDeviceSummaries().then(logAndReturnDeviceSummaries('resurrectionremix'));
 
 logger.info('[Extractor] kali: Extracting device summaries');
-const kaliPromise = extractKaliDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] kali: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const kaliPromise = extractKaliDeviceSummaries().then(logAndReturnDeviceSummaries('kali'));
 
 logger.info('[Extractor] GrapheneOs: Extracting device summaries');
-const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(deviceSummaries => {
-  logger.info('[Extractor] GrapheneOs: Successfully extracted device summaries. Merging into overall result.');
-  return deviceSummaries;
-});
+const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(logAndReturnDeviceSummaries('GrapheneOs'));
 
 Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionremixPromise, kaliPromise, grapheneOsPromise])
   .then(
