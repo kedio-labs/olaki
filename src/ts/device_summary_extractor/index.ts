@@ -9,7 +9,6 @@ import { CodenameToDeviceSummary, DeviceSummaryOSSpecific } from './model';
 import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import { buildPublicDirectory } from './publicAssetsBuilder';
-import extractResurrectionRemixDeviceSummaries from './resurrectionremix';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 
 const mergeIntoOverallCodenameToDeviceSummary = (
@@ -71,22 +70,18 @@ const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(logAndReturn
 logger.info('[Extractor] omnirom: Extracting device summaries');
 const omniromPromise = extractOmniRomDeviceSummaries().then(logAndReturnDeviceSummaries('omnirom'));
 
-logger.info('[Extractor] resurrectionremix: Extracting device summaries');
-const resurrectionremixPromise = extractResurrectionRemixDeviceSummaries().then(logAndReturnDeviceSummaries('resurrectionremix'));
-
 logger.info('[Extractor] kali: Extracting device summaries');
 const kaliPromise = extractKaliDeviceSummaries().then(logAndReturnDeviceSummaries('kali'));
 
 logger.info('[Extractor] GrapheneOs: Extracting device summaries');
 const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(logAndReturnDeviceSummaries('GrapheneOs'));
 
-Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionremixPromise, kaliPromise, grapheneOsPromise])
+Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, grapheneOsPromise])
   .then(
     ([
       crdroidDeviceSummaries,
       ubuntutouchDeviceSummaries,
       omniromDeviceSummaries,
-      resurrectionremixDeviceSummaries,
       kaliDeviceSummaries,
       grapheneOsDeviceSummaries,
     ]) => {
@@ -95,12 +90,6 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, resurrectionrem
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntutouchDeviceSummaries, 'ubuntutouch');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, omniromDeviceSummaries, 'omnirom');
-
-      mergeIntoOverallCodenameToDeviceSummary(
-        overallCodenameToDeviceSummary,
-        resurrectionremixDeviceSummaries,
-        'resurrectionremix'
-      );
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 

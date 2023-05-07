@@ -143,7 +143,6 @@
         <th class="os-column-header">Lineage<br>OS</th>
         <th class="os-column-header">OmniROM</th>
         <th class="os-column-header">postmarket<br>OS</th>
-        <th class="os-column-header">Resurrection<br>Remix OS</th>
         <th class="os-column-header">Ubuntu<br>Touch</th>
         <th class="os-column-header">Calyx<br>OS</th>
         <th class="os-column-header">Graphene<br>OS</th>
@@ -170,8 +169,6 @@
     <div class="code" id="omnirom-parameters"></div>
     <h3>postmarketOS</h3>
     <div class="code" id="pmos-parameters"></div>
-    <h3>Resurrection Remix OS</h3>
-    <div class="code" id="resurrectionremix-parameters"></div>
     <h3>Ubuntu Touch</h3>
     <div class="code" id="ubuntutouch-parameters"></div>
     <h2 id="faq-header"><span>F.A.Q.</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
@@ -301,11 +298,6 @@
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.resurrectionremix) {
-      populateOsCell(nextOsCell, deviceSummary.resurrectionremix.url, deviceSummary.resurrectionremix.isMaintained ? "maintained" : "unmaintained");
-    }
-
-    nextOsCell = row.insertCell();
     if (deviceSummary.ubuntutouch) {
       populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
     }
@@ -338,7 +330,6 @@
   populateAppendixSectionForOS("lineageos");
   populateAppendixSectionForOS("omnirom");
   populateAppendixSectionForOS("pmos");
-  populateAppendixSectionForOS("resurrectionremix");
   populateAppendixSectionForOS("ubuntutouch");
   // no need for an appendix section for CalyxOS
   // no need for an appendix section for GrapheneOS

@@ -10,7 +10,6 @@ export interface DeviceSummaryOSSpecific {
   pmos?: PmOS;
   eos?: EOS;
   ubuntutouch?: UbuntuTouch;
-  resurrectionremix?: ResurrectionRemix;
   crdroid?: CrDroid;
   kali?: Kali;
   omnirom?: OmniROM;
@@ -54,11 +53,6 @@ export interface EOS extends HasUrl {
 export interface UbuntuTouch extends HasUrl {
   // 0 -> 0%, 1 -> 100%
   progress: number;
-}
-
-interface ResurrectionRemix {
-  isMaintained: boolean;
-  url?: string;
 }
 
 interface CrDroid extends HasUrl {

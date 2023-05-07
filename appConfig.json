@@ -13,11 +13,6 @@
   "ubuntutouch": {
     "includeProgressLevelAboveThreshold": 80
   },
-  "resurrectionremix": {
-    "includeMaintained": true,
-    "includeUnmaintained": false,
-    "includeMissingImageDownloadLink": false
-  },
   "eos": {
     "includeGreenMaturity": true,
     "includeOrangeMaturity": true,
