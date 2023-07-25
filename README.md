@@ -47,9 +47,15 @@ Node.js `v16.x.x` and npm `8.x.x`.
 
 ### Initial setup
 
-Clone this codebase and run `npm install`.
+Clone this codebase and run the following:
 
-### Update submodules
+```bash
+npm install
+
+npm run init-submodules
+```
+
+### Regularly update submodules
 
 `npm run update-submodules`
 
