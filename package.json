@@ -9,6 +9,7 @@
     "extract-device-summaries": "NODE_PATH=. node ./dist/src/ts/device_summary_extractor/index.js",
     "lint": "eslint src/ts/**",
     "fix-lint": "eslint --fix src/ts/**",
+    "init-submodules": "git submodule update --init --recursive",
     "update-submodules": "git submodule update --recursive --remote"
   },
   "keywords": [
