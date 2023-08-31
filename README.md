@@ -4,7 +4,7 @@ Olaki is a tool that aggregates information on alternative operating systems for
 
 This is possible thanks to the fact that Android phones can be uniquely identified by their codenames.
 
-The generated list is hosted [here](https://olaki-android.github.io/olaki/).
+The generated list is hosted [here](https://olaki-android.github.io/olaki).
 
 ## Architecture overview
 
@@ -90,19 +90,19 @@ If that command runs successfully, you should be able to open in your browser th
 
 The following GitHub workflow steps are run:
 - CodeQL analysis
-- lint
-- build
+- Lint
+- Build
 
 #### On `push` to the `main` branch (including PR merge)
 
 Additional GitHub workflow steps that are run:
-- run the app to extract device summaries
-- publish the generated list to the page on GitHub Pages
+- Run the app to extract device summaries
+- Publish the generated list to the page on GitHub Pages
 
 #### Cron jobs
 The following cron jobs are run on the `main` branch:
 - CodeQL analysis once a month
-- full build + deploy once a month, so that the generated list is regularly updated even when no commits are pushed 
+- Full build + deploy once a month, so that the generated list is regularly updated even when no commits are pushed 
 
 ## License
 
