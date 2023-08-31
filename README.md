@@ -1,8 +1,8 @@
 # Olaki
 
-Olaki is a tool that lists alternative operating systems for Android phones.
+Olaki is a tool that aggregates information on alternative operating systems for Android phones.
 
-Android phones are uniquely identified by their codenames.
+This is possible thanks to the fact that Android phones can be uniquely identified by their codenames.
 
 The generated list is hosted [here](https://olaki-android.github.io/olaki/).
 
@@ -10,14 +10,17 @@ The generated list is hosted [here](https://olaki-android.github.io/olaki/).
 
 Olaki comprises a Node.js app that fetches data from codebases or websites of known alternative OSes for Android.
 
-Data collected for each OS is in the form of a map where keys are unique codenames of compatible Android phones and values are
-generic device info and download links where possible.
+Data collected for each alternative OS is stored in a Map data structure.
+- Map key: unique Android phone codename
+- Map value: generic device info and download links where possible 
 
-Those individual OS maps are then merged into an overall one so that all available OSes are listed for a given codename. 
+Those individual OS maps are then merged into an overall one, where map keys are again unique Android phone codenames.
 
 The overall map is output as a JSON file and displayed on a table via GitHub pages.
 
 Rules exist to decide what devices should be added to the overall map based on compatibility level for each OS. See [appConfig.json](./appConfig.json).
+
+The main logic complexity stems from the variety of ways data is collected, from well structured JSON payload to website scraping.
 
 ## Contributing
 
