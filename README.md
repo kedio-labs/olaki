@@ -8,7 +8,7 @@ The generated list is hosted [here](https://olaki-android.github.io/olaki/).
 
 ## Architecture overview
 
-Olaki comprises a Node.js app that fetches data from codebases or websites of known alternative OSes for Android.
+Olaki comprises a Node.js app written in TypeScript that fetches data from codebases or websites of known alternative OSes for Android.
 
 Data collected for each alternative OS is stored in a Map data structure.
 - Map key: unique Android phone codename
@@ -46,7 +46,7 @@ Please raise an issue to describe your problem statement.
 
 ### Pre-requisites
 
-Node.js `v16.x.x` and npm `8.x.x`.
+Node.js `v18.x.x` and npm `9.x.x`.
 
 ### Initial setup
 

@@ -12,21 +12,27 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [ 18.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run update-submodules
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run update-submodules
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          delete-branch: true
+          commit-message: Update sub-modules
+          title: Update sub-modules
+          body: |
+            Update sub-modules

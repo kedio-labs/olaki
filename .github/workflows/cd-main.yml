@@ -17,30 +17,30 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [ 18.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
-    #- run: npm test
-    - run: npm run build
-    - name: Generate device summaries JSON
-      run: npm run extract-device-summaries
-    - name: Publish to GitHub Pages
-      if: success()
-      uses: crazy-max/ghaction-github-pages@v2
-      with:
-        target_branch: gh-pages
-        build_dir: dist/public
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      #- run: npm test
+      - run: npm run build
+      - name: Generate device summaries JSON
+        run: npm run extract-device-summaries
+      - name: Publish to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: dist/public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
