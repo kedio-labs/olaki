@@ -11,7 +11,8 @@
     "includeUnmaintained": false
   },
   "ubuntutouch": {
-    "includeProgressLevelAboveThreshold": 80
+    "includeProgressLevelAboveThreshold": 80,
+    "currentRelease": "focal"
   },
   "eos": {
     "includeGreenMaturity": true,

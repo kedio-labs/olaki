@@ -7,7 +7,6 @@ import { load } from 'cheerio';
 
 const UBUNTU_TOUCH_BASE_URL = 'https://devices.ubuntu-touch.io';
 
-const extractCodenameFromHref = (href: string) => href.replaceAll('/device/', '').replaceAll('/', '');
 const getDeviceUrl = (codename: string) => `${UBUNTU_TOUCH_BASE_URL}/device/${codename}`;
 
 const extractDeviceVendorAndName = (codename: string, text: string) => {
@@ -78,20 +77,19 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
 
   logger.debug('[UBTOUCH] Scraping ubuntu touch devices page');
   const $ = load(response.data);
-  $('li.device-name > a')
+  $(`li[data-id*="${appConfig.ubuntutouch.currentRelease}"]`)
     .get()
-    .forEach(aElement => {
-      const href: string = $($(aElement)).attr('href') || '';
-      const title: string = $($(aElement)).attr('title') || '';
+    .forEach(liElement => {
+      const li = $($(liElement));
+      const codename: string = li.attr('data-id')?.replaceAll(`@${appConfig.ubuntutouch.currentRelease}`, '') || '';
 
-      const normalisedCodename = normaliseCodename(extractCodenameFromHref(href));
-      const [deviceVendorAndNameCandidates, progress] = title
-        .replaceAll('%', '')
-        .split('- Progress:')
-        .map(s => s.trim());
+      const normalisedCodename = normaliseCodename(codename);
+
+      const deviceVendorAndNameCandidates: string = li.attr('data-name') || '';
+      const progress: string = li.attr('data-progress') || '';
 
       if (!normalisedCodename) {
-        logger.error(`[PMOS] ERROR - Found device without codename: ${title}`);
+        logger.error(`[PMOS] ERROR - Found device without codename: ${deviceVendorAndNameCandidates}`);
         return;
       }
 
