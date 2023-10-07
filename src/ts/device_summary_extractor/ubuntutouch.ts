@@ -117,7 +117,7 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
         };
       } else {
         logger.debug(
-          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${normalisedCodename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntutouch.includeProgressLevelAboveThreshold}`
+          `[UBTOUCH] Excluding codename with progress level lower than threshold: ${normalisedCodename}. Progress level: ${progressAsNumber}. Threshold: ${appConfig.ubuntutouch.includeProgressLevelAboveThreshold}`,
         );
       }
     });

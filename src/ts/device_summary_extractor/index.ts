@@ -14,7 +14,7 @@ import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
   osCodenameToDeviceSummary: CodenameToDeviceSummary,
-  osName: keyof DeviceSummaryOSSpecific
+  osName: keyof DeviceSummaryOSSpecific,
 ) => {
   for (const k in overallCodenameToDeviceSummary) {
     if (osCodenameToDeviceSummary[k]) {
@@ -31,7 +31,7 @@ const logDeviceSummaries = (osName: string, deviceSummaries: CodenameToDeviceSum
   logger.info(
     `[Extractor] ${osName}: Successfully extracted ${
       Object.keys(deviceSummaries).length
-    } device summaries. Merging into overall result.`
+    } device summaries. Merging into overall result.`,
   );
 
 const logAndReturnDeviceSummaries = (osName: string) => (deviceSummaries: CodenameToDeviceSummary) => {
@@ -96,6 +96,6 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, gr
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, grapheneOsDeviceSummaries, 'grapheneos');
 
       buildPublicDirectory(overallCodenameToDeviceSummary);
-    }
+    },
   )
   .catch(e => logger.error(e));

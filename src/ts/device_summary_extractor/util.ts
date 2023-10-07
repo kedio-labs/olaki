@@ -15,7 +15,7 @@ export const fetchUrl = async (module: string, url: string, config: AxiosRequest
   return await axios.get(url, config).catch(error => {
     if (error.response) {
       throw new Error(
-        `${module} ERROR - Received non-200 status code when fetching URL ${url}: ${error.response.status}\n ${error.response.data}`
+        `${module} ERROR - Received non-200 status code when fetching URL ${url}: ${error.response.status}\n ${error.response.data}`,
       );
     } else if (error.request) {
       throw new Error(`${module} ERROR - No response received for request to URL ${url}: ${error.request}`);
