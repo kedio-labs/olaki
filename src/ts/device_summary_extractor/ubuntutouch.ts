@@ -77,11 +77,11 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
 
   logger.debug('[UBTOUCH] Scraping ubuntu touch devices page');
   const $ = load(response.data);
-  $(`li[data-id*="${appConfig.ubuntutouch.currentRelease}"]`)
+  $(`li[data-release="${appConfig.ubuntutouch.currentRelease}"]`)
     .get()
     .forEach(liElement => {
       const li = $($(liElement));
-      const codename: string = li.attr('data-id')?.replaceAll(`@${appConfig.ubuntutouch.currentRelease}`, '') || '';
+      const codename: string = li.attr('data-codename')?.replaceAll(`@${appConfig.ubuntutouch.currentRelease}`, '') || '';
 
       const normalisedCodename = normaliseCodename(codename);
 
@@ -89,7 +89,7 @@ export default async function extractUbuntuTouchDeviceSummaries(): Promise<Coden
       const progress: string = li.attr('data-progress') || '';
 
       if (!normalisedCodename) {
-        logger.error(`[PMOS] ERROR - Found device without codename: ${deviceVendorAndNameCandidates}`);
+        logger.error(`[UBTOUCH] ERROR - Found device without codename: ${deviceVendorAndNameCandidates}`);
         return;
       }
 
