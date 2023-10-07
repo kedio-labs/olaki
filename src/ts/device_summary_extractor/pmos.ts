@@ -112,7 +112,7 @@ export default function extractPmOsDeviceSummaries(): CodenameToDeviceSummary {
 
       if (normalisedCodename === '') {
         logger.error(
-          `[PMOS] ERROR - Could not create device summary as codename absent in deviceinfo file ${deviceInfoFilePath}.`
+          `[PMOS] ERROR - Could not create device summary as codename absent in deviceinfo file ${deviceInfoFilePath}.`,
         );
       } else {
         logger.debug(`[PMOS] Adding codename ${normalisedCodename}`);

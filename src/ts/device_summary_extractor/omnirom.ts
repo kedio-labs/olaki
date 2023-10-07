@@ -28,7 +28,7 @@ const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['12.1', '12.0', '11', '10']
 const getDevicesListUrl = (androidVersion: AndroidVersion) =>
   `${DEVICES_LIST_BASE_URL}/?b=android-${androidVersion}&p=android_device`;
 const fetchDevicesList = async (
-  androidVersion: AndroidVersion
+  androidVersion: AndroidVersion,
 ): Promise<{ data: DeviceIdToProperties; androidVersion: AndroidVersion }> => {
   const url = getDevicesListUrl(androidVersion);
   const response = await fetchUrl('[OMNIDROID]', url);
@@ -75,7 +75,7 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
 
       const isActiveAndNotAvailableForLaterVersion = (
         devicesList: Awaited<{ data: DeviceIdToProperties; androidVersion: AndroidVersion }>,
-        deviceId: DeviceId
+        deviceId: DeviceId,
       ) => devicesList.data[deviceId].state === 'ACTIVE' && !deviceIdToAndroidVersion[deviceId];
 
       devicesLists.forEach(devicesList => {
@@ -87,7 +87,7 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
       });
 
       return deviceIdToAndroidVersion;
-    }
+    },
   );
 
   logger.debug('[OMNIDROID] Fetching device codenames');

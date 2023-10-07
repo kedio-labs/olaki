@@ -28,7 +28,7 @@ export default async function extractPmOsWikiDeviceSummaries(): Promise<Codename
     .filter(href => !!href);
 
   const devicePagesWithStatus = await Promise.allSettled(
-    deviceUrls.map((index, deviceUrl) => fetchUrl('[PMOS]', `${PMOS_WIKI_BASE_URL}${deviceUrl}`))
+    deviceUrls.map((index, deviceUrl) => fetchUrl('[PMOS]', `${PMOS_WIKI_BASE_URL}${deviceUrl}`)),
   );
 
   const deviceInfoList: PmosWikiDeviceInfo[] = devicePagesWithStatus.map(devicePageWithStatus => {
