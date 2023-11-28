@@ -30,7 +30,7 @@ const addDeviceSummaries = (codenameToDeviceSummary: CodenameToDeviceSummary, de
       },
     };
   });
-}
+};
 
 export default function extractCalyxOsDeviceSummaries(): CodenameToDeviceSummary {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
