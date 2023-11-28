@@ -105,7 +105,7 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
         name: deviceInfo.model,
         omnirom: {
           url: getDevicesPageForAndroidVersion(androidVersion),
-          isOfficial: deviceInfo.state === DeviceState.Official,
+          isOfficial: deviceInfo.state.toLowerCase() === DeviceState.Official,
         },
       };
     }
