@@ -23,7 +23,7 @@ enum DeviceState {
 }
 
 const DEVICES_LIST_BASE_URL = 'https://gerrit.omnirom.org/projects';
-const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['12.1', '12.0', '11', '10']; // note android 12.0 instead of 12
+const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['14.0']; // note android 14.0 instead of 14
 
 const getDevicesListUrl = (androidVersion: AndroidVersion) =>
   `${DEVICES_LIST_BASE_URL}/?b=android-${androidVersion}&p=android_device`;
@@ -59,8 +59,8 @@ const getDevicesPageForAndroidVersion = (androidVersion: AndroidVersion): string
 };
 
 const shouldIncludeDevice = (deviceInfo: DeviceInfo) =>
-  (deviceInfo.state === DeviceState.Official && appConfig.omnirom.includeOfficial) ||
-  (deviceInfo.state === DeviceState.Unofficial && appConfig.omnirom.includeUnofficial);
+  (deviceInfo.state.toLowerCase() === DeviceState.Official && appConfig.omnirom.includeOfficial) ||
+  (deviceInfo.state.toLowerCase() === DeviceState.Unofficial && appConfig.omnirom.includeUnofficial);
 
 export default async function extractOmniRomDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
