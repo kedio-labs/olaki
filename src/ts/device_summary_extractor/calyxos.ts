@@ -16,15 +16,8 @@ const getVendor = (brand: string) => {
   return capitalise(brand);
 };
 
-export default function extractCalyxOsDeviceSummaries(): CodenameToDeviceSummary {
-  const codenameToDeviceSummary: CodenameToDeviceSummary = {};
-
-  logger.debug(`[CALYXOS] Reading content of file ${DEVICES_FILE}`);
-
-  const devicesFileContent: string = readFileSync(DEVICES_FILE, UTF_8);
-  const devices: any = load(devicesFileContent, { json: true }) as any;
-
-  devices.codenames.forEach((codename: string) => {
+const addDeviceSummaries = (codenameToDeviceSummary: CodenameToDeviceSummary, deviceCodenames: any, devices: any) => {
+  deviceCodenames.forEach((codename: string) => {
     logger.debug(`[CALYXOS] Processing codename ${codename}`);
     const device = devices[codename];
     const vendor = getVendor(device.brand);
@@ -37,6 +30,18 @@ export default function extractCalyxOsDeviceSummaries(): CodenameToDeviceSummary
       },
     };
   });
+}
+
+export default function extractCalyxOsDeviceSummaries(): CodenameToDeviceSummary {
+  const codenameToDeviceSummary: CodenameToDeviceSummary = {};
+
+  logger.debug(`[CALYXOS] Reading content of file ${DEVICES_FILE}`);
+
+  const devicesFileContent: string = readFileSync(DEVICES_FILE, UTF_8);
+  const devices: any = load(devicesFileContent, { json: true }) as any;
+
+  addDeviceSummaries(codenameToDeviceSummary, devices.modern_codenames, devices);
+  addDeviceSummaries(codenameToDeviceSummary, devices.extended_codenames, devices);
 
   return codenameToDeviceSummary;
 }
