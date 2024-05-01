@@ -19,16 +19,21 @@ const shouldIncludeDevice = (maturity: string) => {
 
 const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
   installArray.map(install => {
-    if (install.mode === 'Install doc') {
-      return EOSInstallMode.installDoc;
+    const modeLowerCase = install.mode.toLowerCase();
+
+    if (modeLowerCase === 'community install doc') {
+      return EOSInstallMode.communityInstallDoc;
     }
-    if (install.mode === 'Easy Installer') {
+    if (modeLowerCase === 'official install doc') {
+      return EOSInstallMode.officialInstallDoc;
+    }
+    if (modeLowerCase === 'easy installer') {
       return EOSInstallMode.easyInstaller;
     }
-    if (install.mode === '/e/ smartphones' || install.mode === 'Murena smartphones') {
+    if (modeLowerCase === 'murena smartphones') {
       return EOSInstallMode.eSmartphones;
     }
-    if (install.mode === 'Roll-back') {
+    if (modeLowerCase === 'roll-back') {
       return EOSInstallMode.rollBack;
     }
 

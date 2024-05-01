@@ -38,7 +38,8 @@ export enum EOSMaturity {
 }
 
 export enum EOSInstallMode {
-  installDoc,
+  communityInstallDoc,
+  officialInstallDoc,
   easyInstaller,
   eSmartphones,
   rollBack,
