@@ -13,7 +13,7 @@ const PMOS_CATEGORIES = {
   main: 'main',
   community: 'community',
   testing: 'testing',
-  unmaintained: 'unmaintained',
+  archived: 'archived',
   unknown: 'UNKNOWN_PMOS_CATEGORY',
 };
 
@@ -40,8 +40,8 @@ const getPmosCategory = (deviceInfoFilePath: string) => {
   if (deviceInfoFilePath.includes(`/${PMOS_CATEGORIES.testing}/`)) {
     return PMOS_CATEGORIES.testing;
   }
-  if (deviceInfoFilePath.includes(`/${PMOS_CATEGORIES.unmaintained}/`)) {
-    return PMOS_CATEGORIES.unmaintained;
+  if (deviceInfoFilePath.includes(`/${PMOS_CATEGORIES.archived}/`)) {
+    return PMOS_CATEGORIES.archived;
   }
 
   logger.error(`[PMOS] ERROR - Unknown category in filepath: ${deviceInfoFilePath}`);
@@ -67,7 +67,7 @@ const shouldIncludePmosCategory = (pmosCategory: string) => {
     (pmosCategory === PMOS_CATEGORIES.main && appConfig.pmos.includeMain) ||
     (pmosCategory === PMOS_CATEGORIES.community && appConfig.pmos.includeCommunity) ||
     (pmosCategory === PMOS_CATEGORIES.testing && appConfig.pmos.includeTesting) ||
-    (pmosCategory === PMOS_CATEGORIES.unmaintained && appConfig.pmos.includeUnmaintained)
+    (pmosCategory === PMOS_CATEGORIES.archived && appConfig.pmos.includeArchived)
   );
 };
 
