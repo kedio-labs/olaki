@@ -61,8 +61,8 @@ interface CrDroid extends HasUrl {
 }
 
 interface Kali extends HasUrl {
-  isStable: boolean;
-  isLatest: boolean;
+  hasPreCreatedImages: boolean;
+  isSelfGeneratedImage: boolean;
 }
 
 interface OmniROM extends HasUrl {

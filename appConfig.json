@@ -8,7 +8,7 @@
     "includeMain": true,
     "includeCommunity": true,
     "includeTesting": false,
-    "includeUnmaintained": false
+    "includeArchived": false
   },
   "ubuntutouch": {
     "includeProgressLevelAboveThreshold": 80,
@@ -20,8 +20,8 @@
     "includeRedMaturity": false
   },
   "kali": {
-    "includeStable": true,
-    "includeLatest": false
+    "includePreCreatedImages": true,
+    "includeImagesToSelfGenerate": false
   },
   "omnirom": {
     "includeOfficial": true,
