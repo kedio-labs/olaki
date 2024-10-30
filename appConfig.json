@@ -20,8 +20,8 @@
     "includeRedMaturity": false
   },
   "kali": {
-    "includeStable": true,
-    "includeLatest": false
+    "includePreCreatedImages": true,
+    "includeImagesToSelfGenerate": false
   },
   "omnirom": {
     "includeOfficial": true,
