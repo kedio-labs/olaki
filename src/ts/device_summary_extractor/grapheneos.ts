@@ -13,11 +13,10 @@ export default async function extractGrapheneOsDeviceSummaries(): Promise<Codena
 
   logger.debug('[GRAPHENEOS] Scraping GrapheneOS releases page');
   const $ = load(response.data);
-  $('section#stable-channel section')
+  $('section#devices section')
     .get()
     .forEach(sectionElement => {
-      const sectionId: string = sectionElement.attribs.id;
-      const codename = sectionId.replace('-stable', '');
+      const codename: string = sectionElement.attribs.id;
       const normalisedCodename = normaliseCodename(codename);
 
       logger.debug(`[GRAPHENEOS] Processing codename: ${normalisedCodename}`);
