@@ -7,14 +7,11 @@ on:
 jobs:
   update:
     name: Update submodules
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [ 22.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,20 +24,18 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run update-submodules
-
       - name: Generate token
         uses: tibdex/github-app-token@v2
         id: generate-token
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ steps.generate-token.outputs.token }}
           delete-branch: true
-          commit-message: Update sub-modules
-          title: Update sub-modules
+          commit-message: "chore: update sub-modules"
+          title: "chore: update sub-modules"
           body: |
             Update sub-modules
