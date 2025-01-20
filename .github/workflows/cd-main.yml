@@ -32,7 +32,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run lint
-      #- run: npm test
       - run: npm run build
       - name: Generate device summaries JSON
         run: npm run extract-device-summaries
