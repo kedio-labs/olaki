@@ -9,12 +9,16 @@ const UTF_8 = 'utf8';
 const DEVICE_INFO_ROOT_DIRECTORY = './submodules/user/htdocs/_data/devices';
 const E_OS_BASE_DEVICE_URL = 'https://doc.e.foundation/devices';
 
-const shouldIncludeDevice = (maturity: string) => {
-  return (
-    (maturity === EOSMaturity[EOSMaturity.red] && appConfig.eos.includeRedMaturity) ||
-    (maturity === EOSMaturity[EOSMaturity.orange] && appConfig.eos.includeOrangeMaturity) ||
-    (maturity === EOSMaturity[EOSMaturity.green] && appConfig.eos.includeGreenMaturity)
-  );
+const shouldIncludeDevice = (isLegacy: boolean, maturity: string) => {
+  if (isLegacy && !appConfig.eos.includeLegacy) {
+    return false;
+  } else {
+    return (
+      (maturity === EOSMaturity[EOSMaturity.red] && appConfig.eos.includeRedMaturity) ||
+      (maturity === EOSMaturity[EOSMaturity.orange] && appConfig.eos.includeOrangeMaturity) ||
+      (maturity === EOSMaturity[EOSMaturity.green] && appConfig.eos.includeGreenMaturity)
+    );
+  }
 };
 
 const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
@@ -52,9 +56,10 @@ export default function extractEOsDeviceSummaries(): CodenameToDeviceSummary {
     const deviceInfoFileContent: string = readFileSync(filePath, UTF_8);
     const deviceInfo: any = load(deviceInfoFileContent, { json: true }) as any;
 
+    const isLegacy = Object.hasOwn(deviceInfo, 'legacy') && deviceInfo.legacy.trim() == 'yes';
     const maturity = deviceInfo.maturity;
-    if (!shouldIncludeDevice(maturity)) {
-      logger.debug(`[EOS] Excluding device due to maturity level ${maturity}: ${deviceInfoFilename}`);
+    if (!shouldIncludeDevice(isLegacy, maturity)) {
+      logger.debug(`[EOS] Excluding device due to legacy flag or maturity level ${maturity}: ${deviceInfoFilename}`);
       return;
     }
     const codename = deviceInfo.codename;
@@ -67,6 +72,7 @@ export default function extractEOsDeviceSummaries(): CodenameToDeviceSummary {
       vendor: deviceInfo.vendor,
       releaseDate: deviceInfo.release,
       eos: {
+        isLegacy,
         maturity,
         installModes: getInstallModes(deviceInfo.install),
         models: deviceInfo.models,

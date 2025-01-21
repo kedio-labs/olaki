@@ -260,7 +260,7 @@
   //
   let numberOfDeviceToOsPairs = 0;
   const populateOsCell = (osCell, url, urlText) => {
-    numberOfDeviceToOsPairs++; // mutating a variable outside this function. Sorry :p
+    numberOfDeviceToOsPairs++; // mutating a variable from outside this function. Sorry :p
     const link = getOsDownloadATag(url, urlText);
     osCell.append(link);
   };
@@ -286,7 +286,8 @@
 
     nextOsCell = row.insertCell();
     if (deviceSummary.eos) {
-      populateOsCell(nextOsCell, deviceSummary.eos.url, deviceSummary.eos.maturity);
+      const cellTextSuffix = deviceSummary.eos.isLegacy ? " (legacy)" : "";
+      populateOsCell(nextOsCell, deviceSummary.eos.url, `${deviceSummary.eos.maturity}${cellTextSuffix}`);
     }
 
     nextOsCell = row.insertCell();

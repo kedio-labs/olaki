@@ -46,6 +46,7 @@ export enum EOSInstallMode {
 }
 
 export interface EOS extends HasUrl {
+  isLegacy: boolean;
   maturity: EOSMaturity;
   installModes: EOSInstallMode[];
   models: string[];
