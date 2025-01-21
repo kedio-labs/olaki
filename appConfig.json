@@ -15,6 +15,7 @@
     "currentRelease": "focal"
   },
   "eos": {
+    "includeLegacy": true,
     "includeGreenMaturity": true,
     "includeOrangeMaturity": true,
     "includeRedMaturity": false
