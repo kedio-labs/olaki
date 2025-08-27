@@ -31,11 +31,11 @@ const getInstallModes = (installArray: { mode: string }[]): EOSInstallMode[] =>
     if (modeLowerCase === 'official install doc') {
       return EOSInstallMode.officialInstallDoc;
     }
-    if (modeLowerCase === 'easy installer') {
-      return EOSInstallMode.easyInstaller;
+    if (modeLowerCase === '/e/os installer') {
+      return EOSInstallMode.eOSInstaller;
     }
     if (modeLowerCase === 'murena smartphones') {
-      return EOSInstallMode.eSmartphones;
+      return EOSInstallMode.murenaSmartphones;
     }
     if (modeLowerCase === 'roll-back') {
       return EOSInstallMode.rollBack;
