@@ -23,7 +23,7 @@ enum DeviceState {
 }
 
 const DEVICES_LIST_BASE_URL = 'https://gerrit.omnirom.org/projects';
-const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['14.0']; // note android 14.0 instead of 14
+const AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER = ['16', '15'];
 
 const getDevicesListUrl = (androidVersion: AndroidVersion) =>
   `${DEVICES_LIST_BASE_URL}/?b=android-${androidVersion}&p=android_device`;
@@ -31,7 +31,7 @@ const fetchDevicesList = async (
   androidVersion: AndroidVersion,
 ): Promise<{ data: DeviceIdToProperties; androidVersion: AndroidVersion }> => {
   const url = getDevicesListUrl(androidVersion);
-  const response = await fetchUrl('[OMNIDROID]', url);
+  const response = await fetchUrl('[OMNIROM]', url);
 
   // need to sanitise a bit the response data as it somehow starts with )]}'\n
   const data = response.data.substring(response.data.indexOf('{'));
@@ -42,7 +42,7 @@ const getDeviceInfoUrl = (deviceId: DeviceId, androidVersion: AndroidVersion) =>
   `https://raw.githubusercontent.com/omnirom/${deviceId}/android-${androidVersion}/meta/config.json`;
 const fetchDeviceInfo = async (deviceId: DeviceId, androidVersion: AndroidVersion): Promise<DeviceInfo> => {
   const url = getDeviceInfoUrl(deviceId, androidVersion);
-  const response = await fetchUrl('[OMNIDROID]', url, {
+  const response = await fetchUrl('[OMNIROM]', url, {
     validateStatus: status => status < 500, // include 4xx in success responses so that we can process them
   });
 
@@ -53,11 +53,6 @@ const fetchDeviceInfo = async (deviceId: DeviceId, androidVersion: AndroidVersio
   return response.data;
 };
 
-const getDevicesPageForAndroidVersion = (androidVersion: AndroidVersion): string => {
-  const formattedAndroidVersion = androidVersion.replaceAll('.', '_');
-  return `https://omnirom.org/#devices/android-${formattedAndroidVersion}`;
-};
-
 const shouldIncludeDevice = (deviceInfo: DeviceInfo) =>
   (deviceInfo.state.toLowerCase() === DeviceState.Official && appConfig.omnirom.includeOfficial) ||
   (deviceInfo.state.toLowerCase() === DeviceState.Unofficial && appConfig.omnirom.includeUnofficial);
@@ -65,7 +60,7 @@ const shouldIncludeDevice = (deviceInfo: DeviceInfo) =>
 export default async function extractOmniRomDeviceSummaries(): Promise<CodenameToDeviceSummary> {
   const codenameToDeviceSummary: CodenameToDeviceSummary = {};
 
-  logger.debug('[OMNIDROID] Getting list of all available device ids');
+  logger.debug('[OMNIROM] Getting list of all available device ids');
   const devicesListPromises = AVAILABLE_ANDROID_VERSIONS_DESCENDING_ORDER.map(fetchDevicesList);
 
   // do not catch errors here so that they get propagated
@@ -90,7 +85,7 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
     },
   );
 
-  logger.debug('[OMNIDROID] Fetching device codenames');
+  logger.debug('[OMNIROM] Fetching device codenames');
   for (const deviceId in deviceIdToAndroidVersion) {
     const androidVersion: string = deviceIdToAndroidVersion[deviceId];
     // await in a for loop works fine
@@ -104,7 +99,7 @@ export default async function extractOmniRomDeviceSummaries(): Promise<CodenameT
         vendor: deviceInfo.make,
         name: deviceInfo.model,
         omnirom: {
-          url: getDevicesPageForAndroidVersion(androidVersion),
+          url: 'https://omnirom.org/#devices',
           isOfficial: deviceInfo.state.toLowerCase() === DeviceState.Official,
         },
       };
