@@ -1,12 +1,16 @@
 [submodule "lineage_wiki"]
 	path = submodules/lineage_wiki
 	url = https://github.com/LineageOS/lineage_wiki
+	branch = main
 [submodule "pmaports"]
 	path = submodules/pmaports
 	url = https://gitlab.com/postmarketOS/pmaports.git
+	branch = master
 [submodule "user"]
 	path = submodules/user
 	url = https://gitlab.e.foundation/e/documentation/user.git
+	branch = master
 [submodule "submodules/calyxos.org"]
 	path = submodules/calyxos.org
 	url = https://gitlab.com/CalyxOS/calyxos.org.git
+	branch = main
