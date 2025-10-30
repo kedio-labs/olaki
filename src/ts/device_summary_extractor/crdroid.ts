@@ -17,7 +17,9 @@ export default async function extractCrDroidDeviceSummaries(): Promise<CodenameT
   logger.debug('[CRDROID] Parsing list of crDroid devices');
   for (const vendor in vendorToCodenames) {
     for (const codename in vendorToCodenames[vendor]) {
-      const latestAvailableVersion = Object.keys(vendorToCodenames[vendor][codename]).sort().pop() as string;
+      const latestAvailableVersion = Object.keys(vendorToCodenames[vendor][codename])
+        .sort((a, b) => parseInt(a) - parseInt(b))
+        .pop() as string;
       if (!IGNORE_VERSIONS.includes(latestAvailableVersion)) {
         const normalisedCodename = normaliseCodename(codename);
         codenameToDeviceSummary[normalisedCodename] = {
