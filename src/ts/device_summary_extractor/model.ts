@@ -15,6 +15,7 @@ export interface DeviceSummaryOSSpecific {
   omnirom?: OmniROM;
   calyxos?: HasUrl;
   grapheneos?: HasUrl;
+  iodeos?: HasUrl;
 }
 
 interface HasUrl {
