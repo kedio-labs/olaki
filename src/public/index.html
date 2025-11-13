@@ -147,6 +147,7 @@
         <th class="os-column-header">Ubuntu<br>Touch</th>
         <th class="os-column-header">Calyx<br>OS</th>
         <th class="os-column-header">Graphene<br>OS</th>
+        <th class="os-column-header">iodéOS</th>
       </tr>
       </thead>
       <tbody>
@@ -324,6 +325,11 @@
     if (deviceSummary.grapheneos) {
       populateOsCell(nextOsCell, deviceSummary.grapheneos.url, 'yes');
     }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.iodeos) {
+      populateOsCell(nextOsCell, deviceSummary.iodeos.url, 'yes');
+    }
   }
 
   //
@@ -346,6 +352,7 @@
   populateAppendixSectionForOS("ubuntutouch");
   // no need for an appendix section for CalyxOS
   // no need for an appendix section for GrapheneOS
+  // no need for an appendix section for iodéOS
 
 </script>
 </body>

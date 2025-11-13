@@ -10,6 +10,7 @@ import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import { buildPublicDirectory } from './publicAssetsBuilder';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
+import extractIodeOsDeviceSummaries from './iodeos';
 
 const mergeIntoOverallCodenameToDeviceSummary = (
   overallCodenameToDeviceSummary: CodenameToDeviceSummary,
@@ -76,7 +77,10 @@ const kaliPromise = extractKaliDeviceSummaries().then(logAndReturnDeviceSummarie
 logger.info('[Extractor] GrapheneOs: Extracting device summaries');
 const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(logAndReturnDeviceSummaries('GrapheneOs'));
 
-Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, grapheneOsPromise])
+logger.info('[Extractor] IodéOS: Extracting device summaries');
+const iodeOsPromise = extractIodeOsDeviceSummaries().then(logAndReturnDeviceSummaries('IodéOS'));
+
+Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, grapheneOsPromise, iodeOsPromise])
   .then(
     ([
       crdroidDeviceSummaries,
@@ -84,6 +88,7 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, gr
       omniromDeviceSummaries,
       kaliDeviceSummaries,
       grapheneOsDeviceSummaries,
+      iodeOsDeviceSummaries,
     ]) => {
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, crdroidDeviceSummaries, 'crdroid');
 
@@ -94,6 +99,8 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, gr
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, grapheneOsDeviceSummaries, 'grapheneos');
+
+      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, iodeOsDeviceSummaries, 'iodeos');
 
       buildPublicDirectory(overallCodenameToDeviceSummary);
     },
