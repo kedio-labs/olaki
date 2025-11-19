@@ -6,6 +6,7 @@ import { copyFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
 const SRC_PUBLIC_DIRECTORY = './src/public';
 const DIST_PUBLIC_DIRECTORY = './dist/public';
 const JS_RESULT_FILENAME = 'olaki-data.js';
+const JS_TABLE_SORTING_FILENAME = 'table-sorting.js';
 const INDEX_FILENAME = 'index.html';
 const JS_RESULT_FILE_PATH = `${DIST_PUBLIC_DIRECTORY}/${JS_RESULT_FILENAME}`;
 
@@ -47,12 +48,13 @@ const createJavaScriptFileInPublicDirectory = (codenameToDeviceSummary: Codename
   writeFileSync(JS_RESULT_FILE_PATH, javaScriptFileContent);
 };
 
-const copyIndexFileToPublicDirectory = () =>
-  copyFileSync(`${SRC_PUBLIC_DIRECTORY}/${INDEX_FILENAME}`, `${DIST_PUBLIC_DIRECTORY}/${INDEX_FILENAME}`);
+const copyFileToPublicDirectory = (filename: string) =>
+  copyFileSync(`${SRC_PUBLIC_DIRECTORY}/${filename}`, `${DIST_PUBLIC_DIRECTORY}/${filename}`);
 
 export const buildPublicDirectory = (codenameToDeviceSummary: CodenameToDeviceSummary) => {
   createJavaScriptFileInPublicDirectory(codenameToDeviceSummary);
-  copyIndexFileToPublicDirectory();
+  copyFileToPublicDirectory(JS_TABLE_SORTING_FILENAME);
+  copyFileToPublicDirectory(INDEX_FILENAME);
 
   logger.info('[Public Assets Builder] Success.');
 };

@@ -67,6 +67,16 @@
       z-index: 10;
     }
 
+    th[data-sort] {
+      user-select: none;
+    }
+
+    th[data-sort]:after {
+      content: " ⇅";
+      font-size: 0.9em;
+      color: #222121;
+    }
+
     /* device name column */
     tr th:first-child, tr td:first-child {
       width: 160px;
@@ -133,21 +143,21 @@
   <h2 id="olaki-table-header">Table</h2>
   <p id="quick-table-stats"></p>
   <div id="table-container">
-    <table id="olaki-table">
+    <table id="olaki-table" class="sortable">
       <thead>
       <tr>
-        <th>Device name</th>
-        <th>Codename</th>
-        <th class="os-column-header">crDroid</th>
-        <th class="os-column-header">/e/OS</th>
-        <th class="os-column-header">Kali<br>Linux</th>
-        <th class="os-column-header">Lineage<br>OS</th>
-        <th class="os-column-header">OmniROM</th>
-        <th class="os-column-header">postmarket<br>OS</th>
-        <th class="os-column-header">Ubuntu<br>Touch</th>
-        <th class="os-column-header">Calyx<br>OS</th>
-        <th class="os-column-header">Graphene<br>OS</th>
-        <th class="os-column-header">iodéOS</th>
+        <th data-sort="natural">Device name</th>
+        <th data-sort="natural">Codename</th>
+        <th data-sort="natural" class="os-column-header">crDroid</th>
+        <th data-sort="text" class="os-column-header">/e/OS</th>
+        <th data-sort="text" class="os-column-header">Kali<br>Linux</th>
+        <th data-sort="text" class="os-column-header">Lineage<br>OS</th>
+        <th data-sort="text" class="os-column-header">OmniROM</th>
+        <th data-sort="text" class="os-column-header">postmarket<br>OS</th>
+        <th data-sort="natural" class="os-column-header">Ubuntu<br>Touch</th>
+        <th data-sort="text" class="os-column-header">Calyx<br>OS</th>
+        <th data-sort="text" class="os-column-header">Graphene<br>OS</th>
+        <th data-sort="text" class="os-column-header">iodéOS</th>
       </tr>
       </thead>
       <tbody>
@@ -355,5 +365,6 @@
   // no need for an appendix section for iodéOS
 
 </script>
+<script src="table-sorting.js"></script>
 </body>
 </html>
