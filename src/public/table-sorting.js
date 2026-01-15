@@ -32,6 +32,14 @@ const TableSort = (function () {
      * Compares two token lists (e.g., ["a", 12] vs ["a", 2])
      */
     static compare(aTokens, bTokens, asc) {
+      if (aTokens.length === 0) {
+        return 1
+      }
+
+      if (bTokens.length === 0) {
+        return -1
+      }
+
       const len = Math.max(aTokens.length, bTokens.length);
 
       for (let i = 0; i < len; i++) {
@@ -76,6 +84,13 @@ const TableSort = (function () {
       }
 
       if (type === 'text') {
+        if (aVal === '') {
+          return 1
+        }
+
+        if (bVal === '') {
+          return -1
+        }
         const cmp = aVal.localeCompare(bVal, locale);
         return asc ? cmp : -cmp;
       }
