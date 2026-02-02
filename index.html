@@ -1,0 +1,366 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Olaki - Find alternative operating systems for your Android device</title>
+  <meta name="description" content="An aggregated list of Android devices by compatible operating systems.">
+  <meta name="author" content="kedio-labs">
+
+  <meta property="og:title" content="Olaki - Aggregated list of Android devices by compatible operating systems">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kedio-labs.github.io/olaki">
+  <meta property="og:description" content="An aggregated list of Android devices by compatible operating systems.">
+  <style>
+    :root {
+      --body-backrgound-color: #ffff;
+      --table-border: 1px solid black;
+      --table-odd-row-backrgound-color: #d9b1ea;
+      --table-even-row-backrgound-color: #e5e3e3;
+      --appendix-code-backrgound-color: #d0d0d0;
+    }
+
+    html, body {
+      font-family: sans-serif;
+      font-size: 1em;
+      color: #0c0c0c;
+      background-color: var(--body-backrgound-color);
+      padding: 0 10px 10px 10px;
+    }
+
+    #table-container {
+      width: 1300px;
+    }
+
+    table {
+      font-size: 0.95rem;
+      border-top: var(--table-border);
+      border-left: var(--table-border);
+      border-spacing: 0;
+      width: 100%;
+    }
+
+    /* attempt to target mobile devices */
+    @media (hover: none), (hover: on-demand) {
+      #table-container {
+        overflow: auto;
+        height: 450px;
+      }
+    }
+
+    th, td {
+      padding: 10px 0;
+      border-bottom: var(--table-border);
+      border-right: var(--table-border);
+      word-wrap: break-word;
+      text-align: center;
+    }
+
+    th {
+      /* safari */
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      background-color: var(--table-even-row-backrgound-color);
+      z-index: 10;
+    }
+
+    th[data-sort] {
+      user-select: none;
+    }
+
+    th[data-sort]:after {
+      content: " ⇅";
+      font-size: 0.9em;
+      color: #222121;
+    }
+
+    /* device name column */
+    tr th:first-child, tr td:first-child {
+      width: 160px;
+      padding: 10px;
+    }
+
+    /* codename name column */
+    tr th:nth-child(2), tr td:nth-child(2) {
+      width: 103px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: var(--table-odd-row-backrgound-color);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--table-even-row-backrgound-color);
+    }
+
+    .back-to-top {
+      margin-left: 10px;
+      font-size: 0.85rem;
+    }
+
+    footer .code {
+      background-color: var(--appendix-code-backrgound-color);
+      width: 355px;
+      padding: 5px 10px;
+      line-height: 1.5rem;
+    }
+
+    h1, h2 {
+      border-bottom: 1px solid #a2a9b1;
+    }
+
+    #quick-table-stats {
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Welcome to Olaki.</h1>
+  <p>
+    An awesome list of alternative operating systems for Android devices.
+  </p>
+  <p>
+    Only operating systems with strong compatibility are included for each device.
+    See the <a href="#appendix-header">Appendix</a> for more details.
+  </p>
+  <p>Please <a href="https://github.com/kedio-labs/olaki" target="_blank">contribute</a> if you'd like to see other operating
+    systems listed here.
+  </p>
+  <div class="contents-container">
+    <span class="contents">Contents:</span>
+    <ul>
+      <li><a href="#olaki-table-header">Table</a></li>
+      <li><a href="#appendix-header">Appendix</a></li>
+      <li><a href="#faq-header">F.A.Q.</a></li>
+    </ul>
+  </div>
+</header>
+<main>
+  <h2 id="olaki-table-header">Table</h2>
+  <p id="quick-table-stats"></p>
+  <div id="table-container">
+    <table id="olaki-table" class="sortable">
+      <thead>
+      <tr>
+        <th data-sort="natural">Device name</th>
+        <th data-sort="natural">Codename</th>
+        <th data-sort="natural" class="os-column-header">crDroid</th>
+        <th data-sort="text" class="os-column-header">/e/OS</th>
+        <th data-sort="text" class="os-column-header">Kali<br>Linux</th>
+        <th data-sort="text" class="os-column-header">Lineage<br>OS</th>
+        <th data-sort="text" class="os-column-header">OmniROM</th>
+        <th data-sort="text" class="os-column-header">postmarket<br>OS</th>
+        <th data-sort="natural" class="os-column-header">Ubuntu<br>Touch</th>
+        <th data-sort="text" class="os-column-header">Calyx<br>OS</th>
+        <th data-sort="text" class="os-column-header">Graphene<br>OS</th>
+        <th data-sort="text" class="os-column-header">iodéOS</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    <h2 id="appendix-header"><span>Appendix - Parameters used to build this table</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
+    </h2>
+    <h3>crDroid</h3>
+    <div class="code" id="crdroid-parameters">
+      N/A
+    </div>
+    <h3>/e/OS</h3>
+    <div class="code" id="eos-parameters"></div>
+    <h3>Kali Linux</h3>
+    <div class="code" id="kali-parameters"></div>
+    <h3>LineageOS</h3>
+    <div class="code" id="lineageos-parameters"></div>
+    <h3>OmniROM</h3>
+    <div class="code" id="omnirom-parameters"></div>
+    <h3>postmarketOS</h3>
+    <div class="code" id="pmos-parameters"></div>
+    <h3>Ubuntu Touch</h3>
+    <div class="code" id="ubuntutouch-parameters"></div>
+    <h2 id="faq-header"><span>F.A.Q.</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
+    </h2>
+    <h3>Why should I install a custom OS on my Android device?</h3>
+    <div>
+      <span>You could benefit from some of the following</span>
+      <ul>
+        <li>Increase the lifespan of your device
+          <ul>
+            <li>Once your device's manufacturer stops providing OS updates, you may not be able to install apps that require a
+              newer OS version.
+            </li>
+            <li>You phone may also not receive further security updates, which poses a risk.</li>
+          </ul>
+        </li>
+        <li>Sustainability
+          <ul>
+            <li>Mining and manufacturing processes involved in making smartphones have a sizeable impact on the environment. Using
+              them as long as practically possible helps reduce that impact.
+            </li>
+          </ul>
+        </li>
+        <li>Increased privacy
+          <ul>
+            <li>With most of the custom OSes listed above, you can unGoogle your smartphone. This means not having to install
+              Google apps or services.
+            </li>
+          </ul>
+        </li>
+        <li>Repurpose your device
+          <ul>
+            <li>If your phone is not fitted to be used as such anymore, you can repurpose it as a small computer, a small gaming
+              device, a glorified remote control for connected devices, etc. You can also achieve some of these without a custom
+              OS if relevant apps are compatible with your Android OS version (i.e. it's not too old).
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <h3>Is it easy to install a custom OS on my Android device?</h3>
+    <p>Your mileage may vary. It will require learning about concepts such as rooting, bootloader, flashing, ROM, etc. Luckily,
+      many people have been through this before so there is extensive documentation on the internet and the list above is aimed at
+      providing <code>(device, os)</code> pairs with high compatibility rates.</p>
+    <h3>Can you please add a new feature or a new OS to the list?</h3>
+    <p>Sounds like a plan. :) Please raise <a href="https://github.com/kedio-labs/olaki/issues" target="_blank">an issue</a>
+      once you've
+      confirmed it's not a duplicate or, if you have coding
+      skills, raise <a href="https://github.com/kedio-labs/olaki/pulls" target="_blank">a PR!</a>
+    </p>
+    <h3>I have found a bug/inconsistency!</h3>
+    <p>Well, thank you for spotting that! Please let us know by raising <a href="https://github.com/kedio-labs/olaki/issues"
+                                                                           target="_blank">an
+      issue</a> once you've
+      confirmed it's not a duplicate or better still, raise <a href="https://github.com/kedio-labs/olaki/pulls"
+                                                               target="_blank">a PR</a> if
+      that's possible.
+    </p>
+    <h3>I want to repurpose my phone as a headless single-board computer à la Raspberry Pi without installing a custom OS</h3>
+    <p>There are several ways to achieve that. The easiest option is to install <a href="https://termux.com/" target="_blank">termux</a>
+      if your smartphone OS version is not too old. And if you'd like to play with linux distros within termux, have a look at <a
+        href="https://github.com/termux/proot-distro#supported-distributions" target="_blank">proot-distro.</a></p>
+    <p>Another option is to check in the list above if your phone is compatible with postmarketOS, which is a flavour of Alpine.
+      You can thus run many applications, including for self-hosting, as explored in <a
+        href="https://blog.kedio.co/post/how-to-run-a-server-on-postmarketos" target="_blank">this blog post.</a></p>
+    <p>If you'd like your phone to be always on, an important aspect to consider is how to run your phone without a battery.
+      Manufacturers most likely don't design their phones with that in mind. See the question below for a quick tip.</p>
+    <h3>How do I run my phone without a battery?</h3>
+    <p>The easiest is to keep the battery and simply use a plug timer so that the phone is not constantly being charged.</p>
+    <p>Alternatively, there are ways for some phones to remove the battery and simulate its presence so that the device still
+      boots up and runs normally. This is a case-by-case basis though. Doing some research online for your specific device may
+      give you pointers. For example, here is how to achieve <a
+        href="https://blog.kedio.co/post/how-to-run-a-oneplus-6t-without-battery" target="_blank">a battery-less setup for OnePlus
+        6T devices.</a></p>
+  </footer>
+</main>
+
+<script src="olaki-data.js"></script>
+<script>
+  //
+  // populate table
+  //
+  let numberOfDeviceToOsPairs = 0;
+  const populateOsCell = (osCell, url, urlText) => {
+    numberOfDeviceToOsPairs++; // mutating a variable from outside this function. Sorry :p
+    const link = getOsDownloadATag(url, urlText);
+    osCell.append(link);
+  };
+  const tbody = document.getElementById("olaki-table").getElementsByTagName("tbody")[0];
+
+  const getOsDownloadATag = (url, text) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.innerText = text;
+    return link;
+  };
+
+  for (const deviceSummary of olakiData.deviceSummaries) {
+    const row = tbody.insertRow();
+    row.insertCell().append(deviceSummary.vendor + " " + deviceSummary.name);
+    row.insertCell().append(deviceSummary.codename);
+
+    let nextOsCell = row.insertCell();
+    if (deviceSummary.crdroid) {
+      populateOsCell(nextOsCell, deviceSummary.crdroid.url, `version ${deviceSummary.crdroid.latestAvailableVersion}`);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.eos) {
+      const cellTextSuffix = deviceSummary.eos.isLegacy ? " (legacy)" : "";
+      populateOsCell(nextOsCell, deviceSummary.eos.url, `${deviceSummary.eos.maturity}${cellTextSuffix}`);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.kali) {
+      populateOsCell(nextOsCell, deviceSummary.kali.url, deviceSummary.kali.isStable ? "stable" : "latest");
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.lineageos) {
+      populateOsCell(nextOsCell, deviceSummary.lineageos.url, deviceSummary.lineageos.isMaintained ? "maintained" : "unmaintained");
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.omnirom) {
+      populateOsCell(nextOsCell, deviceSummary.omnirom.url, deviceSummary.omnirom.isOfficial ? "official" : "unofficial");
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.pmos) {
+      populateOsCell(nextOsCell, deviceSummary.pmos.url, deviceSummary.pmos.category);
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.ubuntutouch) {
+      populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.calyxos) {
+      populateOsCell(nextOsCell, deviceSummary.calyxos.url, 'yes');
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.grapheneos) {
+      populateOsCell(nextOsCell, deviceSummary.grapheneos.url, 'yes');
+    }
+
+    nextOsCell = row.insertCell();
+    if (deviceSummary.iodeos) {
+      populateOsCell(nextOsCell, deviceSummary.iodeos.url, 'yes');
+    }
+  }
+
+  //
+  // populate table stats
+  //
+  document.getElementById("quick-table-stats").innerHTML =
+    `${Object.keys(olakiData.deviceSummaries).length} devices. ${document.getElementsByClassName("os-column-header").length} operating systems. ${numberOfDeviceToOsPairs} (device, OS) pairs. Last update: ${new Date(olakiData.lastUpdated).toUTCString()}`;
+
+
+  //
+  // populate appendix
+  //
+  const populateAppendixSectionForOS = (os) => document.getElementById(`${os}-parameters`).innerText = JSON.stringify(olakiData.appConfig[os], null, " ");
+
+  populateAppendixSectionForOS("eos");
+  populateAppendixSectionForOS("kali");
+  populateAppendixSectionForOS("lineageos");
+  populateAppendixSectionForOS("omnirom");
+  populateAppendixSectionForOS("pmos");
+  populateAppendixSectionForOS("ubuntutouch");
+  // no need for an appendix section for CalyxOS
+  // no need for an appendix section for GrapheneOS
+  // no need for an appendix section for iodéOS
+
+</script>
+<script src="table-sorting.js"></script>
+</body>
+</html>
