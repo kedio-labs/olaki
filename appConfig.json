@@ -23,9 +23,5 @@
   "kali": {
     "includePreCreatedImages": true,
     "includeImagesToSelfGenerate": false
-  },
-  "omnirom": {
-    "includeOfficial": true,
-    "includeUnofficial": false
   }
 }

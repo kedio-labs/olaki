@@ -6,7 +6,6 @@ import extractGrapheneOsDeviceSummaries from './grapheneos';
 import extractKaliDeviceSummaries from './kali';
 import extractLineageOsDeviceSummaries from './lineageos';
 import { CodenameToDeviceSummary, DeviceSummaryOSSpecific } from './model';
-import extractOmniRomDeviceSummaries from './omnirom';
 import extractPmOsDeviceSummaries from './pmos';
 import { buildPublicDirectory } from './publicAssetsBuilder';
 import extractUbuntuTouchDeviceSummaries from './ubuntutouch';
@@ -68,9 +67,6 @@ const crDroidPromise = extractCrDroidDeviceSummaries().then(logAndReturnDeviceSu
 logger.info('[Extractor] ubuntutouch: Extracting device summaries');
 const ubuntuTouchPromise = extractUbuntuTouchDeviceSummaries().then(logAndReturnDeviceSummaries('ubuntutouch'));
 
-logger.info('[Extractor] omnirom: Extracting device summaries');
-const omniromPromise = extractOmniRomDeviceSummaries().then(logAndReturnDeviceSummaries('omnirom'));
-
 logger.info('[Extractor] kali: Extracting device summaries');
 const kaliPromise = extractKaliDeviceSummaries().then(logAndReturnDeviceSummaries('kali'));
 
@@ -80,12 +76,11 @@ const grapheneOsPromise = extractGrapheneOsDeviceSummaries().then(logAndReturnDe
 logger.info('[Extractor] IodéOS: Extracting device summaries');
 const iodeOsPromise = extractIodeOsDeviceSummaries().then(logAndReturnDeviceSummaries('IodéOS'));
 
-Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, grapheneOsPromise, iodeOsPromise])
+Promise.all([crDroidPromise, ubuntuTouchPromise, kaliPromise, grapheneOsPromise, iodeOsPromise])
   .then(
     ([
       crdroidDeviceSummaries,
       ubuntutouchDeviceSummaries,
-      omniromDeviceSummaries,
       kaliDeviceSummaries,
       grapheneOsDeviceSummaries,
       iodeOsDeviceSummaries,
@@ -93,8 +88,6 @@ Promise.all([crDroidPromise, ubuntuTouchPromise, omniromPromise, kaliPromise, gr
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, crdroidDeviceSummaries, 'crdroid');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, ubuntutouchDeviceSummaries, 'ubuntutouch');
-
-      mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, omniromDeviceSummaries, 'omnirom');
 
       mergeIntoOverallCodenameToDeviceSummary(overallCodenameToDeviceSummary, kaliDeviceSummaries, 'kali');
 

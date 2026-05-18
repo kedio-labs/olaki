@@ -153,7 +153,6 @@
         <th data-sort="text" class="os-column-header">/e/OS</th>
         <th data-sort="text" class="os-column-header">Kali<br>Linux</th>
         <th data-sort="text" class="os-column-header">Lineage<br>OS</th>
-        <th data-sort="text" class="os-column-header">OmniROM</th>
         <th data-sort="text" class="os-column-header">postmarket<br>OS</th>
         <th data-sort="natural" class="os-column-header">Ubuntu<br>Touch</th>
         <th data-sort="text" class="os-column-header">Calyx<br>OS</th>
@@ -178,8 +177,6 @@
     <div class="code" id="kali-parameters"></div>
     <h3>LineageOS</h3>
     <div class="code" id="lineageos-parameters"></div>
-    <h3>OmniROM</h3>
-    <div class="code" id="omnirom-parameters"></div>
     <h3>postmarketOS</h3>
     <div class="code" id="pmos-parameters"></div>
     <h3>Ubuntu Touch</h3>
@@ -308,11 +305,6 @@
     }
 
     nextOsCell = row.insertCell();
-    if (deviceSummary.omnirom) {
-      populateOsCell(nextOsCell, deviceSummary.omnirom.url, deviceSummary.omnirom.isOfficial ? "official" : "unofficial");
-    }
-
-    nextOsCell = row.insertCell();
     if (deviceSummary.pmos) {
       populateOsCell(nextOsCell, deviceSummary.pmos.url, deviceSummary.pmos.category);
     }
@@ -353,7 +345,6 @@
   populateAppendixSectionForOS("eos");
   populateAppendixSectionForOS("kali");
   populateAppendixSectionForOS("lineageos");
-  populateAppendixSectionForOS("omnirom");
   populateAppendixSectionForOS("pmos");
   populateAppendixSectionForOS("ubuntutouch");
   // no need for an appendix section for CalyxOS

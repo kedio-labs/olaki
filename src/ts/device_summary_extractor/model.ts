@@ -12,7 +12,6 @@ export interface DeviceSummaryOSSpecific {
   ubuntutouch?: UbuntuTouch;
   crdroid?: CrDroid;
   kali?: Kali;
-  omnirom?: OmniROM;
   calyxos?: HasUrl;
   grapheneos?: HasUrl;
   iodeos?: HasUrl;
@@ -65,10 +64,6 @@ interface CrDroid extends HasUrl {
 interface Kali extends HasUrl {
   hasPreCreatedImages: boolean;
   isSelfGeneratedImage: boolean;
-}
-
-interface OmniROM extends HasUrl {
-  isOfficial: boolean;
 }
 
 export interface CodenameToDeviceSummary {
