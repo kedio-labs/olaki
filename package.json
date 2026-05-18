@@ -23,9 +23,8 @@
     "eOS",
     "Murena",
     "Kali Linux",
-    "crDroid",
-    "OmniROM"
-  ],
+    "crDroid"
+    ],
   "author": "Kédio",
   "license": "MIT",
   "devDependencies": {
