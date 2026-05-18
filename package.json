@@ -1,7 +1,7 @@
 {
   "name": "olaki",
   "version": "0.0.1",
-  "description": "This tool compiles a list of alternative operating systems for Android devices",
+  "description": "Find an alternative OS for your Android device!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,7 +24,7 @@
     "Murena",
     "Kali Linux",
     "crDroid"
-    ],
+  ],
   "author": "Kédio",
   "license": "MIT",
   "devDependencies": {
