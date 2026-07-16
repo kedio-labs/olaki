@@ -126,7 +126,10 @@
   </p>
   <p>
     Only operating systems with strong compatibility are included for each device.
-    See the <a href="#appendix-header">Appendix</a> for more details.
+    Each OS has its own device compatibility scoring system, added within bracket for each device where applicable.
+  </p>
+  <p>
+    Also see the <a href="#appendix-header">Appendix</a> for more details.
   </p>
   <p>Please <a href="https://github.com/kedio-labs/olaki" target="_blank">contribute</a> if you'd like to see other operating
     systems listed here.
@@ -165,7 +168,7 @@
     </table>
   </div>
   <footer>
-    <h2 id="appendix-header"><span>Appendix - Parameters used to build this table</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
+    <h2 id="appendix-header"><span>Appendix - Parameters used to build the table</span><span class="back-to-top">[ <a href="#">back to top</a> ]</span>
     </h2>
     <h3>crDroid</h3>
     <div class="code" id="crdroid-parameters">
@@ -289,33 +292,33 @@
 
     let nextOsCell = row.insertCell();
     if (deviceSummary.crdroid) {
-      populateOsCell(nextOsCell, deviceSummary.crdroid.url, `version ${deviceSummary.crdroid.latestAvailableVersion}`);
+      populateOsCell(nextOsCell, deviceSummary.crdroid.url, `yes (version ${deviceSummary.crdroid.latestAvailableVersion})`);
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.eos) {
-      const cellTextSuffix = deviceSummary.eos.isLegacy ? " (legacy)" : "";
-      populateOsCell(nextOsCell, deviceSummary.eos.url, `${deviceSummary.eos.maturity}${cellTextSuffix}`);
+      const cellTextSuffix = deviceSummary.eos.isLegacy ? ' (legacy)' : '';
+      populateOsCell(nextOsCell, deviceSummary.eos.url, `yes (maturity: ${deviceSummary.eos.maturity})${cellTextSuffix}`);
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.kali) {
-      populateOsCell(nextOsCell, deviceSummary.kali.url, deviceSummary.kali.isStable ? "stable" : "latest");
+      populateOsCell(nextOsCell, deviceSummary.kali.url, 'yes');
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.lineageos) {
-      populateOsCell(nextOsCell, deviceSummary.lineageos.url, deviceSummary.lineageos.isMaintained ? "maintained" : "unmaintained");
+      populateOsCell(nextOsCell, deviceSummary.lineageos.url, 'yes');
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.pmos) {
-      populateOsCell(nextOsCell, deviceSummary.pmos.url, deviceSummary.pmos.category);
+      populateOsCell(nextOsCell, deviceSummary.pmos.url, `yes (${deviceSummary.pmos.category})`);
     }
 
     nextOsCell = row.insertCell();
     if (deviceSummary.ubuntutouch) {
-      populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, deviceSummary.ubuntutouch.progress + "%");
+      populateOsCell(nextOsCell, deviceSummary.ubuntutouch.url, `yes (${deviceSummary.ubuntutouch.progress}%)`);
     }
 
     nextOsCell = row.insertCell();
